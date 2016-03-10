@@ -1,6 +1,9 @@
+#!/usr/bin/env Python
+# -*- coding: utf-8 -*-
+
 '''
 =====================================================================================
- 
+
 Copyright (c) 2016 Université de Lorraine & Luleå tekniska universitet
 Author: Luca Di Stasio <luca.distasio@gmail.com>
                        <luca.distasio@ingpec.eu>
@@ -44,7 +47,7 @@ import sys, os;
 
 WD = os.getcwd()
 
-matlabRoot = 'C:/Program Files/MATLAB/R2012a'
+matlabRoot = 'C:/Program Files/MATLAB/R2007b'
 matlabpathDir = '/toolbox/local'
 matlabpathFile = '/pathdef.m'
 
@@ -74,8 +77,8 @@ for i, line in enumerate(lines):
     if "END ENTRIES" in line and check:
         check = False
         toWrite.append(line)
-        
-    
+
+
 for dir in dirs:
     add = True
     for line in toWrite:
@@ -84,7 +87,7 @@ for dir in dirs:
             break
     if add:
         toAdd.append(dir)
-            
+
 with open(matlabpath, 'w') as file:
     for line in toWrite:
         if "END ENTRIES" in line:
