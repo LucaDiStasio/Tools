@@ -1,0 +1,1 @@
+A class to implement a current date and time stamp generator
