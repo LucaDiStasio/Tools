@@ -27,7 +27,7 @@ DESCRIPTION
 
 GitHub versioning with Matlab
 
-The script walk through the current working directory (where it is saved) and save all
+The script walk through the user-provided working directory (where it is saved) and save all
 the directories and subdirectories. It then reads the Matlab pathdef.m file and check
 if user-defined entries (if any) exist. Finally, it adds the addpath command for
 each directory and subdirectory of the WD to the startup.m file, which is then executed
@@ -46,59 +46,60 @@ Change the <matlabRoot> variable to adjust for distribution of preference.
 
 import sys, os;
 
-WD = os.getcwd()
-
-userName = 'Luca'
-matlabRoot = 'C:/Program Files/MATLAB/R2007b'
-matlabpathDir = '/toolbox/local'
-matlabpathdef = '/pathdef.m'
-matlabstartup = '/startup.m'
-
-dirs = []
-for dirName, subdirList, files in os.walk(WD):
-    if ".git" not in dirName:
-        dirs.append(dirName)
-
-matlabpath = matlabRoot + matlabpathDir + matlabpathdef
-matlabstart = matlabRoot + matlabpathDir + matlabstartup
-toAdd = []
-toWrite = []
-
-with open(matlabpath, 'r') as file:
-    lines = file.readlines()
-
-check = False
-for i, line in enumerate(lines):
-    if not check:
-        toWrite.append(line)
-    if "CUSTOM ENTRIES" in line and "END ENTRIES" not in lines[i+1]:
-        check = True
-    if "CUSTOM ENTRIES" not in line and "END ENTRIES" not in line and check:
-        if os.path.exists(line[6:-8]):
+def add_to_matlab_startup(userName,matlabRoot,WD):
+    matlabpathDir = '\\toolbox\\local'
+    matlabpathdef = '\\pathdef.m'
+    matlabstartup = '\\startup.m'
+    
+    dirs = []
+    for dirName, subdirList, files in os.walk(WD):
+        if ".git" not in dirName:
+            dirs.append(dirName)
+    
+    matlabpath = matlabRoot + matlabpathDir + matlabpathdef
+    matlabstart = matlabRoot + matlabpathDir + matlabstartup
+    toAdd = []
+    toWrite = []
+    
+    with open(matlabpath, 'r') as file:
+        lines = file.readlines()
+    
+    check = False
+    for i, line in enumerate(lines):
+        if not check:
             toWrite.append(line)
-        else:
-            print "Directory " + line[6:-8] + " does not exist and will be removed"
-    if "END ENTRIES" in line and check:
-        check = False
-        toWrite.append(line)
-
-
-for dir in dirs:
-    add = True
-    for line in toWrite:
-        if dir in line:
-            add = False
-            break
-    if add:
-        toAdd.append(dir)
-
-with open(matlabstart, 'w') as file:
-    file.write("disp('Hi, Luca!');\n")
-    file.write("disp('Welcome back!');\n")
-    file.write("disp('I''m adding the following directories to the path:');\n")
-    print "Adding:"
-    for dir in toAdd:
-        print dir
-        file.write("disp('      " + dir + "');\n") 
-        file.write("addpath('" + dir + "','-end');\n")
+        if "CUSTOM ENTRIES" in line and "END ENTRIES" not in lines[i+1]:
+            check = True
+        if "CUSTOM ENTRIES" not in line and "END ENTRIES" not in line and check:
+            if os.path.exists(line[6:-8]):
+                toWrite.append(line)
+            else:
+                print "Directory " + line[6:-8] + " does not exist and will be removed"
+        if "END ENTRIES" in line and check:
+            check = False
+            toWrite.append(line)
+    
+    
+    for dir in dirs:
+        add = True
+        for line in toWrite:
+            if dir in line:
+                add = False
+                break
+        if add:
+            toAdd.append(dir)
+    
+    with open(matlabstart, 'w') as file:
+        file.write("disp('Hi, " + userName + "!');\n")
+        file.write("disp('Welcome back!');\n")
+        file.write("disp('I''m adding the following directories to the path:');\n")
+        print "Adding:"
+        for dir in toAdd:
+            print dir
+            file.write("disp('      " + dir + "');\n") 
+            file.write("addpath('" + dir + "','-end');\n")
         
+userName1 = 'Luca'
+matlabRoot1 = 'C:\\Program Files\\MATLAB\\R2012a'
+WD1 = 'D:\\01_Luca\\03_DocMASE\\04_WD'
+add_to_matlab_startup(userName1,matlabRoot1,WD1)
