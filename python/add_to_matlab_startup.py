@@ -100,6 +100,6 @@ def add_to_matlab_startup(userName,matlabRoot,WD):
             file.write("addpath('" + dir + "','-end');\n")
         
 userName1 = 'Luca'
-matlabRoot1 = 'C:\\Program Files\\MATLAB\\R2012a'
-WD1 = 'D:\\01_Luca\\03_DocMASE\\04_WD'
+matlabRoot1 = 'C:\\Program Files\\MATLAB\\R2007b'
+WD1 = 'C:\\01_backup-folder\\OneDrive\\01_Luca\\07_DocMASE\\04_WD'
 add_to_matlab_startup(userName1,matlabRoot1,WD1)
