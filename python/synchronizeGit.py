@@ -74,12 +74,16 @@ def master2originUpdate(wd,user,pwd):
     localrepos = listReposInWD(wd)
     for repo in userrepos:
         if repo in localrepos:
+            print ''
+            print '============================='
+            print repo
+            print 'Pulling...'
             path = wd + '/' + repo
-            untracked = Repo(path).untracked_files
-            if not untracked:
-                print repo + ' is up-to-date'
-            else:
-                print repo + ' needs a push'
+            currRepo = Repo(path)
+            currRepo.remotes.origin.pull()
+            print '...done.'
+            print currRepo.git.status()
+            print '============================='
         else:
             print repo + ' must be cloned'
 
@@ -92,13 +96,12 @@ def origin2masterUpdate(wd,user,pwd):
     for repo in localrepos:
         path = wd + '/' + repo
         currRepo = Repo(path)
-        untracked = currRepo.untracked_files
         print ''
         print '============================='
         print repo
         print ''
         print currRepo.git.status()
-        if not untracked:
+        if not currRepo.is_dirty():
             print repo + ' is up-to-date'
         else:
             print repo + ' needs a push'
@@ -122,4 +125,4 @@ pwd = 'dylan666'
 wd = 'C:/01_backup-folder/OneDrive/01_Luca/07_DocMASE/04_WD'
 
 origin2masterUpdate(wd,user,pwd)
-#master2originUpdate(wd,user,pwd)
+master2originUpdate(wd,user,pwd)
