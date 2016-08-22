@@ -85,7 +85,15 @@ def master2originUpdate(wd,user,pwd):
             print currRepo.git.status()
             print '============================='
         else:
-            print repo + ' must be cloned'
+            print '============================='
+            print repo
+            print 'Cloning...'
+            remote = 'https://github.com' + '/' + user + '/' + repo
+            local = wd + '/' + repo
+            currRepo = Repo.clone_from(remote, local)
+            print '...done.'
+            print currRepo.git.status()
+            print '============================='
 
 def listBranches(wd,repo):
     path = wd + '/' + repo
