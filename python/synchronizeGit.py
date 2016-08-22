@@ -126,7 +126,7 @@ def origin2masterUpdate(wd,user,pwd):
             print currRepo.git.status()
         print '============================='
 
-
+'''
 user = 'LucaDiStasio'
 pwd = 'dylan666'
 
@@ -134,3 +134,4 @@ wd = 'C:/01_backup-folder/OneDrive/01_Luca/07_DocMASE/04_WD'
 
 origin2masterUpdate(wd,user,pwd)
 master2originUpdate(wd,user,pwd)
+'''

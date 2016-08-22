@@ -98,8 +98,10 @@ def add_to_matlab_startup(userName,matlabRoot,WD):
             print dir
             file.write("disp('      " + dir + "');\n") 
             file.write("addpath('" + dir + "','-end');\n")
-        
+
+'''
 userName1 = 'Luca'
 matlabRoot1 = 'C:\\Program Files\\MATLAB\\R2007b'
 WD1 = 'C:\\01_backup-folder\\OneDrive\\01_Luca\\07_DocMASE\\04_WD'
 add_to_matlab_startup(userName1,matlabRoot1,WD1)
+'''
