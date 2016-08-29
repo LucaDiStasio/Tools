@@ -28,8 +28,8 @@ DESCRIPTION
 Automatic initialization of Working Directory.
 
 Tested with Python 2.7 Anaconda 2.4.1 (64-bit) distribution
-       and  Matlab R2007b
-       in Windows 10.
+       Matlab R2007b, R2012a
+       Windows 7 Integral Edition, Windows 10.
 
 '''
 
@@ -41,7 +41,7 @@ from synchronizeGit import origin2masterUpdate, master2originUpdate
 user = 'LucaDiStasio'
 pwd = 'dylan666'
 
-wd = 'C:/01_backup-folder/OneDrive/01_Luca/07_DocMASE/04_WD'
+wd = 'D:/01_Luca/03_DocMASE/04_WD'
 
 origin2masterUpdate(wd,user,pwd)
 master2originUpdate(wd,user,pwd)
@@ -49,7 +49,7 @@ master2originUpdate(wd,user,pwd)
 # update Matlab startup file
 
 userName = 'Luca'
-matlabRoot = 'C:\\Program Files\\MATLAB\\R2007b'
-wordir = 'C:\\01_backup-folder\\OneDrive\\01_Luca\\07_DocMASE\\04_WD'
+matlabRoot = 'C:\\Program Files\\MATLAB\\R2012a'
+wordir = 'C:\\01_Luca\\03_DocMASE\\04_WD'
 
 add_to_matlab_startup(userName,matlabRoot,wordir)
