@@ -42,7 +42,7 @@ user = 'LucaDiStasio'
 
 wd = 'D:/01_Luca/03_DocMASE/04_WD'
 
-origin2masterUpdate(wd)
+origin2masterUpdate(wd,user)
 master2originUpdate(wd,user)
 
 # update Matlab startup file

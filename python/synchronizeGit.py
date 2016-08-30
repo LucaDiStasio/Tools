@@ -99,7 +99,7 @@ def listBranches(wd,repo):
     path = wd + '/' + repo
     return Repo(path).git.branch('-r')
 
-def origin2masterUpdate(wd):
+def origin2masterUpdate(wd,user):
     localrepos = listReposInWD(wd)
     for repo in localrepos:
         path = wd + '/' + repo
@@ -111,6 +111,7 @@ def origin2masterUpdate(wd):
         print currRepo.git.status()
         if currRepo.is_dirty():
             print repo + ' needs a push'
+            os.environ['USERNAME'] = user
             print 'adding files ...'
             currRepo.git.add('--all')
             print '...done. Committing with message:'
