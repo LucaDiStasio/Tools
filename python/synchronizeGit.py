@@ -100,6 +100,7 @@ def listBranches(wd,repo):
     return Repo(path).git.branch('-r')
 
 def origin2masterUpdate(wd,user):
+    Git.USE_SHELL = True
     localrepos = listReposInWD(wd)
     for repo in localrepos:
         path = wd + '/' + repo
