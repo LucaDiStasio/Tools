@@ -69,7 +69,7 @@ def listReposInWD(wd):
             repos.append(dir)
     return repos
 
-def master2originUpdate(wd,user):
+def master2originUpdate(wd,user,pwd):
     userrepos = listAllUserPublicRepos(user,pwd)
     localrepos = listReposInWD(wd)
     for repo in userrepos:
