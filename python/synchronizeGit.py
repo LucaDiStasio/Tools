@@ -69,7 +69,7 @@ def listReposInWD(wd):
             repos.append(dir)
     return repos
 
-def master2originUpdate(wd,user,pwd):
+def master2originUpdate(wd,user):
     userrepos = listAllUserPublicRepos(user,pwd)
     localrepos = listReposInWD(wd)
     for repo in userrepos:
@@ -99,7 +99,7 @@ def listBranches(wd,repo):
     path = wd + '/' + repo
     return Repo(path).git.branch('-r')
 
-def origin2masterUpdate(wd,user,pwd):
+def origin2masterUpdate(wd):
     localrepos = listReposInWD(wd)
     for repo in localrepos:
         path = wd + '/' + repo
@@ -109,9 +109,7 @@ def origin2masterUpdate(wd,user,pwd):
         print repo
         print ''
         print currRepo.git.status()
-        if not currRepo.is_dirty():
-            print repo + ' is up-to-date'
-        else:
+        if currRepo.is_dirty():
             print repo + ' needs a push'
             print 'adding files ...'
             currRepo.git.add('--all')
@@ -124,11 +122,12 @@ def origin2masterUpdate(wd,user,pwd):
             currRepo.remotes.origin.push()
             print '...done.'
             print currRepo.git.status()
+        else:
+            print repo + ' is up-to-date'
+            
         print '============================='
 
 '''
-user = 'LucaDiStasio'
-pwd = 'dylan666'
 
 wd = 'C:/01_backup-folder/OneDrive/01_Luca/07_DocMASE/04_WD'
 

@@ -39,12 +39,11 @@ from synchronizeGit import origin2masterUpdate, master2originUpdate
 # synchronize with github
 
 user = 'LucaDiStasio'
-pwd = 'dylan666'
 
 wd = 'D:/01_Luca/03_DocMASE/04_WD'
 
-origin2masterUpdate(wd,user,pwd)
-master2originUpdate(wd,user,pwd)
+origin2masterUpdate(wd)
+master2originUpdate(wd,user)
 
 # update Matlab startup file
 
