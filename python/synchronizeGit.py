@@ -111,7 +111,6 @@ def origin2masterUpdate(wd,user):
         print currRepo.git.status()
         if currRepo.is_dirty():
             print repo + ' needs a push'
-            os.environ['USERNAME'] = user
             print 'adding files ...'
             currRepo.git.add('--all')
             print '...done. Committing with message:'
