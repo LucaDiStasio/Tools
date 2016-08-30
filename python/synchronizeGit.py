@@ -109,7 +109,6 @@ def origin2masterUpdate(wd,user,pwd):
         print repo
         print ''
         print currRepo.git.status()
-        print currRepo.is_dirty()
         if not currRepo.is_dirty():
             print repo + ' is up-to-date'
         else:
