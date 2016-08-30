@@ -50,6 +50,6 @@ master2originUpdate(wd,user,pwd)
 
 userName = 'Luca'
 matlabRoot = 'C:\\Program Files\\MATLAB\\R2012a'
-wordir = 'C:\\01_Luca\\03_DocMASE\\04_WD'
+workdir = 'D:\\01_Luca\\03_DocMASE\\04_WD'
 
-add_to_matlab_startup(userName,matlabRoot,wordir)
+add_to_matlab_startup(userName,matlabRoot,workdir)
