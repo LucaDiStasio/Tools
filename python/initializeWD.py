@@ -39,7 +39,7 @@ from synchronizeGit import origin2masterUpdate, master2originUpdate
 # synchronize with github
 
 user = 'LucaDiStasio'
-pwd = 'dylan666'
+pwd = 
 
 wd = 'D:/01_Luca/03_DocMASE/04_WD'
 
