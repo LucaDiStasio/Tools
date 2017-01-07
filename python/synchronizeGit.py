@@ -110,7 +110,7 @@ def origin2masterUpdate(wd,user):
         print repo
         print ''
         print currRepo.git.status()
-        if currRepo.is_dirty():
+        if currRepo.is_dirty() or 'untracked files present' in currRepo.git.status():
             print repo + ' needs a push'
             print 'adding files ...'
             currRepo.git.add('--all')

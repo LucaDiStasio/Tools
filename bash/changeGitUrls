@@ -1,0 +1,16 @@
+#!/bin/bash
+
+cd <root folder>
+
+
+cd <repo>
+
+git remote set-url origin https://<username>:<password>@github.com/<github-account>/<repo>.git
+
+cd <repo>
+
+git remote set-url origin https://<username>:<password>@github.com/<github-account>/<repo>.git
+
+# repeat as many times as you need
+
+cd ..
