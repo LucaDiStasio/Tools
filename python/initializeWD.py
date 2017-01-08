@@ -39,9 +39,16 @@ from synchronizeGit import origin2masterUpdate, master2originUpdate
 # synchronize with github
 
 user = 'LucaDiStasio'
-pwd = 
+pwd = 'your-password'
 
-wd = 'D:/01_Luca/03_DocMASE/04_WD'
+if system()=='Windows' and release()=='10':
+    wd = 'C:/01_backup-folder/OneDrive/01_Luca/07_DocMASE/06_WD'
+    workdir = 'C:\\01_backup-folder\\OneDrive\\01_Luca\\07_DocMASE\\06_WD'
+    matlabRoot = 'C:\\Program Files\\MATLAB\\R2007b'
+elif system()=='Windows' and release()=='7':
+    wd = 'D:/OneDrive/01_Luca/07_DocMASE/06_WD'
+    matlabRoot = 'C:\\Program Files\\MATLAB\\R2012a'
+    workdir = 'D:\\OneDrive\\01_Luca\\07_DocMASE\\06_WD'
 
 origin2masterUpdate(wd,user)
 master2originUpdate(wd,user,pwd)
@@ -49,7 +56,5 @@ master2originUpdate(wd,user,pwd)
 # update Matlab startup file
 
 userName = 'Luca'
-matlabRoot = 'C:\\Program Files\\MATLAB\\R2012a'
-workdir = 'D:\\01_Luca\\03_DocMASE\\04_WD'
 
 add_to_matlab_startup(userName,matlabRoot,workdir)
