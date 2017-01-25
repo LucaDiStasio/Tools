@@ -1,6 +1,8 @@
-SET abaquswd=2017-01-19_ABQfem_model00000000/abaqus
-SET inputfile=../abqinp/2017-01-19_ABQfem_model00000000.inp
-SET projectname=2017-01-19_ABQfem_model00000000
+SET date=%1
+SET number=%2
+SET abaquswd=%date%_ABQfem_model%number%/abaqus
+SET inputfile=../abqinp/%date%_ABQfem_model%number%.inp
+SET projectname=%date%_ABQfem_model%number%
 SET cpusnum=4
 
 CD %abaquswd%
