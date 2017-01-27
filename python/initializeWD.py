@@ -40,17 +40,6 @@ from add_to_matlab_startup import add_to_matlab_startup
 from synchronizeGit import origin2masterUpdate, master2originUpdate
 from platform import *
 
-'''
-if system()=='Windows' and release()=='10':
-    wd = 'C:\\01_backup-folder\\OneDrive\\01_Luca\\07_DocMASE\\06_WD'
-    workdir = 'C:\\01_backup-folder\\OneDrive\\01_Luca\\07_DocMASE\\06_WD'
-    matlabRoot = 'C:\\Program Files\\MATLAB\\R2007b'
-elif system()=='Windows' and release()=='7':
-    wd = 'D:\\OneDrive\\01_Luca\\07_DocMASE\\06_WD'
-    matlabRoot = 'C:\\Program Files\\MATLAB\\R2012a'
-    workdir = 'D:\\OneDrive\\01_Luca\\07_DocMASE\\06_WD'
-'''
-
 def main(argv):
 
     # Read the command line, throw error if not option is provided
