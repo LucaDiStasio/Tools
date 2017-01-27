@@ -33,28 +33,110 @@ Tested with Python 2.7 Anaconda 2.4.1 (64-bit) distribution
 
 '''
 
+from os.path import isfile, join
+import sys
+import getopt
 from add_to_matlab_startup import add_to_matlab_startup
 from synchronizeGit import origin2masterUpdate, master2originUpdate
+from platform import *
 
-# synchronize with github
-
-user = 'LucaDiStasio'
-pwd = 'your-password'
-
+'''
 if system()=='Windows' and release()=='10':
-    wd = 'C:/01_backup-folder/OneDrive/01_Luca/07_DocMASE/06_WD'
+    wd = 'C:\\01_backup-folder\\OneDrive\\01_Luca\\07_DocMASE\\06_WD'
     workdir = 'C:\\01_backup-folder\\OneDrive\\01_Luca\\07_DocMASE\\06_WD'
     matlabRoot = 'C:\\Program Files\\MATLAB\\R2007b'
 elif system()=='Windows' and release()=='7':
-    wd = 'D:/OneDrive/01_Luca/07_DocMASE/06_WD'
+    wd = 'D:\\OneDrive\\01_Luca\\07_DocMASE\\06_WD'
     matlabRoot = 'C:\\Program Files\\MATLAB\\R2012a'
     workdir = 'D:\\OneDrive\\01_Luca\\07_DocMASE\\06_WD'
+'''
 
-origin2masterUpdate(wd,user)
-master2originUpdate(wd,user,pwd)
+def main(argv):
 
-# update Matlab startup file
+    # Read the command line, throw error if not option is provided
+    try:
+        opts, args = getopt.getopt(argv,'hu:p:w:m:mu:',["help","Help","user", "username","password", "pwd", "pw","workdir", "workdirectory", "wdir","mroot", "matlab", "matlabroot","muser", "matlabuser"])
+    except getopt.GetoptError:
+        print('initializeWD.py -i <input deck> -d <input directory> -w <working directory>  -m <matlab root> -mu <matlab username>')
+        sys.exit(2)
+    # Parse the options and create corresponding variables
+    for opt, arg in opts:
+        if opt in ('-h', '--help','--Help'):
+            print(' ')
+            print(' ')
+            print('*****************************************************************************************************')
+            print(' ')
+            print(' ')
+            print('                         AUTOMATIC SYNCHRONIZATION OF WORKING DIRECTORY')
+            print(' ')
+            print('                                              by')
+            print(' ')
+            print('                                    Luca Di Stasio, 2016-2017')
+            print(' ')
+            print(' ')
+            print('*****************************************************************************************************')
+            print(' ')
+            print('Program syntax:')
+            print('initializeWD.py -u <user> -p <password> -w <working directory> -m <matlab root> -mu <matlab username>')
+            print(' ')
+            print('Mandatory arguments:')
+            print('-u <user>')
+            print('-p <password>')
+            print('-w <working directory>')
+            print(' ')
+            print('Optional arguments:')
+            print('-m <matlab root>')
+            print('-mu <matlab username>')
+            print(' ')
+            print('Default values:')
+            print('Matlab startup file will not be updated unless matlab root is provided ')
+            print('-mu <matlab username>        =====>      GitHub username will be used')
+            print(' ')
+            print(' ')
+            sys.exit()
+        elif opt in ("-u", "--user", "--username"):
+            user = arg
+        elif opt in ("-p", "--password", "--pwd", "--pw"):
+            pwd = arg
+        elif opt in ("-w", "--workdir", "--workdirectory", "--wdir"):
+            if arg[-1] != '/':
+                workdir = arg
+            else:
+                workdir = arg[:-1]
+        elif opt in ("-m", "--mroot", "--matlab", "--matlabroot"):
+            if arg[-1] != '/':
+                matlabRoot = arg
+            else:
+                matlabRoot = arg[:-1]
+        elif opt in ("-mu", "--muser", "--matlabuser"):
+            muser = arg
 
-userName = 'Luca'
+    # Check the existence of variables: if a required variable is missing, an error is thrown and program is terminated; if an optional variable is missing, it is set to the default value
+    if 'user' not in locals():
+        print('Error: user not provided.')
+        sys.exit(2)
+    if 'pwd' not in locals():
+        print('Error: password not provided.')
+        sys.exit(2)
+    if 'workdir' not in locals():
+        print('Error: working directory not provided.')
+        sys.exit(2)
+    if 'matlabRoot' not in locals():
+        updateMatlab = False
+    else:
+        updateMatlab = True
+    if 'muser' not in locals():
+        muser = user
+    
+    origin2masterUpdate(workdir,user)
+    master2originUpdate(workdir,user,pwd)
+    
+    if updateMatlab:
+        # update Matlab startup file
+        add_to_matlab_startup(muser,matlabRoot,workdir)
 
-add_to_matlab_startup(userName,matlabRoot,workdir)
+
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
