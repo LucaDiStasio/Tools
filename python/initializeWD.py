@@ -37,6 +37,7 @@ from os.path import isfile, join
 import sys
 import getopt
 from add_to_matlab_startup import add_to_matlab_startup
+from add_to_octave_startup import add_to_octave_startup
 from synchronizeGit import origin2masterUpdate, master2originUpdate
 from platform import *
 
@@ -44,9 +45,9 @@ def main(argv):
 
     # Read the command line, throw error if not option is provided
     try:
-        opts, args = getopt.getopt(argv,'hu:p:w:m:mu:',["help","Help","user", "username","password", "pwd", "pw","workdir", "workdirectory", "wdir","mroot", "matlab", "matlabroot","muser", "matlabuser"])
+        opts, args = getopt.getopt(argv,'hu:p:w:m:mu:o:ou:',["help","Help","user", "username","password", "pwd", "pw","workdir", "workdirectory", "wdir","mroot", "matlab", "matlabroot","muser", "matlabuser","oroot", "octave", "octaveroot","ouser", "octaveuser"])
     except getopt.GetoptError:
-        print('initializeWD.py -i <input deck> -d <input directory> -w <working directory>  -m <matlab root> -mu <matlab username>')
+        print('initializeWD.py -i <input deck> -d <input directory> -w <working directory>  -m <matlab root> -mu <matlab username> -o <octave root> -ou <octave username>')
         sys.exit(2)
     # Parse the options and create corresponding variables
     for opt, arg in opts:
@@ -66,7 +67,7 @@ def main(argv):
             print('*****************************************************************************************************')
             print(' ')
             print('Program syntax:')
-            print('initializeWD.py -u <user> -p <password> -w <working directory> -m <matlab root> -mu <matlab username>')
+            print('initializeWD.py -u <user> -p <password> -w <working directory> -m <matlab root> -mu <matlab username> -o <octave root> -ou <octave username>')
             print(' ')
             print('Mandatory arguments:')
             print('-u <user>')
@@ -76,10 +77,14 @@ def main(argv):
             print('Optional arguments:')
             print('-m <matlab root>')
             print('-mu <matlab username>')
+            print('-o <octave root>')
+            print('-ou <octave username>')
             print(' ')
             print('Default values:')
             print('Matlab startup file will not be updated unless matlab root is provided ')
+            print('Octave startup file will not be updated unless matlab root is provided ')
             print('-mu <matlab username>        =====>      GitHub username will be used')
+            print('-ou <octave username>        =====>      GitHub username will be used')
             print(' ')
             print(' ')
             sys.exit()
@@ -99,6 +104,13 @@ def main(argv):
                 matlabRoot = arg[:-1]
         elif opt in ("-mu", "--muser", "--matlabuser"):
             muser = arg
+        elif opt in ("-o", "--oroot", "--octave", "--octaveroot"):
+            if arg[-1] != '/':
+                octaveRoot = arg
+            else:
+                octaveRoot = arg[:-1]
+        elif opt in ("-ou", "--ouser", "--octaveuser"):
+            ouser = arg
 
     # Check the existence of variables: if a required variable is missing, an error is thrown and program is terminated; if an optional variable is missing, it is set to the default value
     if 'user' not in locals():
@@ -116,6 +128,12 @@ def main(argv):
         updateMatlab = True
     if 'muser' not in locals():
         muser = user
+    if 'octaveRoot' not in locals():
+        updateOctave = False
+    else:
+        updateOctave = True
+    if 'ouser' not in locals():
+        ouser = user
     
     origin2masterUpdate(workdir,user)
     master2originUpdate(workdir,user,pwd)
@@ -123,6 +141,10 @@ def main(argv):
     if updateMatlab:
         # update Matlab startup file
         add_to_matlab_startup(muser,matlabRoot,workdir)
+    
+    if updateOctave:
+        # update Matlab startup file
+        add_to_octave_startup(ouser,octaveRoot,workdir)
 
 
 
