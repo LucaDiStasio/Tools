@@ -58,7 +58,7 @@ def add_to_octave_startup(userName,root,WD):
         if ".git" not in dirName:
             dirs.append(dirName)
     
-    octavestart = octaveRoot + octavepathDir + octavestartup
+    octavestart = join(root,octavepathDir,octavestartup)
 
     try:
         with open(octavestart, 'w') as file:
