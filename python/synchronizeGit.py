@@ -38,6 +38,8 @@ from datetime import datetime
 from github import Github
 from git import Git, Repo, InvalidGitRepositoryError
 from time import strftime
+from platform import system
+import subprocess
 
 def listAllUserPublicRepos(user,pwd):
     repos = []
@@ -267,6 +269,42 @@ def master2originUpdate(wd,user,pwd):
                     print('=============================')
                     '''
                     logfile.write('...done.')
+                    logfile.write('Changing remote url of repo...')
+                    changeUrlFile = 'changeGitUrl'
+                    if platform() is 'Windows':
+                        changeUrlFile += '.cmd'
+                    elif platform() is 'Linux':
+                        changeUrlFile += '.sh'
+                    changeUrlFilePath = join(wd,changeUrlFile)
+                    with open(changeUrlFilePath,'w') as cli:
+                        if platform() is 'Linux':
+                            cli.write('#!/bin/bash\n')
+                            cli.write('\n')
+                        cli.write('cd ' + local + '\n')
+                        cli.write('\n')
+                        cli.write('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
+                    try:
+                        if platform() is 'Windows':
+                            subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        elif platform() is 'Linux':
+                            subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True)
+                            subprocess.call(changeUrlFilePath)
+                        logfile.write('...done.')
+                    except Exception,e:
+                        logfile.write('\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('^                                                                v\n')
+                        logfile.write('^                        ERROR OCCURRED                          v\n')
+                        logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
+                        logfile.write('^                                                                v\n')
+                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
+                        logfile.write('\n')
+                        logfile.write('                             DETAILS                             \n')
+                        logfile.write('\n')
+                        logfile.write('Unable to change remote address\n')
+                        logfile.write(str(e)+'\n')
+                        logfile.write('\n')
+                    os.remove(changeUrlFilePath)
                     try:
                         logfile.write(currRepo.git.status()+'\n')
                     except Exception:
@@ -337,7 +375,7 @@ def master2originUpdate(wd,user,pwd):
                     logfile.write('...done.')
                     try:
                         logfile.write(currRepo.git.status()+'\n')
-                    except Exception:
+                    except Exception,e:
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
@@ -347,7 +385,7 @@ def master2originUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')
                         sys.exc_clear()
                     logfile.write('=============================')
@@ -364,7 +402,7 @@ def master2originUpdate(wd,user,pwd):
                         remote = 'https://github.com' + '/' + user + '/' + repo
                         local = wd + '/' + repo
                         currRepo = Repo.clone_from(remote, local)
-                    except Exception:
+                    except Exception,e:
                         currRepo = ''
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
@@ -375,7 +413,7 @@ def master2originUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')
                         sys.exc_clear()
                     '''
@@ -384,9 +422,28 @@ def master2originUpdate(wd,user,pwd):
                     print('=============================')
                     '''
                     logfile.write('...done.'+'\n')
+                    logfile.write('Changing remote url of repo...')
+                    changeUrlFile = 'changeGitUrl'
+                    if platform() is 'Windows':
+                        changeUrlFile += '.cmd'
+                    elif platform() is 'Linux':
+                        changeUrlFile += '.sh'
+                    changeUrlFilePath = join(wd,changeUrlFile)
+                    with open(changeUrlFilePath,'w') as cli:
+                        if platform() is 'Linux':
+                            cli.write('#!/bin/bash\n')
+                            cli.write('\n')
+                        cli.write('cd ' + local + '\n')
+                        cli.write('\n')
+                        cli.write('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
                     try:
-                        logfile.write(currRepo.git.status()+'\n')
-                    except Exception:
+                        if platform() is 'Windows':
+                            subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        elif platform() is 'Linux':
+                            subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True)
+                            subprocess.call(changeUrlFilePath)
+                        logfile.write('...done.')
+                    except Exception,e:
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
@@ -396,7 +453,24 @@ def master2originUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write('\n')
+                        logfile.write('Unable to change remote address\n')
+                        logfile.write(str(e)+'\n')
+                        logfile.write('\n')
+                    os.remove(changeUrlFilePath)
+                    try:
+                        logfile.write(currRepo.git.status()+'\n')
+                    except Exception,e:
+                        logfile.write('\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('^                                                                v\n')
+                        logfile.write('^                        ERROR OCCURRED                          v\n')
+                        logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
+                        logfile.write('^                                                                v\n')
+                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
+                        logfile.write('\n')
+                        logfile.write('                             DETAILS                             \n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')
                         sys.exc_clear()
                     logfile.write('============================='+'\n')
@@ -573,7 +647,7 @@ def origin2masterUpdate(wd,user):
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
+                        logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
@@ -590,7 +664,7 @@ def origin2masterUpdate(wd,user):
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
+                        logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
@@ -734,7 +808,7 @@ def origin2masterUpdate(wd,user):
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
+                        logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
@@ -751,7 +825,7 @@ def origin2masterUpdate(wd,user):
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
+                        logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')

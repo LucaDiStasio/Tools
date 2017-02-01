@@ -31,7 +31,8 @@ Tested with Python 2.7 Anaconda 2.4.1 (64-bit) distribution in Windows 7.
 
 '''
 
-from os.path import isfile, join
+from os import listdir, remove
+from os.path import isfile, join, getmtime
 import sys
 import getopt
 from datetime import datetime
@@ -41,9 +42,9 @@ def main(argv):
 
     # Read the command line, throw error if not option is provided
     try:
-        opts, args = getopt.getopt(argv,'hw:e:',["help","Help","user", "workdir", "workdirectory", "wdir", "ext","extension"])
+        opts, args = getopt.getopt(argv,'hw:e:d:',["help","Help","user", "workdir", "workdirectory", "wdir", "ext","extension","delay"])
     except getopt.GetoptError:
-        print('initializeWD.py -w <working directory> -e <extension>')
+        print('fileCleaner.py -w <working directory> -e <extension> -d <delay>')
         sys.exit(2)
     # Parse the options and create corresponding variables
     for opt, arg in opts:
@@ -53,9 +54,7 @@ def main(argv):
             print('*****************************************************************************************************')
             print(' ')
             print(' ')
-            print('                         AUTOMATIC SYNCHRONIZATION OF WORKING DIRECTORY')
-            print(' ')
-            print('                                       LOG FILES CLEANER')
+            print('                                        FILES CLEANER')
             print(' ')
             print('                                              by')
             print(' ')
@@ -65,16 +64,18 @@ def main(argv):
             print('*****************************************************************************************************')
             print(' ')
             print('Program syntax:')
-            print('initializeWD.py  -w <working directory> -e <extension>')
+            print('fileCleaner.py  -w <working directory> -e <extension> -d <delay>')
             print(' ')
             print('Mandatory arguments:')
             print('-w <working directory>')
             print(' ')
             print('Optional arguments:')
             print('-e <extension>')
+            print('-d <delay>')
             print(' ')
             print('Default values:')
             print('<extension>              ========>           .log')
+            print('<delay>                  ========>           24 hours (always provide hours)')
             print(' ')
             print(' ')
             sys.exit()
@@ -84,7 +85,12 @@ def main(argv):
             else:
                 workdir = arg[:-1]
         elif opt in ("-e", "--ext","--extension"):
-            ext = arg
+            if '.'==arg[0]:
+                ext = arg
+            else:
+                ext = '.' + arg
+        elif opt in ("-e", "--ext","--extension"):
+            delay = int(arg)
 
     # Check the existence of variables: if a required variable is missing, an error is thrown and program is terminated; if an optional variable is missing, it is set to the default value
     if 'workdir' not in locals():
@@ -92,10 +98,17 @@ def main(argv):
         sys.exit(2)
     if 'ext' not in locals():
         ext = '.log'
+    if 'delay' not in locals():
+        delay = 24
     
+    files = [f for f in listdir(workdir) if isfile(join(workdir, f)) and ext in f]
     
-
-
+    now = datetime.now()
+    for file in files:
+        lastmod = datetime.fromtimestamp(int(getmtime(join(workdir,file))))
+        diff = divmod((now - lastmod).total_seconds(), 3600)
+        if diff[0]>24:
+            remove(join(workdir,file))
 
 
 if __name__ == "__main__":
