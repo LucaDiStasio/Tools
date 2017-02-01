@@ -247,7 +247,7 @@ def master2originUpdate(wd,user,pwd):
                     logfile.write(repo+'\n')
                     logfile.write('Cloning...'+'\n')
                     try:
-                        remote = 'https://github.com' + '/' + user + '/' + repo
+                        remote = 'https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git'
                         local = wd + '/' + repo
                         currRepo = Repo.clone_from(remote, local)
                     except Exception,e:
@@ -399,7 +399,7 @@ def master2originUpdate(wd,user,pwd):
                     logfile.write(repo+'\n')
                     logfile.write('Cloning...'+'\n')
                     try:
-                        remote = 'https://github.com' + '/' + user + '/' + repo
+                        remote = 'https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git'
                         local = wd + '/' + repo
                         currRepo = Repo.clone_from(remote, local)
                     except Exception,e:
