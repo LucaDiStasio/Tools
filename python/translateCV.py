@@ -36,7 +36,8 @@ from os.path import isfile, join
 
 overWrite = True
 
-mainFolder = 'D:\\OneDrive\\01_Luca\\02_Professional_documents\\01_Curriculum_Vitae'
+#mainFolder = 'D:\\OneDrive\\01_Luca\\02_Professional_documents\\01_Curriculum_Vitae'
+mainFolder = 'C:\\01_Backup-folder\\OneDrive\\01_Luca\\02_Professional_documents\\01_Curriculum_Vitae'
 
 type = 'CV'
 
@@ -58,22 +59,39 @@ dictionary = {
               'de':'deutsch',
              }
 
+stopwords = [
+             'cventry',
+             'cvitem',
+             'emph',
+             'href',
+             'includegraphics',
+             'makecvtitle',
+             'newpage',
+             'section',
+             'small',
+             'subsection',
+             'textbf',
+             'textit',
+             'vspace'
+            ]
+
 for folder in listdir(mainFolder):
-    if source in folder:
-        sourceFolder = join(mainFolder,folder,listdir(join(mainFolder,folder))[0])
-        for file in listdir(sourceFolder):
-            if type + '_' + dictionary[source] + '.tex'==file:
-                sourceFile = join(sourceFolder,file)
-    if target in folder:
-        if overWrite:
-            targetFolder = join(mainFolder,folder,listdir(join(mainFolder,folder))[0])
-            for file in listdir(targetFolder):
-                if type + '_' + dictionary[target] + '.tex'==file:
-                    targetFile = join(targetFolder,file)
-        else:
-            targetFolder = join(mainFolder,folder)
-            targetFile = join(targetFolder,type + '_' + dictionary[target] + '.tex')
-        
+    if folder is not 'Archive':
+        if source in folder:
+            sourceFolder = join(mainFolder,folder,listdir(join(mainFolder,folder))[0])
+            for file in listdir(sourceFolder):
+                if type + '_' + dictionary[source] + '.tex'==file:
+                    sourceFile = join(sourceFolder,file)
+        if target in folder:
+            if overWrite:
+                targetFolder = join(mainFolder,folder,listdir(join(mainFolder,folder))[0])
+                for file in listdir(targetFolder):
+                    if type + '_' + dictionary[target] + '.tex'==file:
+                        targetFile = join(targetFolder,file)
+            else:
+                targetFolder = join(mainFolder,folder)
+                targetFile = join(targetFolder,type + '_' + dictionary[target] + '.tex')
+
 with open(sourceFile,'r') as file:
     lines = file.readlines()
     
@@ -92,4 +110,8 @@ for i in range(docStart+1,endDoc):
     toTranslate.append(lines[i])
     
 for line in toTranslate:
-    print(line)
+    for word in stopwords:
+        line = line.replace('\\'+word,' ')
+    line = line.replace('{',' ').replace('}',' ')
+    if line.replace(' ','')[0] is not '%':
+        print(line)

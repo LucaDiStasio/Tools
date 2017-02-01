@@ -271,22 +271,22 @@ def master2originUpdate(wd,user,pwd):
                     logfile.write('...done.')
                     logfile.write('Changing remote url of repo...')
                     changeUrlFile = 'changeGitUrl'
-                    if platform() is 'Windows':
+                    if system() is 'Windows':
                         changeUrlFile += '.cmd'
-                    elif platform() is 'Linux':
+                    elif system() is 'Linux':
                         changeUrlFile += '.sh'
                     changeUrlFilePath = join(wd,changeUrlFile)
                     with open(changeUrlFilePath,'w') as cli:
-                        if platform() is 'Linux':
+                        if system() is 'Linux':
                             cli.write('#!/bin/bash\n')
                             cli.write('\n')
                         cli.write('cd ' + local + '\n')
                         cli.write('\n')
                         cli.write('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
                     try:
-                        if platform() is 'Windows':
+                        if system() is 'Windows':
                             subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                        elif platform() is 'Linux':
+                        elif system() is 'Linux':
                             subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True)
                             subprocess.call(changeUrlFilePath)
                         logfile.write('...done.')
@@ -424,22 +424,22 @@ def master2originUpdate(wd,user,pwd):
                     logfile.write('...done.'+'\n')
                     logfile.write('Changing remote url of repo...')
                     changeUrlFile = 'changeGitUrl'
-                    if platform() is 'Windows':
+                    if system() is 'Windows':
                         changeUrlFile += '.cmd'
-                    elif platform() is 'Linux':
+                    elif system() is 'Linux':
                         changeUrlFile += '.sh'
                     changeUrlFilePath = join(wd,changeUrlFile)
                     with open(changeUrlFilePath,'w') as cli:
-                        if platform() is 'Linux':
+                        if system() is 'Linux':
                             cli.write('#!/bin/bash\n')
                             cli.write('\n')
                         cli.write('cd ' + local + '\n')
                         cli.write('\n')
                         cli.write('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
                     try:
-                        if platform() is 'Windows':
+                        if system() is 'Windows':
                             subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                        elif platform() is 'Linux':
+                        elif system() is 'Linux':
                             subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True)
                             subprocess.call(changeUrlFilePath)
                         logfile.write('...done.')
