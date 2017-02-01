@@ -186,7 +186,7 @@ def master2originUpdate(wd,user,pwd):
                     path = wd + '/' + repo
                     try:
                         currRepo = Repo(path)
-                    except Exception:
+                    except Exception,e:
                         currRepo = ''
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
@@ -197,12 +197,12 @@ def master2originUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')
                         sys.exc_clear()
                     try:
                         currRepo.remotes.origin.pull()
-                    except Exception:
+                    except Exception,e:
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
@@ -212,7 +212,7 @@ def master2originUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')
                         sys.exc_clear()
                     '''
@@ -223,7 +223,7 @@ def master2originUpdate(wd,user,pwd):
                     logfile.write('...done.')
                     try:
                         logfile.write(currRepo.git.status()+'\n')
-                    except Exception:
+                    except Exception,e:
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
@@ -233,7 +233,7 @@ def master2originUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')
                         sys.exc_clear()
                     logfile.write('============================='+'\n')
@@ -250,7 +250,7 @@ def master2originUpdate(wd,user,pwd):
                         remote = 'https://github.com' + '/' + user + '/' + repo
                         local = wd + '/' + repo
                         currRepo = Repo.clone_from(remote, local)
-                    except Exception:
+                    except Exception,e:
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
@@ -260,7 +260,7 @@ def master2originUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')
                         sys.exc_clear()
                     '''
@@ -307,7 +307,7 @@ def master2originUpdate(wd,user,pwd):
                     os.remove(changeUrlFilePath)
                     try:
                         logfile.write(currRepo.git.status()+'\n')
-                    except Exception:
+                    except Exception,e:
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
@@ -317,7 +317,7 @@ def master2originUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')       
                         sys.exc_clear()
                     logfile.write('=============================')
@@ -338,7 +338,7 @@ def master2originUpdate(wd,user,pwd):
                     path = wd + '/' + repo
                     try:
                         currRepo = Repo(path)
-                    except Exception:
+                    except Exception,e:
                         currRepo = ''
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
@@ -349,12 +349,12 @@ def master2originUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')
                         sys.exc_clear()
                     try:
                         currRepo.remotes.origin.pull()
-                    except Exception:
+                    except Exception,e:
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
@@ -364,7 +364,7 @@ def master2originUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')
                         sys.exc_clear()
                     '''
