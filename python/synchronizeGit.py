@@ -262,7 +262,43 @@ def master2originUpdate(wd,user,pwd):
                         logfile.write('                             DETAILS                             \n')
                         logfile.write(str(e)+'\n')
                         logfile.write('\n')
+                        logfile.write('Trying to execute from command line...\n')
                         sys.exc_clear()
+                        cloneRepoFile = 'cloneRepoFile'
+                        if system() is 'Windows':
+                            cloneRepoFile += '.cmd'
+                        elif system() is 'Linux':
+                            cloneRepoFile += '.sh'
+                        cloneRepoFilePath = join(wd,cloneRepoFile)
+                        with open(cloneRepoFile,'w') as cli:
+                            if system() is 'Linux':
+                                cli.write('#!/bin/bash\n')
+                                cli.write('\n')
+                            cli.write('cd ' + wd + '\n')
+                            cli.write('\n')
+                            cli.write('git clone https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
+                        try:
+                            if system() is 'Windows':
+                                subprocess.call('cmd.exe /C ' + cloneRepoFile,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                            elif system() is 'Linux':
+                                subprocess.call('chmod a+x ' + cloneRepoFile,shell=True)
+                                subprocess.call(cloneRepoFile,shell=True)
+                            logfile.write('Done.\n')
+                        except Exception,e:
+                            logfile.write('\n')
+                            logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
+                            logfile.write('^                                                                v\n')
+                            logfile.write('^                        ERROR OCCURRED                          v\n')
+                            logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
+                            logfile.write('^                                                                v\n')
+                            logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
+                            logfile.write('\n')
+                            logfile.write('                             DETAILS                             \n')
+                            logfile.write('\n')
+                            logfile.write('In cloning attempt at command line\n')
+                            logfile.write('\n')
+                            logfile.write(str(e)+'\n')
+                            logfile.write('\n')
                     '''
                     print('...done.')
                     print(currRepo.git.status())
@@ -288,7 +324,7 @@ def master2originUpdate(wd,user,pwd):
                             subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                         elif system() is 'Linux':
                             subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True)
-                            subprocess.call(changeUrlFilePath)
+                            subprocess.call(changeUrlFilePath,shell=True)
                         logfile.write('...done.')
                     except Exception,e:
                         logfile.write('\n')
@@ -416,6 +452,41 @@ def master2originUpdate(wd,user,pwd):
                         logfile.write(str(e)+'\n')
                         logfile.write('\n')
                         sys.exc_clear()
+                        cloneRepoFile = 'cloneRepoFile'
+                        if system() is 'Windows':
+                            cloneRepoFile += '.cmd'
+                        elif system() is 'Linux':
+                            cloneRepoFile += '.sh'
+                        cloneRepoFilePath = join(wd,cloneRepoFile)
+                        with open(cloneRepoFile,'w') as cli:
+                            if system() is 'Linux':
+                                cli.write('#!/bin/bash\n')
+                                cli.write('\n')
+                            cli.write('cd ' + wd + '\n')
+                            cli.write('\n')
+                            cli.write('git clone https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
+                        try:
+                            if system() is 'Windows':
+                                subprocess.call('cmd.exe /C ' + cloneRepoFile,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                            elif system() is 'Linux':
+                                subprocess.call('chmod a+x ' + cloneRepoFile,shell=True)
+                                subprocess.call(cloneRepoFile,shell=True)
+                            logfile.write('Done.\n')
+                        except Exception,e:
+                            logfile.write('\n')
+                            logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
+                            logfile.write('^                                                                v\n')
+                            logfile.write('^                        ERROR OCCURRED                          v\n')
+                            logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
+                            logfile.write('^                                                                v\n')
+                            logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
+                            logfile.write('\n')
+                            logfile.write('                             DETAILS                             \n')
+                            logfile.write('\n')
+                            logfile.write('In cloning attempt at command line\n')
+                            logfile.write('\n')
+                            logfile.write(str(e)+'\n')
+                            logfile.write('\n')
                     '''
                     print('...done.')
                     print(currRepo.git.status())
