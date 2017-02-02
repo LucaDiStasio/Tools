@@ -33,6 +33,7 @@ Tested with Python 3.5 Anaconda 3 (64-bit) distribution
 
 from os import listdir
 from os.path import isfile, join
+from translate import translator
 
 overWrite = True
 
@@ -114,4 +115,4 @@ for line in toTranslate:
         line = line.replace('\\'+word,' ')
     line = line.replace('{',' ').replace('}',' ')
     if line.replace(' ','')[0] is not '%':
-        print(line)
+        print(translator('en', 'es', line))
