@@ -270,7 +270,7 @@ def master2originUpdate(wd,user,pwd):
                         elif system() is 'Linux':
                             cloneRepoFile += '.sh'
                         cloneRepoFilePath = join(wd,cloneRepoFile)
-                        with open(cloneRepoFile,'w') as cli:
+                        with open(cloneRepoFilePath,'w') as cli:
                             if system() is 'Linux':
                                 cli.write('#!/bin/bash\n')
                                 cli.write('\n')
@@ -281,8 +281,8 @@ def master2originUpdate(wd,user,pwd):
                             if system() is 'Windows':
                                 subprocess.call('cmd.exe /C ' + cloneRepoFile,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                             elif system() is 'Linux':
-                                subprocess.call('chmod a+x ' + cloneRepoFile,shell=True)
-                                subprocess.call(cloneRepoFile,shell=True)
+                                subprocess.call('chmod a+x ' + cloneRepoFilePath,shell=True)
+                                subprocess.call('./' + cloneRepoFilePath,shell=True)
                             logfile.write('Done.\n')
                         except Exception,e:
                             logfile.write('\n')
@@ -458,7 +458,7 @@ def master2originUpdate(wd,user,pwd):
                         elif system() is 'Linux':
                             cloneRepoFile += '.sh'
                         cloneRepoFilePath = join(wd,cloneRepoFile)
-                        with open(cloneRepoFile,'w') as cli:
+                        with open(cloneRepoFilePath,'w') as cli:
                             if system() is 'Linux':
                                 cli.write('#!/bin/bash\n')
                                 cli.write('\n')
@@ -467,10 +467,10 @@ def master2originUpdate(wd,user,pwd):
                             cli.write('git clone https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
                         try:
                             if system() is 'Windows':
-                                subprocess.call('cmd.exe /C ' + cloneRepoFile,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                                subprocess.call('cmd.exe /C ' + cloneRepoFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                             elif system() is 'Linux':
-                                subprocess.call('chmod a+x ' + cloneRepoFile,shell=True)
-                                subprocess.call(cloneRepoFile,shell=True)
+                                subprocess.call('chmod a+x ' + cloneRepoFilePath,shell=True)
+                                subprocess.call('./' + cloneRepoFile,shell=True)
                             logfile.write('Done.\n')
                         except Exception,e:
                             logfile.write('\n')
