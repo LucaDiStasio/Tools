@@ -54,7 +54,9 @@ def clearFile(wd,file):
                 if system() is 'Linux':
                     cli.write('#!/bin/bash\n')
                     cli.write('\n')
-                cli.write('rm ' + file + '\n')
+                    cli.write('rm ' + file + '\n')
+                elif system() is 'Windows':
+                    cli.write('del ' + file + '\n')
             try:
                 if system() is 'Windows':
                     stdout,stderr=subprocess.call('cmd.exe /C ' + clearFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
@@ -94,7 +96,9 @@ def clearFile(wd,file):
                 if system() is 'Linux':
                     cli.write('#!/bin/bash\n')
                     cli.write('\n')
-                cli.write('rm ' + file + '\n')
+                    cli.write('rm ' + file + '\n')
+                elif system() is 'Windows':
+                    cli.write('del ' + file + '\n')
             try:
                 if system() is 'Windows':
                     stdout,stderr=subprocess.call('cmd.exe /C ' + clearFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
