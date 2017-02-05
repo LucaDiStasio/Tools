@@ -61,7 +61,7 @@ def clearFile(wd,file):
                 elif system() is 'Linux':
                     subprocess.call('chmod a+x ' + clearFilePath,shell=True)
                     subprocess.call(clearFilePath,shell=True)
-                logfile.write('...done.')
+                logfile.write('...done.\n')
             except Exception,e:
                 logfile.write('\n')
                 logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
@@ -95,7 +95,7 @@ def clearFile(wd,file):
                 elif system() is 'Linux':
                     subprocess.call('chmod a+x ' + clearFilePath,shell=True)
                     subprocess.call(clearFilePath,shell=True)
-                logfile.write('...done.')
+                logfile.write('...done.\n')
             except Exception,e:
                 logfile.write('\n')
                 logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
@@ -137,7 +137,12 @@ def changeOrigin(mode,wd,user,pwd,repo):
                     elif system() is 'Linux':
                         subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True)
                         subprocess.call(changeUrlFilePath,shell=True)
-                    logfile.write('...done.')
+                    logfile.write('...done.\n')
+                    logfile.write('\n')
+                    logfile.write(stdout + '\n')
+                    logfile.write('\n')
+                    logfile.write(stderr + '\n')
+                    logfile.write('\n')
                 except Exception,e:
                     logfile.write('\n')
                     logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
@@ -175,7 +180,12 @@ def changeOrigin(mode,wd,user,pwd,repo):
                     elif system() is 'Linux':
                         subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True)
                         subprocess.call(changeUrlFilePath,shell=True)
-                    logfile.write('...done.')
+                    logfile.write('...done.\n')
+                    logfile.write('\n')
+                    logfile.write(stdout + '\n')
+                    logfile.write('\n')
+                    logfile.write(stderr + '\n')
+                    logfile.write('\n')
                 except Exception,e:
                     logfile.write('\n')
                     logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
@@ -214,7 +224,12 @@ def changeOrigin(mode,wd,user,pwd,repo):
                     elif system() is 'Linux':
                         subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True)
                         subprocess.call(changeUrlFilePath,shell=True)
-                    logfile.write('...done.')
+                    logfile.write('...done.\n')
+                    logfile.write('\n')
+                    logfile.write(stdout + '\n')
+                    logfile.write('\n')
+                    logfile.write(stderr + '\n')
+                    logfile.write('\n')
                 except Exception,e:
                     logfile.write('\n')
                     logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
@@ -252,7 +267,12 @@ def changeOrigin(mode,wd,user,pwd,repo):
                     elif system() is 'Linux':
                         subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True)
                         subprocess.call(changeUrlFilePath,shell=True)
-                    logfile.write('...done.')
+                    logfile.write('...done.\n')
+                    logfile.write('\n')
+                    logfile.write(stdout + '\n')
+                    logfile.write('\n')
+                    logfile.write(stderr + '\n')
+                    logfile.write('\n')
                 except Exception,e:
                     logfile.write('\n')
                     logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
