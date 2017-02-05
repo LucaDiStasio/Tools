@@ -167,7 +167,7 @@ def listReposInWD(wd):
     return repos
 
 def master2originUpdate(wd,user,pwd):
-    userrepos = listAllUserPublicRepos(user,pwd)
+    userrepos = listAllUserPublicRepos(user,pwd,wd)
     localrepos = listReposInWD(wd)
     if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
         with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
