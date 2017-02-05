@@ -135,7 +135,7 @@ def main(argv):
     if 'ouser' not in locals():
         ouser = user
     
-    origin2masterUpdate(workdir,user)
+    origin2masterUpdate(workdir,user,pwd)
     master2originUpdate(workdir,user,pwd)
     
     if updateMatlab:

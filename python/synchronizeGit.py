@@ -41,6 +41,243 @@ from time import strftime
 from platform import system
 import subprocess
 
+def clearFile(wd,file):
+    if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
+        with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
+            clearFile = 'clearFile'
+            if system() is 'Windows':
+                clearFile += '.cmd'
+            elif system() is 'Linux':
+                clearFile += '.sh'
+            clearFilePath = join(wd,clearFile)
+            with open(clearFilePath,'w') as cli:
+                if system() is 'Linux':
+                    cli.write('#!/bin/bash\n')
+                    cli.write('\n')
+                cli.write('rm ' + file + '\n')
+            try:
+                if system() is 'Windows':
+                    subprocess.call('cmd.exe /C ' + clearFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                elif system() is 'Linux':
+                    subprocess.call('chmod a+x ' + clearFilePath,shell=True)
+                    subprocess.call(clearFilePath,shell=True)
+                logfile.write('...done.')
+            except Exception,e:
+                logfile.write('\n')
+                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
+                logfile.write('^                                                                v\n')
+                logfile.write('^                        ERROR OCCURRED                          v\n')
+                logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
+                logfile.write('^                                                                v\n')
+                logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
+                logfile.write('\n')
+                logfile.write('                             DETAILS                             \n')
+                logfile.write('\n')
+                logfile.write('Unable to remove file ' + file + '\n')
+                logfile.write(str(e)+'\n')
+                logfile.write('\n')
+    else:
+        with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
+            clearFile = 'clearFile'
+            if system() is 'Windows':
+                clearFile += '.cmd'
+            elif system() is 'Linux':
+                clearFile += '.sh'
+            clearFilePath = join(wd,clearFile)
+            with open(clearFilePath,'w') as cli:
+                if system() is 'Linux':
+                    cli.write('#!/bin/bash\n')
+                    cli.write('\n')
+                cli.write('rm ' + file + '\n')
+            try:
+                if system() is 'Windows':
+                    subprocess.call('cmd.exe /C ' + clearFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                elif system() is 'Linux':
+                    subprocess.call('chmod a+x ' + clearFilePath,shell=True)
+                    subprocess.call(clearFilePath,shell=True)
+                logfile.write('...done.')
+            except Exception,e:
+                logfile.write('\n')
+                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
+                logfile.write('^                                                                v\n')
+                logfile.write('^                        ERROR OCCURRED                          v\n')
+                logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
+                logfile.write('^                                                                v\n')
+                logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
+                logfile.write('\n')
+                logfile.write('                             DETAILS                             \n')
+                logfile.write('\n')
+                logfile.write('Unable to remove file ' + file + '\n')
+                logfile.write(str(e)+'\n')
+                logfile.write('\n')
+
+def changeOrigin(mode,wd,user,pwd,repo):
+    # mode 1: public to secure
+    #      2: secure to public
+    if mode is 1:
+        if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
+            with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
+                logfile.write('Changing remote url of repo...')
+                changeUrlFile = 'changeGitUrl'
+                if system() is 'Windows':
+                    changeUrlFile += '.cmd'
+                elif system() is 'Linux':
+                    changeUrlFile += '.sh'
+                changeUrlFilePath = join(wd,changeUrlFile)
+                with open(changeUrlFilePath,'w') as cli:
+                    if system() is 'Linux':
+                        cli.write('#!/bin/bash\n')
+                        cli.write('\n')
+                    cli.write('cd ' + local + '\n')
+                    cli.write('\n')
+                    cli.write('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
+                try:
+                    if system() is 'Windows':
+                        subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    elif system() is 'Linux':
+                        subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True)
+                        subprocess.call(changeUrlFilePath,shell=True)
+                    logfile.write('...done.')
+                except Exception,e:
+                    logfile.write('\n')
+                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
+                    logfile.write('^                                                                v\n')
+                    logfile.write('^                        ERROR OCCURRED                          v\n')
+                    logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
+                    logfile.write('^                                                                v\n')
+                    logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
+                    logfile.write('\n')
+                    logfile.write('                             DETAILS                             \n')
+                    logfile.write('\n')
+                    logfile.write('Unable to change remote address\n')
+                    logfile.write(str(e)+'\n')
+                    logfile.write('\n')
+                clearFile(wd,changeUrlFilePath)
+        else:
+            with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
+                logfile.write('Changing remote url of repo...')
+                changeUrlFile = 'changeGitUrl'
+                if system() is 'Windows':
+                    changeUrlFile += '.cmd'
+                elif system() is 'Linux':
+                    changeUrlFile += '.sh'
+                changeUrlFilePath = join(wd,changeUrlFile)
+                with open(changeUrlFilePath,'w') as cli:
+                    if system() is 'Linux':
+                        cli.write('#!/bin/bash\n')
+                        cli.write('\n')
+                    cli.write('cd ' + local + '\n')
+                    cli.write('\n')
+                    cli.write('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
+                try:
+                    if system() is 'Windows':
+                        subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    elif system() is 'Linux':
+                        subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True)
+                        subprocess.call(changeUrlFilePath,shell=True)
+                    logfile.write('...done.')
+                except Exception,e:
+                    logfile.write('\n')
+                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
+                    logfile.write('^                                                                v\n')
+                    logfile.write('^                        ERROR OCCURRED                          v\n')
+                    logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
+                    logfile.write('^                                                                v\n')
+                    logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
+                    logfile.write('\n')
+                    logfile.write('                             DETAILS                             \n')
+                    logfile.write('\n')
+                    logfile.write('Unable to change remote address\n')
+                    logfile.write(str(e)+'\n')
+                    logfile.write('\n')
+                clearFile(wd,changeUrlFilePath)
+    elif mode is 2:
+        if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
+            with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
+                logfile.write('Changing remote url of repo...')
+                changeUrlFile = 'changeGitUrl'
+                if system() is 'Windows':
+                    changeUrlFile += '.cmd'
+                elif system() is 'Linux':
+                    changeUrlFile += '.sh'
+                changeUrlFilePath = join(wd,changeUrlFile)
+                with open(changeUrlFilePath,'w') as cli:
+                    if system() is 'Linux':
+                        cli.write('#!/bin/bash\n')
+                        cli.write('\n')
+                    cli.write('cd ' + local + '\n')
+                    cli.write('\n')
+                    cli.write('git remote set-url origin https://github.com/' + user + '/' + repo + '\n')
+                try:
+                    if system() is 'Windows':
+                        subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    elif system() is 'Linux':
+                        subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True)
+                        subprocess.call(changeUrlFilePath,shell=True)
+                    logfile.write('...done.')
+                except Exception,e:
+                    logfile.write('\n')
+                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
+                    logfile.write('^                                                                v\n')
+                    logfile.write('^                        ERROR OCCURRED                          v\n')
+                    logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
+                    logfile.write('^                                                                v\n')
+                    logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
+                    logfile.write('\n')
+                    logfile.write('                             DETAILS                             \n')
+                    logfile.write('\n')
+                    logfile.write('Unable to change remote address\n')
+                    logfile.write(str(e)+'\n')
+                    logfile.write('\n')
+                clearFile(wd,changeUrlFilePath)
+        else:
+            with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
+                logfile.write('Changing remote url of repo...')
+                changeUrlFile = 'changeGitUrl'
+                if system() is 'Windows':
+                    changeUrlFile += '.cmd'
+                elif system() is 'Linux':
+                    changeUrlFile += '.sh'
+                changeUrlFilePath = join(wd,changeUrlFile)
+                with open(changeUrlFilePath,'w') as cli:
+                    if system() is 'Linux':
+                        cli.write('#!/bin/bash\n')
+                        cli.write('\n')
+                    cli.write('cd ' + local + '\n')
+                    cli.write('\n')
+                    cli.write('git remote set-url origin https://github.com/' + user + '/' + repo + '\n')
+                try:
+                    if system() is 'Windows':
+                        subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    elif system() is 'Linux':
+                        subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True)
+                        subprocess.call(changeUrlFilePath,shell=True)
+                    logfile.write('...done.')
+                except Exception,e:
+                    logfile.write('\n')
+                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
+                    logfile.write('^                                                                v\n')
+                    logfile.write('^                        ERROR OCCURRED                          v\n')
+                    logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
+                    logfile.write('^                                                                v\n')
+                    logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
+                    logfile.write('\n')
+                    logfile.write('                             DETAILS                             \n')
+                    logfile.write('\n')
+                    logfile.write('Unable to change remote address\n')
+                    logfile.write(str(e)+'\n')
+                    logfile.write('\n')
+                clearFile(wd,changeUrlFilePath)
+    else:
+        if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
+            with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
+                logfile.write('\n')
+                logfile.write('Tried to change Git origin but no mode provided. Leaving unchanged')
+        else:
+            with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
+                logfile.write('\n')
+                logfile.write('Tried to change Git origin but no mode provided. Leaving unchanged')
+
 def listAllUserPublicRepos(user,pwd,wd):
     repos = []
     g = Github(user,pwd)
@@ -182,6 +419,7 @@ def master2originUpdate(wd,user,pwd):
                     logfile.write('\n')
                     logfile.write('============================='+'\n')
                     logfile.write(repo+'\n')
+                    changeOrigin(1,wd,user,pwd,repo)
                     logfile.write('Pulling...'+'\n')
                     path = wd + '/' + repo
                     try:
@@ -236,6 +474,7 @@ def master2originUpdate(wd,user,pwd):
                         logfile.write(str(e)+'\n')
                         logfile.write('\n')
                         sys.exc_clear()
+                    changeOrigin(1,wd,user,pwd,repo)
                     logfile.write('============================='+'\n')
                 else:
                     '''
@@ -304,48 +543,9 @@ def master2originUpdate(wd,user,pwd):
                             logfile.write('\n')
                             logfile.write(str(e)+'\n')
                             logfile.write('\n')
-                    '''
-                    print('...done.')
-                    print(currRepo.git.status())
-                    print('=============================')
-                    '''
+                        clearFile(wd,cloneRepoFilePath)
                     logfile.write('...done.')
-                    logfile.write('Changing remote url of repo...')
-                    changeUrlFile = 'changeGitUrl'
-                    if system() is 'Windows':
-                        changeUrlFile += '.cmd'
-                    elif system() is 'Linux':
-                        changeUrlFile += '.sh'
-                    changeUrlFilePath = join(wd,changeUrlFile)
-                    with open(changeUrlFilePath,'w') as cli:
-                        if system() is 'Linux':
-                            cli.write('#!/bin/bash\n')
-                            cli.write('\n')
-                        cli.write('cd ' + local + '\n')
-                        cli.write('\n')
-                        cli.write('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
-                    try:
-                        if system() is 'Windows':
-                            subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                        elif system() is 'Linux':
-                            subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True)
-                            subprocess.call(changeUrlFilePath,shell=True)
-                        logfile.write('...done.')
-                    except Exception,e:
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write('\n')
-                        logfile.write('Unable to change remote address\n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                    os.remove(changeUrlFilePath)
+                    changeOrigin(2,wd,user,pwd,repo)
                     try:
                         logfile.write(currRepo.git.status()+'\n')
                     except Exception,e:
@@ -375,6 +575,7 @@ def master2originUpdate(wd,user,pwd):
                     logfile.write('\n')
                     logfile.write('============================='+'\n')
                     logfile.write(repo+'\n')
+                    changeOrigin(1,wd,user,pwd,repo)
                     logfile.write('Pulling...'+'\n')
                     path = wd + '/' + repo
                     try:
@@ -429,6 +630,7 @@ def master2originUpdate(wd,user,pwd):
                         logfile.write(str(e)+'\n')
                         logfile.write('\n')
                         sys.exc_clear()
+                    changeOrigin(2,wd,user,pwd,repo)
                     logfile.write('=============================')
                 else:
                     '''
@@ -497,48 +699,9 @@ def master2originUpdate(wd,user,pwd):
                             logfile.write('\n')
                             logfile.write(str(e)+'\n')
                             logfile.write('\n')
-                    '''
-                    print('...done.')
-                    print(currRepo.git.status())
-                    print('=============================')
-                    '''
-                    logfile.write('...done.'+'\n')
-                    logfile.write('Changing remote url of repo...')
-                    changeUrlFile = 'changeGitUrl'
-                    if system() is 'Windows':
-                        changeUrlFile += '.cmd'
-                    elif system() is 'Linux':
-                        changeUrlFile += '.sh'
-                    changeUrlFilePath = join(wd,changeUrlFile)
-                    with open(changeUrlFilePath,'w') as cli:
-                        if system() is 'Linux':
-                            cli.write('#!/bin/bash\n')
-                            cli.write('\n')
-                        cli.write('cd ' + local + '\n')
-                        cli.write('\n')
-                        cli.write('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
-                    try:
-                        if system() is 'Windows':
-                            subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                        elif system() is 'Linux':
-                            subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True)
-                            subprocess.call(changeUrlFilePath)
-                        logfile.write('...done.')
-                    except Exception,e:
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write('\n')
-                        logfile.write('Unable to change remote address\n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                    os.remove(changeUrlFilePath)
+                        clearFile(wd,cloneRepoFilePath)
+                    logfile.write('...done.')
+                    changeOrigin(2,wd,user,pwd,repo)
                     try:
                         logfile.write(currRepo.git.status()+'\n')
                     except Exception,e:
@@ -592,7 +755,7 @@ def listBranches(wd,repo):
         sys.exc_clear()
     return branches
 
-def origin2masterUpdate(wd,user):
+def origin2masterUpdate(wd,user,pwd):
     if system() is 'Windows':
         Git.USE_SHELL = True
     elif system() is 'Linux':
@@ -602,6 +765,7 @@ def origin2masterUpdate(wd,user):
         with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
             for repo in localrepos:
                 path = wd + '/' + repo
+                changeOrigin(1,wd,user,pwd,repo)
                 try:
                     currRepo = Repo(path)
                 except Exception:
@@ -758,10 +922,12 @@ def origin2masterUpdate(wd,user):
                         sys.exc_clear()
                     
                 #print('=============================')
+                changeOrigin(1,wd,user,pwd,repo)
                 logfile.write('=============================')
     else:
         with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
             for repo in localrepos:
+                changeOrigin(1,wd,user,pwd,repo)
                 path = wd + '/' + repo
                 try:
                     currRepo = Repo(path)
@@ -919,6 +1085,7 @@ def origin2masterUpdate(wd,user):
                         sys.exc_clear()
                     
                 #print('=============================')
+                changeOrigin(1,wd,user,pwd,repo)
                 logfile.write('============================='+'\n')
 
 '''
