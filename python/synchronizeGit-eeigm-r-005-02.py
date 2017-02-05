@@ -69,7 +69,7 @@ def clearFile(wd,file):
                 logfile.write('...done.\n')
             except Exception,e:
                 logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                 logfile.write('^                                                                v\n')
                 logfile.write('^                        ERROR OCCURRED                          v\n')
                 logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
@@ -108,7 +108,7 @@ def clearFile(wd,file):
                 logfile.write('...done.\n')
             except Exception,e:
                 logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                 logfile.write('^                                                                v\n')
                 logfile.write('^                        ERROR OCCURRED                          v\n')
                 logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
@@ -154,7 +154,7 @@ def changeOrigin(mode,wd,user,pwd,repo):
                     logfile.write('\n')
                 except Exception,e:
                     logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                     logfile.write('^                                                                v\n')
                     logfile.write('^                        ERROR OCCURRED                          v\n')
                     logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
@@ -196,7 +196,7 @@ def changeOrigin(mode,wd,user,pwd,repo):
                     logfile.write('\n')
                 except Exception,e:
                     logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                     logfile.write('^                                                                v\n')
                     logfile.write('^                        ERROR OCCURRED                          v\n')
                     logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
@@ -239,7 +239,7 @@ def changeOrigin(mode,wd,user,pwd,repo):
                     logfile.write('\n')
                 except Exception,e:
                     logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                     logfile.write('^                                                                v\n')
                     logfile.write('^                        ERROR OCCURRED                          v\n')
                     logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
@@ -281,7 +281,7 @@ def changeOrigin(mode,wd,user,pwd,repo):
                     logfile.write('\n')
                 except Exception,e:
                     logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                     logfile.write('^                                                                v\n')
                     logfile.write('^                        ERROR OCCURRED                          v\n')
                     logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
@@ -314,7 +314,7 @@ def listAllUserPublicRepos(user,pwd,wd):
             if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
                 with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
                     logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                     logfile.write('^                                                                v\n')
                     logfile.write('^                        ERROR OCCURRED                          v\n')
                     logfile.write('^    IN FUNCTION listAllUserPublicRepos in synchronizeGit.py     v\n')
@@ -327,7 +327,7 @@ def listAllUserPublicRepos(user,pwd,wd):
             else:
                 with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
                     logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                     logfile.write('^                                                                v\n')
                     logfile.write('^                        ERROR OCCURRED                          v\n')
                     logfile.write('^    IN FUNCTION listAllUserPublicRepos in synchronizeGit.py     v\n')
@@ -349,7 +349,7 @@ def listDirsInWD(wd):
         if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
             with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
                 logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                 logfile.write('^                                                                v\n')
                 logfile.write('^                        ERROR OCCURRED                          v\n')
                 logfile.write('^        IN FUNCTION listDirsInWD in synchronizeGit.py           v\n')
@@ -362,7 +362,7 @@ def listDirsInWD(wd):
         else:
             with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
                 logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                 logfile.write('^                                                                v\n')
                 logfile.write('^                        ERROR OCCURRED                          v\n')
                 logfile.write('^        IN FUNCTION listDirsInWD in synchronizeGit.py           v\n')
@@ -389,7 +389,7 @@ def checkIfDirIsRepo(wd,dir):
         if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
             with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
                 logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                 logfile.write('^                                                                v\n')
                 logfile.write('^                        ERROR OCCURRED                          v\n')
                 logfile.write('^        IN FUNCTION checkIfDirIsRepo in synchronizeGit.py       v\n')
@@ -405,7 +405,7 @@ def checkIfDirIsRepo(wd,dir):
         else:
             with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
                 logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                 logfile.write('^                                                                v\n')
                 logfile.write('^                        ERROR OCCURRED                          v\n')
                 logfile.write('^        IN FUNCTION checkIfDirIsRepo in synchronizeGit.py       v\n')
@@ -453,7 +453,7 @@ def master2originUpdate(wd,user,pwd):
                     except Exception,e:
                         currRepo = ''
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
@@ -468,7 +468,7 @@ def master2originUpdate(wd,user,pwd):
                         currRepo.remotes.origin.pull()
                     except Exception,e:
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
@@ -489,7 +489,7 @@ def master2originUpdate(wd,user,pwd):
                         logfile.write(currRepo.git.status()+'\n')
                     except Exception,e:
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
@@ -517,7 +517,7 @@ def master2originUpdate(wd,user,pwd):
                         currRepo = Repo.clone_from(remote, local)
                     except Exception,e:
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
@@ -559,7 +559,7 @@ def master2originUpdate(wd,user,pwd):
                             logfile.write('Done.\n')
                         except Exception,e:
                             logfile.write('\n')
-                            logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                            logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                             logfile.write('^                                                                v\n')
                             logfile.write('^                        ERROR OCCURRED                          v\n')
                             logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
@@ -579,7 +579,7 @@ def master2originUpdate(wd,user,pwd):
                         logfile.write(currRepo.git.status()+'\n')
                     except Exception,e:
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
@@ -612,7 +612,7 @@ def master2originUpdate(wd,user,pwd):
                     except Exception,e:
                         currRepo = ''
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
@@ -627,7 +627,7 @@ def master2originUpdate(wd,user,pwd):
                         currRepo.remotes.origin.pull()
                     except Exception,e:
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
@@ -648,7 +648,7 @@ def master2originUpdate(wd,user,pwd):
                         logfile.write(currRepo.git.status()+'\n')
                     except Exception,e:
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
@@ -677,7 +677,7 @@ def master2originUpdate(wd,user,pwd):
                     except Exception,e:
                         currRepo = ''
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
@@ -718,7 +718,7 @@ def master2originUpdate(wd,user,pwd):
                             logfile.write('Done.\n')
                         except Exception,e:
                             logfile.write('\n')
-                            logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                            logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                             logfile.write('^                                                                v\n')
                             logfile.write('^                        ERROR OCCURRED                          v\n')
                             logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
@@ -738,7 +738,7 @@ def master2originUpdate(wd,user,pwd):
                         logfile.write(currRepo.git.status()+'\n')
                     except Exception,e:
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
@@ -761,7 +761,7 @@ def listBranches(wd,repo):
         if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
             with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
                 logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                 logfile.write('^                                                                v\n')
                 logfile.write('^                        ERROR OCCURRED                          v\n')
                 logfile.write('^          IN FUNCTION listBranches in synchronizeGit.py         v\n')
@@ -774,7 +774,7 @@ def listBranches(wd,repo):
         else:
             with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
                 logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                 logfile.write('^                                                                v\n')
                 logfile.write('^                        ERROR OCCURRED                          v\n')
                 logfile.write('^          IN FUNCTION listBranches in synchronizeGit.py         v\n')
@@ -803,7 +803,7 @@ def origin2masterUpdate(wd,user,pwd):
                 except Exception:
                     currRepo = ''
                     logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                     logfile.write('^                                                                v\n')
                     logfile.write('^                        ERROR OCCURRED                          v\n')
                     logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
@@ -831,7 +831,7 @@ def origin2masterUpdate(wd,user,pwd):
                 except Exception:
                     repoStatus = ''
                     logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                     logfile.write('^                                                                v\n')
                     logfile.write('^                        ERROR OCCURRED                          v\n')
                     logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
@@ -847,7 +847,7 @@ def origin2masterUpdate(wd,user,pwd):
                 except Exception,e:
                     isRepoDirty = False
                     logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                     logfile.write('^                                                                v\n')
                     logfile.write('^                        ERROR OCCURRED                          v\n')
                     logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
@@ -871,7 +871,7 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write('...done. Committing with message:'+'\n')
                     except Exception,e:
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
@@ -891,7 +891,7 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write('...done. Pushing changes to remote...'+'\n')
                     except Exception,e:
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
@@ -909,7 +909,7 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write('...done.'+'\n')
                     except Exception,e:
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
@@ -924,7 +924,7 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write(currRepo.git.status()+'\n')
                     except Exception,e:
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
@@ -941,7 +941,7 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write(repo + ' is up-to-date'+'\n')
                     except Exception,e:
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
@@ -966,7 +966,7 @@ def origin2masterUpdate(wd,user,pwd):
                 except Exception,e:
                     currRepo = ''
                     logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                     logfile.write('^                                                                v\n')
                     logfile.write('^                        ERROR OCCURRED                          v\n')
                     logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
@@ -994,7 +994,7 @@ def origin2masterUpdate(wd,user,pwd):
                 except Exception,e:
                     repoStatus = ''
                     logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                     logfile.write('^                                                                v\n')
                     logfile.write('^                        ERROR OCCURRED                          v\n')
                     logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
@@ -1010,7 +1010,7 @@ def origin2masterUpdate(wd,user,pwd):
                 except Exception,e:
                     isRepoDirty = False
                     logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                     logfile.write('^                                                                v\n')
                     logfile.write('^                        ERROR OCCURRED                          v\n')
                     logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
@@ -1034,7 +1034,7 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write('...done. Committing with message:'+'\n')
                     except Exception,e:
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
@@ -1054,7 +1054,7 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write('...done. Pushing changes to remote...'+'\n')
                     except Exception,e:
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
@@ -1072,7 +1072,7 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write('...done.'+'\n')
                     except Exception,e:
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
@@ -1087,7 +1087,7 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write(currRepo.git.status()+'\n')
                     except Exception,e:
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
@@ -1104,7 +1104,7 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write(repo + ' is up-to-date'+'\n')
                     except Exception,e:
                         logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
                         logfile.write('^                        ERROR OCCURRED                          v\n')
                         logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
