@@ -41,7 +41,7 @@ from time import strftime
 from platform import system
 import subprocess
 
-def listAllUserPublicRepos(user,pwd):
+def listAllUserPublicRepos(user,pwd,wd):
     repos = []
     g = Github(user,pwd)
     for repo in g.get_user().get_repos():
@@ -272,17 +272,22 @@ def master2originUpdate(wd,user,pwd):
                         cloneRepoFilePath = join(wd,cloneRepoFile)
                         with open(cloneRepoFilePath,'w') as cli:
                             if system() is 'Linux':
+                                logfile.write('Writing Linux bash file\n')
                                 cli.write('#!/bin/bash\n')
                                 cli.write('\n')
+                            else:
+                                logfile.write('Writing Windows command file\n')
                             cli.write('cd ' + wd + '\n')
                             cli.write('\n')
                             cli.write('git clone https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
                         try:
                             if system() is 'Windows':
-                                subprocess.call('cmd.exe /C ' + cloneRepoFile,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                                logfile.write('Executing Windows command file\n')
+                                subprocess.call('cmd.exe /C ' + cloneRepoFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                             elif system() is 'Linux':
+                                logfile.write('Executing Linux bash file\n')
                                 subprocess.call('chmod a+x ' + cloneRepoFilePath,shell=True)
-                                subprocess.call('./' + cloneRepoFilePath,shell=True)
+                                subprocess.call('./' + cloneRepoFile,shell=True)
                             logfile.write('Done.\n')
                         except Exception,e:
                             logfile.write('\n')
@@ -460,15 +465,20 @@ def master2originUpdate(wd,user,pwd):
                         cloneRepoFilePath = join(wd,cloneRepoFile)
                         with open(cloneRepoFilePath,'w') as cli:
                             if system() is 'Linux':
+                                logfile.write('Writing Linux bash file\n')
                                 cli.write('#!/bin/bash\n')
                                 cli.write('\n')
+                            else:
+                                logfile.write('Writing Windows command file\n')
                             cli.write('cd ' + wd + '\n')
                             cli.write('\n')
                             cli.write('git clone https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
                         try:
                             if system() is 'Windows':
+                                logfile.write('Executing Windows command file\n')
                                 subprocess.call('cmd.exe /C ' + cloneRepoFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                             elif system() is 'Linux':
+                                logfile.write('Executing Linux bash file\n')
                                 subprocess.call('chmod a+x ' + cloneRepoFilePath,shell=True)
                                 subprocess.call('./' + cloneRepoFile,shell=True)
                             logfile.write('Done.\n')
@@ -583,7 +593,10 @@ def listBranches(wd,repo):
     return branches
 
 def origin2masterUpdate(wd,user):
-    Git.USE_SHELL = True
+    if system() is 'Windows':
+        Git.USE_SHELL = True
+    elif system() is 'Linux':
+        Git.USE_SHELL = False
     localrepos = listReposInWD(wd)
     if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
         with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:

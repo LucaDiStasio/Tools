@@ -37,8 +37,8 @@ from translate import translator
 
 overWrite = True
 
-mainFolder = 'D:\\OneDrive\\01_Luca\\02_Professional_documents\\01_Curriculum_Vitae'
-#mainFolder = 'C:\\01_Backup-folder\\OneDrive\\01_Luca\\02_Professional_documents\\01_Curriculum_Vitae'
+#mainFolder = 'D:\\OneDrive\\01_Luca\\02_Professional_documents\\01_Curriculum_Vitae'
+mainFolder = 'C:\\01_Backup-folder\\OneDrive\\01_Luca\\02_Professional_documents\\01_Curriculum_Vitae'
 
 type = 'CV'
 
@@ -111,8 +111,9 @@ for i in range(docStart+1,endDoc):
     toTranslate.append(lines[i])
     
 for line in toTranslate:
+    newline = line
     for word in stopwords:
         line = line.replace('\\'+word,' ')
     line = line.replace('{',' ').replace('}',' ')
     if line.replace(' ','')[0] is not '%':
-        print(translator('en', 'es', line)[0][0][0])
+        print(newline.replace(line,translator('en', 'es', line)[0][0][0]))
