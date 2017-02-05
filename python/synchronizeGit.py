@@ -57,11 +57,11 @@ def clearFile(wd,file):
                 cli.write('rm ' + file + '\n')
             try:
                 if system() is 'Windows':
-                    stdout,stderr=stdout,stderr=subprocess.call('cmd.exe /C ' + clearFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    stdout,stderr=subprocess.call('cmd.exe /C ' + clearFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                     logfile.write(stdout + '\n')
                     logfile.write(stderr + '\n')
                 elif system() is 'Linux':
-                    stdout,stderr=stdout,stderr=subprocess.call('chmod a+x ' + clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    stdout,stderr=subprocess.call('chmod a+x ' + clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                     logfile.write(stdout + '\n')
                     logfile.write(stderr + '\n')
                     stdout,stderr=subprocess.call(clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
