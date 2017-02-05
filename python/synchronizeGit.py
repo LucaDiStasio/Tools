@@ -58,9 +58,15 @@ def clearFile(wd,file):
             try:
                 if system() is 'Windows':
                     subprocess.call('cmd.exe /C ' + clearFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    logfile.write(stdout + '\n')
+                    logfile.write(stderr + '\n')
                 elif system() is 'Linux':
-                    subprocess.call('chmod a+x ' + clearFilePath,shell=True)
-                    subprocess.call(clearFilePath,shell=True)
+                    subprocess.call('chmod a+x ' + clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    logfile.write(stdout + '\n')
+                    logfile.write(stderr + '\n')
+                    subprocess.call(clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    logfile.write(stdout + '\n')
+                    logfile.write(stderr + '\n')
                 logfile.write('...done.\n')
             except Exception,e:
                 logfile.write('\n')
@@ -92,9 +98,15 @@ def clearFile(wd,file):
             try:
                 if system() is 'Windows':
                     subprocess.call('cmd.exe /C ' + clearFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    logfile.write(stdout + '\n')
+                    logfile.write(stderr + '\n')
                 elif system() is 'Linux':
-                    subprocess.call('chmod a+x ' + clearFilePath,shell=True)
-                    subprocess.call(clearFilePath,shell=True)
+                    subprocess.call('chmod a+x ' + clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    logfile.write(stdout + '\n')
+                    logfile.write(stderr + '\n')
+                    subprocess.call(clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    logfile.write(stdout + '\n')
+                    logfile.write(stderr + '\n')
                 logfile.write('...done.\n')
             except Exception,e:
                 logfile.write('\n')
@@ -134,9 +146,15 @@ def changeOrigin(mode,wd,user,pwd,repo):
                 try:
                     if system() is 'Windows':
                         subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        logfile.write(stdout + '\n')
+                        logfile.write(stderr + '\n')
                     elif system() is 'Linux':
-                        subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True)
-                        subprocess.call(changeUrlFilePath,shell=True)
+                        subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        logfile.write(stdout + '\n')
+                        logfile.write(stderr + '\n')
+                        subprocess.call(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        logfile.write(stdout + '\n')
+                        logfile.write(stderr + '\n')
                     logfile.write('...done.\n')
                     logfile.write('\n')
                     logfile.write(stdout + '\n')
@@ -177,9 +195,15 @@ def changeOrigin(mode,wd,user,pwd,repo):
                 try:
                     if system() is 'Windows':
                         subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        logfile.write(stdout + '\n')
+                        logfile.write(stderr + '\n')
                     elif system() is 'Linux':
-                        subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True)
-                        subprocess.call(changeUrlFilePath,shell=True)
+                        subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        logfile.write(stdout + '\n')
+                        logfile.write(stderr + '\n')
+                        subprocess.call(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        logfile.write(stdout + '\n')
+                        logfile.write(stderr + '\n')
                     logfile.write('...done.\n')
                     logfile.write('\n')
                     logfile.write(stdout + '\n')
@@ -221,9 +245,15 @@ def changeOrigin(mode,wd,user,pwd,repo):
                 try:
                     if system() is 'Windows':
                         subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        logfile.write(stdout + '\n')
+                        logfile.write(stderr + '\n')
                     elif system() is 'Linux':
-                        subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True)
-                        subprocess.call(changeUrlFilePath,shell=True)
+                        subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        logfile.write(stdout + '\n')
+                        logfile.write(stderr + '\n')
+                        subprocess.call(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        logfile.write(stdout + '\n')
+                        logfile.write(stderr + '\n')
                     logfile.write('...done.\n')
                     logfile.write('\n')
                     logfile.write(stdout + '\n')
@@ -264,9 +294,15 @@ def changeOrigin(mode,wd,user,pwd,repo):
                 try:
                     if system() is 'Windows':
                         subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        logfile.write(stdout + '\n')
+                        logfile.write(stderr + '\n')
                     elif system() is 'Linux':
-                        subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True)
-                        subprocess.call(changeUrlFilePath,shell=True)
+                        subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        logfile.write(stdout + '\n')
+                        logfile.write(stderr + '\n')
+                        subprocess.call(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        logfile.write(stdout + '\n')
+                        logfile.write(stderr + '\n')
                     logfile.write('...done.\n')
                     logfile.write('\n')
                     logfile.write(stdout + '\n')
@@ -543,10 +579,16 @@ def master2originUpdate(wd,user,pwd):
                             if system() is 'Windows':
                                 logfile.write('Executing Windows command file\n')
                                 subprocess.call('cmd.exe /C ' + cloneRepoFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                                logfile.write(stdout + '\n')
+                                logfile.write(stderr + '\n')
                             elif system() is 'Linux':
                                 logfile.write('Executing Linux bash file\n')
-                                subprocess.call('chmod a+x ' + cloneRepoFilePath,shell=True)
-                                subprocess.call('./' + cloneRepoFile,shell=True)
+                                subprocess.call('chmod a+x ' + cloneRepoFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                                logfile.write(stdout + '\n')
+                                logfile.write(stderr + '\n')
+                                subprocess.call('./' + cloneRepoFile,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                                logfile.write(stdout + '\n')
+                                logfile.write(stderr + '\n')
                             logfile.write('Done.\n')
                         except Exception,e:
                             logfile.write('\n')
@@ -699,10 +741,16 @@ def master2originUpdate(wd,user,pwd):
                             if system() is 'Windows':
                                 logfile.write('Executing Windows command file\n')
                                 subprocess.call('cmd.exe /C ' + cloneRepoFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                                logfile.write(stdout + '\n')
+                                logfile.write(stderr + '\n')
                             elif system() is 'Linux':
                                 logfile.write('Executing Linux bash file\n')
-                                subprocess.call('chmod a+x ' + cloneRepoFilePath,shell=True)
-                                subprocess.call('./' + cloneRepoFile,shell=True)
+                                subprocess.call('chmod a+x ' + cloneRepoFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                                logfile.write(stdout + '\n')
+                                logfile.write(stderr + '\n')
+                                subprocess.call('./' + cloneRepoFile,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                                logfile.write(stdout + '\n')
+                                logfile.write(stderr + '\n')
                             logfile.write('Done.\n')
                         except Exception,e:
                             logfile.write('\n')
@@ -832,7 +880,7 @@ def origin2masterUpdate(wd,user,pwd):
                     sys.exc_clear()
                 try:
                     isRepoDirty = currRepo.is_dirty()
-                except Exception:
+                except Exception,e:
                     isRepoDirty = False
                     logfile.write('\n')
                     logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
@@ -843,7 +891,7 @@ def origin2masterUpdate(wd,user,pwd):
                     logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                     logfile.write('\n')
                     logfile.write('                             DETAILS                             \n')
-                    logfile.write(str(Exception)+'\n')
+                    logfile.write(str(e)+'\n')
                     logfile.write('\n')
                     sys.exc_clear()
                 if isRepoDirty or 'untracked files present' in repoStatus:
@@ -857,7 +905,7 @@ def origin2masterUpdate(wd,user,pwd):
                         currRepo.git.add('--all')
                         #print('...done. Committing with message:')
                         logfile.write('...done. Committing with message:'+'\n')
-                    except Exception:
+                    except Exception,e:
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
@@ -867,7 +915,7 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')
                     try:
                         now = datetime.now()
@@ -877,7 +925,7 @@ def origin2masterUpdate(wd,user,pwd):
                         currRepo.git.commit(m=commitMessage)
                         #print('...done. Pushing changes to remote...')
                         logfile.write('...done. Pushing changes to remote...'+'\n')
-                    except Exception:
+                    except Exception,e:
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
@@ -887,7 +935,7 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')
                     try:
                         currRepo.remotes.origin.push()
@@ -895,7 +943,7 @@ def origin2masterUpdate(wd,user,pwd):
                         print('...done.')
                         '''
                         logfile.write('...done.'+'\n')
-                    except Exception:
+                    except Exception,e:
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
@@ -905,12 +953,12 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')
                     #print(currRepo.git.status())
                     try:
                         logfile.write(currRepo.git.status()+'\n')
-                    except Exception:
+                    except Exception,e:
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
@@ -920,14 +968,14 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')
                         sys.exc_clear()
                 else:
                     #print(repo + ' is up-to-date')
                     try:
                         logfile.write(repo + ' is up-to-date'+'\n')
-                    except Exception:
+                    except Exception,e:
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
@@ -937,7 +985,7 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')
                         sys.exc_clear()
                     
@@ -951,7 +999,7 @@ def origin2masterUpdate(wd,user,pwd):
                 path = wd + '/' + repo
                 try:
                     currRepo = Repo(path)
-                except Exception:
+                except Exception,e:
                     currRepo = ''
                     logfile.write('\n')
                     logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
@@ -962,7 +1010,7 @@ def origin2masterUpdate(wd,user,pwd):
                     logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                     logfile.write('\n')
                     logfile.write('                             DETAILS                             \n')
-                    logfile.write(str(Exception)+'\n')
+                    logfile.write(str(e)+'\n')
                     logfile.write('\n')
                     sys.exc_clear()
                 '''
@@ -979,7 +1027,7 @@ def origin2masterUpdate(wd,user,pwd):
                 try:
                     repoStatus = currRepo.git.status()
                     logfile.write(repoStatus+'\n')
-                except Exception:
+                except Exception,e:
                     repoStatus = ''
                     logfile.write('\n')
                     logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
@@ -990,12 +1038,12 @@ def origin2masterUpdate(wd,user,pwd):
                     logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                     logfile.write('\n')
                     logfile.write('                             DETAILS                             \n')
-                    logfile.write(str(Exception)+'\n')
+                    logfile.write(str(e)+'\n')
                     logfile.write('\n')
                     sys.exc_clear()
                 try:
                     isRepoDirty = currRepo.is_dirty()
-                except Exception:
+                except Exception,e:
                     isRepoDirty = False
                     logfile.write('\n')
                     logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
@@ -1006,7 +1054,7 @@ def origin2masterUpdate(wd,user,pwd):
                     logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                     logfile.write('\n')
                     logfile.write('                             DETAILS                             \n')
-                    logfile.write(str(Exception)+'\n')
+                    logfile.write(str(e)+'\n')
                     logfile.write('\n')
                     sys.exc_clear()
                 if isRepoDirty or 'untracked files present' in repoStatus:
@@ -1020,7 +1068,7 @@ def origin2masterUpdate(wd,user,pwd):
                         currRepo.git.add('--all')
                         #print('...done. Committing with message:')
                         logfile.write('...done. Committing with message:'+'\n')
-                    except Exception:
+                    except Exception,e:
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
@@ -1030,7 +1078,7 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')
                     try:
                         now = datetime.now()
@@ -1040,7 +1088,7 @@ def origin2masterUpdate(wd,user,pwd):
                         currRepo.git.commit(m=commitMessage)
                         #print('...done. Pushing changes to remote...')
                         logfile.write('...done. Pushing changes to remote...'+'\n')
-                    except Exception:
+                    except Exception,e:
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
@@ -1050,7 +1098,7 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')
                     try:
                         currRepo.remotes.origin.push()
@@ -1058,7 +1106,7 @@ def origin2masterUpdate(wd,user,pwd):
                         print('...done.')
                         '''
                         logfile.write('...done.'+'\n')
-                    except Exception:
+                    except Exception,e:
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
@@ -1068,12 +1116,12 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')
                     #print(currRepo.git.status())
                     try:
                         logfile.write(currRepo.git.status()+'\n')
-                    except Exception:
+                    except Exception,e:
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
@@ -1083,14 +1131,14 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')
                         sys.exc_clear()
                 else:
                     #print(repo + ' is up-to-date')
                     try:
                         logfile.write(repo + ' is up-to-date'+'\n')
-                    except Exception:
+                    except Exception,e:
                         logfile.write('\n')
                         logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>\n')
                         logfile.write('^                                                                v\n')
@@ -1100,7 +1148,7 @@ def origin2masterUpdate(wd,user,pwd):
                         logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
                         logfile.write('\n')
                         logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(Exception)+'\n')
+                        logfile.write(str(e)+'\n')
                         logfile.write('\n')
                         sys.exc_clear()
                     
