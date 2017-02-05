@@ -59,14 +59,14 @@ def clearFile(wd,file):
                     cli.write('del ' + file + '\n')
             try:
                 if system() is 'Windows':
-                    stdout,stderr=subprocess.call('cmd.exe /C ' + clearFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    stdout,stderr=subprocess.check_output('cmd.exe /C ' + clearFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                     logfile.write(stdout + '\n')
                     logfile.write(stderr + '\n')
                 elif system() is 'Linux':
-                    stdout,stderr=subprocess.call('chmod a+x ' + clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    stdout,stderr=subprocess.check_output('chmod a+x ' + clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                     logfile.write(stdout + '\n')
                     logfile.write(stderr + '\n')
-                    stdout,stderr=subprocess.call(clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    stdout,stderr=subprocess.check_output(clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                     logfile.write(stdout + '\n')
                     logfile.write(stderr + '\n')
                 logfile.write('...done.\n')
@@ -101,14 +101,14 @@ def clearFile(wd,file):
                     cli.write('del ' + file + '\n')
             try:
                 if system() is 'Windows':
-                    stdout,stderr=subprocess.call('cmd.exe /C ' + clearFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    stdout,stderr=subprocess.check_output('cmd.exe /C ' + clearFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                     logfile.write(stdout + '\n')
                     logfile.write(stderr + '\n')
                 elif system() is 'Linux':
-                    stdout,stderr=subprocess.call('chmod a+x ' + clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    stdout,stderr=subprocess.check_output('chmod a+x ' + clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                     logfile.write(stdout + '\n')
                     logfile.write(stderr + '\n')
-                    stdout,stderr=subprocess.call(clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    stdout,stderr=subprocess.check_output(clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                     logfile.write(stdout + '\n')
                     logfile.write(stderr + '\n')
                 logfile.write('...done.\n')
@@ -149,14 +149,14 @@ def changeOrigin(mode,wd,user,pwd,repo):
                     cli.write('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
                 try:
                     if system() is 'Windows':
-                        stdout,stderr=subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        stdout,stderr=subprocess.check_output('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                         logfile.write(stdout + '\n')
                         logfile.write(stderr + '\n')
                     elif system() is 'Linux':
-                        stdout,stderr=subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        stdout,stderr=subprocess.check_output('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                         logfile.write(stdout + '\n')
                         logfile.write(stderr + '\n')
-                        stdout,stderr=subprocess.call(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        stdout,stderr=subprocess.check_output(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                         logfile.write(stdout + '\n')
                         logfile.write(stderr + '\n')
                     logfile.write('...done.\n')
@@ -198,14 +198,14 @@ def changeOrigin(mode,wd,user,pwd,repo):
                     cli.write('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
                 try:
                     if system() is 'Windows':
-                        stdout,stderr=subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        stdout,stderr=subprocess.check_output('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                         logfile.write(stdout + '\n')
                         logfile.write(stderr + '\n')
                     elif system() is 'Linux':
-                        stdout,stderr=subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        stdout,stderr=subprocess.check_output('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                         logfile.write(stdout + '\n')
                         logfile.write(stderr + '\n')
-                        stdout,stderr=subprocess.call(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        stdout,stderr=subprocess.check_output(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                         logfile.write(stdout + '\n')
                         logfile.write(stderr + '\n')
                     logfile.write('...done.\n')
@@ -248,14 +248,14 @@ def changeOrigin(mode,wd,user,pwd,repo):
                     cli.write('git remote set-url origin https://github.com/' + user + '/' + repo + '\n')
                 try:
                     if system() is 'Windows':
-                        stdout,stderr=subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        stdout,stderr=subprocess.check_output('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                         logfile.write(stdout + '\n')
                         logfile.write(stderr + '\n')
                     elif system() is 'Linux':
-                        stdout,stderr=subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        stdout,stderr=subprocess.check_output('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                         logfile.write(stdout + '\n')
                         logfile.write(stderr + '\n')
-                        stdout,stderr=subprocess.call(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        stdout,stderr=subprocess.check_output(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                         logfile.write(stdout + '\n')
                         logfile.write(stderr + '\n')
                     logfile.write('...done.\n')
@@ -297,14 +297,14 @@ def changeOrigin(mode,wd,user,pwd,repo):
                     cli.write('git remote set-url origin https://github.com/' + user + '/' + repo + '\n')
                 try:
                     if system() is 'Windows':
-                        stdout,stderr=subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        stdout,stderr=subprocess.check_output('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                         logfile.write(stdout + '\n')
                         logfile.write(stderr + '\n')
                     elif system() is 'Linux':
-                        stdout,stderr=subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        stdout,stderr=subprocess.check_output('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                         logfile.write(stdout + '\n')
                         logfile.write(stderr + '\n')
-                        stdout,stderr=subprocess.call(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        stdout,stderr=subprocess.check_output(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                         logfile.write(stdout + '\n')
                         logfile.write(stderr + '\n')
                     logfile.write('...done.\n')
@@ -582,15 +582,15 @@ def master2originUpdate(wd,user,pwd):
                         try:
                             if system() is 'Windows':
                                 logfile.write('Executing Windows command file\n')
-                                stdout,stderr=subprocess.call('cmd.exe /C ' + cloneRepoFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                                stdout,stderr=subprocess.check_output('cmd.exe /C ' + cloneRepoFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                                 logfile.write(stdout + '\n')
                                 logfile.write(stderr + '\n')
                             elif system() is 'Linux':
                                 logfile.write('Executing Linux bash file\n')
-                                stdout,stderr=subprocess.call('chmod a+x ' + cloneRepoFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                                stdout,stderr=subprocess.check_output('chmod a+x ' + cloneRepoFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                                 logfile.write(stdout + '\n')
                                 logfile.write(stderr + '\n')
-                                stdout,stderr=subprocess.call('./' + cloneRepoFile,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                                stdout,stderr=subprocess.check_output('./' + cloneRepoFile,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                                 logfile.write(stdout + '\n')
                                 logfile.write(stderr + '\n')
                             logfile.write('Done.\n')
@@ -744,15 +744,15 @@ def master2originUpdate(wd,user,pwd):
                         try:
                             if system() is 'Windows':
                                 logfile.write('Executing Windows command file\n')
-                                stdout,stderr=subprocess.call('cmd.exe /C ' + cloneRepoFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                                stdout,stderr=subprocess.check_output('cmd.exe /C ' + cloneRepoFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                                 logfile.write(stdout + '\n')
                                 logfile.write(stderr + '\n')
                             elif system() is 'Linux':
                                 logfile.write('Executing Linux bash file\n')
-                                stdout,stderr=subprocess.call('chmod a+x ' + cloneRepoFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                                stdout,stderr=subprocess.check_output('chmod a+x ' + cloneRepoFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                                 logfile.write(stdout + '\n')
                                 logfile.write(stderr + '\n')
-                                stdout,stderr=subprocess.call('./' + cloneRepoFile,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                                stdout,stderr=subprocess.check_output('./' + cloneRepoFile,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                                 logfile.write(stdout + '\n')
                                 logfile.write(stderr + '\n')
                             logfile.write('Done.\n')
