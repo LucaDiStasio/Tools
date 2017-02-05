@@ -128,7 +128,7 @@ def changeOrigin(mode,wd,user,pwd,repo):
                     if system() is 'Linux':
                         cli.write('#!/bin/bash\n')
                         cli.write('\n')
-                    cli.write('cd ' + local + '\n')
+                    cli.write('cd ' + join(wd,repo) + '\n')
                     cli.write('\n')
                     cli.write('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
                 try:
@@ -166,7 +166,7 @@ def changeOrigin(mode,wd,user,pwd,repo):
                     if system() is 'Linux':
                         cli.write('#!/bin/bash\n')
                         cli.write('\n')
-                    cli.write('cd ' + local + '\n')
+                    cli.write('cd ' + join(wd,repo) + '\n')
                     cli.write('\n')
                     cli.write('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
                 try:
@@ -205,7 +205,7 @@ def changeOrigin(mode,wd,user,pwd,repo):
                     if system() is 'Linux':
                         cli.write('#!/bin/bash\n')
                         cli.write('\n')
-                    cli.write('cd ' + local + '\n')
+                    cli.write('cd ' + join(wd,repo) + '\n')
                     cli.write('\n')
                     cli.write('git remote set-url origin https://github.com/' + user + '/' + repo + '\n')
                 try:
@@ -243,7 +243,7 @@ def changeOrigin(mode,wd,user,pwd,repo):
                     if system() is 'Linux':
                         cli.write('#!/bin/bash\n')
                         cli.write('\n')
-                    cli.write('cd ' + local + '\n')
+                    cli.write('cd ' + join(wd,repo) + '\n')
                     cli.write('\n')
                     cli.write('git remote set-url origin https://github.com/' + user + '/' + repo + '\n')
                 try:
