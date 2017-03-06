@@ -33,6 +33,7 @@ Tested with Python 2.7 Anaconda 2.4.1 (64-bit) distribution in Windows 10.
 
 import sys
 import os
+from os import remove
 from os.path import isfile, join
 from datetime import datetime
 from github import Github
@@ -85,29 +86,9 @@ def logErrorMessage(wd,logfile,function,library,error):
 
 def clearFile(wd,file):
     logfilename = datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'
-    clearFile = 'clearFile'
-    if system() is 'Windows':
-        clearFile += '.cmd'
-    elif system() is 'Linux':
-        clearFile += '.sh'
-    clearFilePath = join(wd,clearFile) 
-    with open(clearFilePath,'w') as cli:
-        if system() is 'Linux':
-            logSuccessMessage(wd,logfilename,'Writing bash file to delete file ' + file + ' ...')
-            cli.write('#!/bin/bash\n')
-            cli.write('\n')
-            cli.write('rm ' + file + '\n')
-        elif system() is 'Windows':
-            logSuccessMessage(wd,logfilename,'Writing command file to delete file ' + file + ' ...')
-            cli.write('del ' + file + '\n')
-    logSuccessMessage(wd,logfilename,'...done.')
-    logSuccessMessage(wd,logfilename,'Calling system shell and executing file clearing...')
+    logSuccessMessage(wd,logfilename,'Executing file clearing...')
     try:
-        if system() is 'Windows':
-            subprocess.call('cmd.exe /C ' + clearFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-        elif system() is 'Linux':
-            subprocess.call('chmod a+x ' + clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-            subprocess.call(clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+        remove(join(wd,file))
         logSuccessMessage(wd,logfilename,'...done.')
     except Exception,e:
         logErrorMessage(wd,logfilename,'clearFile','synchronizeGit.py',e)
