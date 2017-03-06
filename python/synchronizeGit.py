@@ -41,268 +41,133 @@ from time import strftime
 from platform import system
 import subprocess
 
-def clearFile(wd,file):
-    if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
-        with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
-            clearFile = 'clearFile'
-            if system() is 'Windows':
-                clearFile += '.cmd'
-            elif system() is 'Linux':
-                clearFile += '.sh'
-            clearFilePath = join(wd,clearFile)
-            with open(clearFilePath,'w') as cli:
-                if system() is 'Linux':
-                    cli.write('#!/bin/bash\n')
-                    cli.write('\n')
-                    cli.write('rm ' + file + '\n')
-                elif system() is 'Windows':
-                    cli.write('del ' + file + '\n')
-            try:
-                if system() is 'Windows':
-                    commandoutput=subprocess.check_output('cmd.exe /C ' + clearFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                    logfile.write(commandoutput + '\n')
-                elif system() is 'Linux':
-                    commandoutput=subprocess.check_output('chmod a+x ' + clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                    logfile.write(commandoutput + '\n')
-                    commandoutput=subprocess.check_output(clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                    logfile.write(commandoutput + '\n')
-                logfile.write('...done.\n')
-            except Exception,e:
-                logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                logfile.write('^                                                                v\n')
-                logfile.write('^                        ERROR OCCURRED                          v\n')
-                logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                logfile.write('^                                                                v\n')
-                logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                logfile.write('\n')
-                logfile.write('                             DETAILS                             \n')
-                logfile.write('\n')
-                logfile.write('Unable to remove file ' + file + '\n')
-                logfile.write(str(e)+'\n')
-                logfile.write('\n')
+def logSuccessMessage(wd,logfile,message):
+    if isfile(join(wd,logfile)):
+        with open(join(wd,logfile),'a') as log:
+            log.write('\n')
+            log.write(message + '\n')
+            log.write('\n')
     else:
-        with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
-            clearFile = 'clearFile'
-            if system() is 'Windows':
-                clearFile += '.cmd'
-            elif system() is 'Linux':
-                clearFile += '.sh'
-            clearFilePath = join(wd,clearFile)
-            with open(clearFilePath,'w') as cli:
-                if system() is 'Linux':
-                    cli.write('#!/bin/bash\n')
-                    cli.write('\n')
-                    cli.write('rm ' + file + '\n')
-                elif system() is 'Windows':
-                    cli.write('del ' + file + '\n')
-            try:
-                if system() is 'Windows':
-                    commandoutput=subprocess.check_output('cmd.exe /C ' + clearFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                    logfile.write(commandoutput + '\n')
-                elif system() is 'Linux':
-                    commandoutput=subprocess.check_output('chmod a+x ' + clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                    logfile.write(commandoutput + '\n')
-                    commandoutput=subprocess.check_output(clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                    logfile.write(commandoutput + '\n')
-                logfile.write('...done.\n')
-            except Exception,e:
-                logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                logfile.write('^                                                                v\n')
-                logfile.write('^                        ERROR OCCURRED                          v\n')
-                logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                logfile.write('^                                                                v\n')
-                logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                logfile.write('\n')
-                logfile.write('                             DETAILS                             \n')
-                logfile.write('\n')
-                logfile.write('Unable to remove file ' + file + '\n')
-                logfile.write(str(e)+'\n')
-                logfile.write('\n')
+        with open(join(wd,logfile),'w') as log:
+            log.write('\n')
+            log.write(message + '\n')
+            log.write('\n')
+            
+def logErrorMessage(wd,logfile,function,library,error):
+    if isfile(join(wd,logfile)):
+        with open(join(wd,logfile),'a') as log:
+            log.write('\n')
+            log.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+            log.write('^                                                                v\n')
+            log.write('^                        ERROR OCCURRED                          v\n')
+            log.write('^     IN FUNCTION ' + function + ' in ' + library + '       v\n')
+            log.write('^                                                                v\n')
+            log.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
+            log.write('\n')
+            log.write('                             DETAILS                             \n')
+            log.write('\n')
+            log.write(str(error)+'\n')
+            log.write('\n')
+    else:
+        with open(join(wd,logfile),'w') as log:
+            log.write('\n')
+            log.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
+            log.write('^                                                                v\n')
+            log.write('^                        ERROR OCCURRED                          v\n')
+            log.write('^     IN FUNCTION ' + function + ' in ' + library + '       v\n')
+            log.write('^                                                                v\n')
+            log.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
+            log.write('\n')
+            log.write('                             DETAILS                             \n')
+            log.write('\n')
+            log.write(str(error)+'\n')
+            log.write('\n')
+
+def clearFile(wd,file):
+    logfilename = datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'
+    clearFile = 'clearFile'
+    if system() is 'Windows':
+        clearFile += '.cmd'
+    elif system() is 'Linux':
+        clearFile += '.sh'
+    clearFilePath = join(wd,clearFile) 
+    with open(clearFilePath,'w') as cli:
+        if system() is 'Linux':
+            logSuccessMessage(wd,logfilename,'Writing bash file...')
+            cli.write('#!/bin/bash\n')
+            cli.write('\n')
+            cli.write('rm ' + file + '\n')
+        elif system() is 'Windows':
+            logSuccessMessage(wd,logfilename,'Writing command file...')
+            cli.write('del ' + file + '\n')
+    logSuccessMessage(wd,logfilename,'...done.')
+    logSuccessMessage(wd,logfilename,'Calling system shell and executing file clearing...')
+    try:
+        if system() is 'Windows':
+            subprocess.call('cmd.exe /C ' + clearFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+        elif system() is 'Linux':
+            subprocess.call('chmod a+x ' + clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+            subprocess.call(clearFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+        logSuccessMessage(wd,logfilename,'...done.')
+    except Exception,e:
+        logErrorMessage(wd,logfilename,'clearFile','synchronizeGit.py',e)
 
 def changeOrigin(mode,wd,user,pwd,repo):
     # mode 1: public to secure
     #      2: secure to public
+    logfilename = datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'
     if mode is 1:
-        if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
-            with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
-                logfile.write('Changing remote url of repo ' + repo + ' ...\n')
-                changeUrlFile = 'changeGitUrl'
-                if system() is 'Windows':
-                    changeUrlFile += '.cmd'
-                elif system() is 'Linux':
-                    changeUrlFile += '.sh'
-                changeUrlFilePath = join(wd,changeUrlFile)
-                with open(changeUrlFilePath,'w') as cli:
-                    if system() is 'Linux':
-                        cli.write('#!/bin/bash\n')
-                        cli.write('\n')
-                    cli.write('cd ' + join(wd,repo) + '\n')
-                    cli.write('\n')
-                    cli.write('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
-                try:
-                    if system() is 'Windows':
-                        commandoutput=subprocess.check_output('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                        logfile.write(commandoutput + '\n')
-                    elif system() is 'Linux':
-                        commandoutput=subprocess.check_output('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                        logfile.write(commandoutput + '\n')
-                        commandoutput=subprocess.check_output(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                        logfile.write(commandoutput + '\n')
-                    logfile.write('...done.\n')
-                    logfile.write('\n')
-                except Exception,e:
-                    logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('^                        ERROR OCCURRED                          v\n')
-                    logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                    logfile.write('\n')
-                    logfile.write('                             DETAILS                             \n')
-                    logfile.write('\n')
-                    logfile.write('Unable to change remote address\n')
-                    logfile.write(str(e)+'\n')
-                    logfile.write('\n')
-                clearFile(wd,changeUrlFilePath)
-        else:
-            with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
-                logfile.write('Changing remote url of repo ' + repo + ' ...\n')
-                changeUrlFile = 'changeGitUrl'
-                if system() is 'Windows':
-                    changeUrlFile += '.cmd'
-                elif system() is 'Linux':
-                    changeUrlFile += '.sh'
-                changeUrlFilePath = join(wd,changeUrlFile)
-                with open(changeUrlFilePath,'w') as cli:
-                    if system() is 'Linux':
-                        cli.write('#!/bin/bash\n')
-                        cli.write('\n')
-                    cli.write('cd ' + join(wd,repo) + '\n')
-                    cli.write('\n')
-                    cli.write('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
-                try:
-                    if system() is 'Windows':
-                        commandoutput=subprocess.check_output('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                        logfile.write(commandoutput + '\n')
-                    elif system() is 'Linux':
-                        commandoutput=subprocess.check_output('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                        logfile.write(commandoutput + '\n')
-                        commandoutput=subprocess.check_output(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                        logfile.write(commandoutput + '\n')
-                    logfile.write('...done.\n')
-                    logfile.write('\n')
-                except Exception,e:
-                    logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('^                        ERROR OCCURRED                          v\n')
-                    logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                    logfile.write('\n')
-                    logfile.write('                             DETAILS                             \n')
-                    logfile.write('\n')
-                    logfile.write('Unable to change remote address\n')
-                    logfile.write(str(e)+'\n')
-                    logfile.write('\n')
-                clearFile(wd,changeUrlFilePath)
+        logSuccessMessage(wd,logfilename,'Changing remote url of repo ' + repo + ' from public to secure...')
+        changeUrlFile = 'changeGitUrl'
+        if system() is 'Windows':
+            changeUrlFile += '.cmd'
+        elif system() is 'Linux':
+            changeUrlFile += '.sh'
+        changeUrlFilePath = join(wd,changeUrlFile)
+        with open(changeUrlFilePath,'w') as cli:
+            if system() is 'Linux':
+                cli.write('#!/bin/bash\n')
+                cli.write('\n')
+            cli.write('cd ' + join(wd,repo) + '\n')
+            cli.write('\n')
+            cli.write('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
+        try:
+            if system() is 'Windows':
+                subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+            elif system() is 'Linux':
+                subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                subprocess.call(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+            logSuccessMessage(wd,logfilename,'...done.')
+        except Exception,e:
+            logErrorMessage(wd,logfilename,'changeOrigin','synchronizeGit.py',e)
+        clearFile(wd,changeUrlFilePath)
     elif mode is 2:
-        if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
-            with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
-                logfile.write('Changing remote url of repo ' + repo + ' ...\n')
-                changeUrlFile = 'changeGitUrl'
-                if system() is 'Windows':
-                    changeUrlFile += '.cmd'
-                elif system() is 'Linux':
-                    changeUrlFile += '.sh'
-                changeUrlFilePath = join(wd,changeUrlFile)
-                with open(changeUrlFilePath,'w') as cli:
-                    if system() is 'Linux':
-                        cli.write('#!/bin/bash\n')
-                        cli.write('\n')
-                    cli.write('cd ' + join(wd,repo) + '\n')
-                    cli.write('\n')
-                    cli.write('git remote set-url origin https://github.com/' + user + '/' + repo + '\n')
-                try:
-                    if system() is 'Windows':
-                        commandoutput=subprocess.check_output('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                        logfile.write(commandoutput + '\n')
-                    elif system() is 'Linux':
-                        commandoutput=subprocess.check_output('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                        logfile.write(commandoutput + '\n')
-                        commandoutput=subprocess.check_output(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                        logfile.write(commandoutput + '\n')
-                    logfile.write('...done.\n')
-                    logfile.write('\n')
-                except Exception,e:
-                    logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('^                        ERROR OCCURRED                          v\n')
-                    logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                    logfile.write('\n')
-                    logfile.write('                             DETAILS                             \n')
-                    logfile.write('\n')
-                    logfile.write('Unable to change remote address\n')
-                    logfile.write(str(e)+'\n')
-                    logfile.write('\n')
-                clearFile(wd,changeUrlFilePath)
-        else:
-            with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
-                logfile.write('Changing remote url of repo ' + repo + ' ...\n')
-                changeUrlFile = 'changeGitUrl'
-                if system() is 'Windows':
-                    changeUrlFile += '.cmd'
-                elif system() is 'Linux':
-                    changeUrlFile += '.sh'
-                changeUrlFilePath = join(wd,changeUrlFile)
-                with open(changeUrlFilePath,'w') as cli:
-                    if system() is 'Linux':
-                        cli.write('#!/bin/bash\n')
-                        cli.write('\n')
-                    cli.write('cd ' + join(wd,repo) + '\n')
-                    cli.write('\n')
-                    cli.write('git remote set-url origin https://github.com/' + user + '/' + repo + '\n')
-                try:
-                    if system() is 'Windows':
-                        commandoutput=subprocess.check_output('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                        logfile.write(commandoutput + '\n')
-                    elif system() is 'Linux':
-                        commandoutput=subprocess.check_output('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                        logfile.write(commandoutput + '\n')
-                        commandoutput=subprocess.check_output(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                        logfile.write(commandoutput + '\n')
-                    logfile.write('...done.\n')
-                    logfile.write('\n')
-                except Exception,e:
-                    logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('^                        ERROR OCCURRED                          v\n')
-                    logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                    logfile.write('\n')
-                    logfile.write('                             DETAILS                             \n')
-                    logfile.write('\n')
-                    logfile.write('Unable to change remote address\n')
-                    logfile.write(str(e)+'\n')
-                    logfile.write('\n')
-                clearFile(wd,changeUrlFilePath)
+        logSuccessMessage(wd,logfilename,'Changing remote url of repo ' + repo + ' from secure to public...')
+        changeUrlFile = 'changeGitUrl'
+        if system() is 'Windows':
+            changeUrlFile += '.cmd'
+        elif system() is 'Linux':
+            changeUrlFile += '.sh'
+        changeUrlFilePath = join(wd,changeUrlFile)
+        with open(changeUrlFilePath,'w') as cli:
+            if system() is 'Linux':
+                cli.write('#!/bin/bash\n')
+                cli.write('\n')
+            cli.write('cd ' + join(wd,repo) + '\n')
+            cli.write('\n')
+            cli.write('git remote set-url origin https://github.com/' + user + '/' + repo + '\n')
+        try:
+            if system() is 'Windows':
+                subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+            elif system() is 'Linux':
+                subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                subprocess.call(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+            logSuccessMessage(wd,logfilename,'...done.')
+        except Exception,e:
+            logErrorMessage(wd,logfilename,'changeOrigin','synchronizeGit.py',e)
+        clearFile(wd,changeUrlFilePath)
     else:
-        if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
-            with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
-                logfile.write('\n')
-                logfile.write('Tried to change Git origin but no mode provided. Leaving unchanged')
-        else:
-            with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
-                logfile.write('\n')
-                logfile.write('Tried to change Git origin but no mode provided. Leaving unchanged')
+        logSuccessMessage(wd,logfilename,'Tried to change Git origin but no mode provided. Leaving unchanged.')
 
 def listAllUserPublicRepos(user,pwd,wd):
     repos = []
@@ -310,33 +175,8 @@ def listAllUserPublicRepos(user,pwd,wd):
     for repo in g.get_user().get_repos():
         try:
             repos.append(repo.name)
-        except Exception:
-            if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
-                with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
-                    logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('^                        ERROR OCCURRED                          v\n')
-                    logfile.write('^    IN FUNCTION listAllUserPublicRepos in synchronizeGit.py     v\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                    logfile.write('\n')
-                    logfile.write('                             DETAILS                             \n')
-                    logfile.write(str(Exception)+'\n')
-                    logfile.write('\n')
-            else:
-                with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
-                    logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('^                        ERROR OCCURRED                          v\n')
-                    logfile.write('^    IN FUNCTION listAllUserPublicRepos in synchronizeGit.py     v\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                    logfile.write('\n')
-                    logfile.write('                             DETAILS                             \n')
-                    logfile.write(str(Exception)+'\n')
-                    logfile.write('\n')
+        except Exception,e:
+            logErrorMessage(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log','listAllUserPublicRepos','synchronizeGit.py',e)
             sys.exc_clear()
     return repos
     
@@ -346,32 +186,7 @@ def listDirsInWD(wd):
         elements = os.listdir(wd)
     except Exception:
         elements = []
-        if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
-            with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
-                logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                logfile.write('^                                                                v\n')
-                logfile.write('^                        ERROR OCCURRED                          v\n')
-                logfile.write('^        IN FUNCTION listDirsInWD in synchronizeGit.py           v\n')
-                logfile.write('^                                                                v\n')
-                logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                logfile.write('\n')
-                logfile.write('                             DETAILS                             \n')
-                logfile.write(str(Exception)+'\n')
-                logfile.write('\n')
-        else:
-            with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
-                logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                logfile.write('^                                                                v\n')
-                logfile.write('^                        ERROR OCCURRED                          v\n')
-                logfile.write('^        IN FUNCTION listDirsInWD in synchronizeGit.py           v\n')
-                logfile.write('^                                                                v\n')
-                logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                logfile.write('\n')
-                logfile.write('                             DETAILS                             \n')
-                logfile.write(str(Exception)+'\n')
-                logfile.write('\n')
+        logErrorMessage(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log','listDirsInWD','synchronizeGit.py',e)
         sys.exc_clear()
     for element in elements:
         if os.path.isdir(wd + '/' + element):
@@ -386,38 +201,7 @@ def checkIfDirIsRepo(wd,dir):
         isRepo = True
     except InvalidGitRepositoryError:
         isRepo = False
-        if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
-            with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
-                logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                logfile.write('^                                                                v\n')
-                logfile.write('^                        ERROR OCCURRED                          v\n')
-                logfile.write('^        IN FUNCTION checkIfDirIsRepo in synchronizeGit.py       v\n')
-                logfile.write('^                                                                v\n')
-                logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                logfile.write('\n')
-                logfile.write('                             DETAILS                             \n')
-                logfile.write('  \n')
-                logfile.write(' FOLDER '+ dir +' IN WORKING DIRECTORY ' + wd +'\n')
-                logfile.write('  \n')
-                logfile.write(str(InvalidGitRepositoryError)+'\n')
-                logfile.write('\n')
-        else:
-            with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
-                logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                logfile.write('^                                                                v\n')
-                logfile.write('^                        ERROR OCCURRED                          v\n')
-                logfile.write('^        IN FUNCTION checkIfDirIsRepo in synchronizeGit.py       v\n')
-                logfile.write('^                                                                v\n')
-                logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                logfile.write('\n')
-                logfile.write('                             DETAILS                             \n')
-                logfile.write('  \n')
-                logfile.write(' FOLDER '+ dir +' IN WORKING DIRECTORY ' + wd +'\n')
-                logfile.write('  \n')
-                logfile.write(str(InvalidGitRepositoryError)+'\n')
-                logfile.write('\n')
+        logErrorMessage(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log','checkIfDirIsRepo','synchronizeGit.py',InvalidGitRepositoryError)
         sys.exc_clear()
     return isRepo
 
@@ -432,324 +216,81 @@ def listReposInWD(wd):
 def master2originUpdate(wd,user,pwd):
     userrepos = listAllUserPublicRepos(user,pwd,wd)
     localrepos = listReposInWD(wd)
-    if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
-        with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
-            for repo in userrepos:
-                if repo in localrepos:
-                    '''
-                    print('')
-                    print('=============================')
-                    print(repo)
-                    print('Pulling...')
-                    '''
-                    logfile.write('\n')
-                    logfile.write('============================='+'\n')
-                    logfile.write(repo+'\n')
-                    changeOrigin(1,wd,user,pwd,repo)
-                    logfile.write('Pulling...'+'\n')
-                    path = wd + '/' + repo
-                    try:
-                        currRepo = Repo(path)
-                    except Exception,e:
-                        currRepo = ''
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                        sys.exc_clear()
-                    try:
-                        currRepo.remotes.origin.pull()
-                    except Exception,e:
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                        sys.exc_clear()
-                    '''
-                    print('...done.')
-                    print(currRepo.git.status())
-                    print('=============================')
-                    '''
-                    logfile.write('...done.')
-                    try:
-                        logfile.write(currRepo.git.status()+'\n')
-                    except Exception,e:
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                        sys.exc_clear()
-                    changeOrigin(1,wd,user,pwd,repo)
-                    logfile.write('============================='+'\n')
-                else:
-                    '''
-                    print('=============================')
-                    print(repo)
-                    print('Cloning...')
-                    '''
-                    logfile.write('============================='+'\n')
-                    logfile.write(repo+'\n')
-                    logfile.write('Cloning...'+'\n')
-                    try:
-                        remote = 'https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git'
-                        local = wd + '/' + repo
-                        currRepo = Repo.clone_from(remote, local)
-                    except Exception,e:
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                        logfile.write('Trying to execute from command line...\n')
-                        sys.exc_clear()
-                        cloneRepoFile = 'cloneRepoFile'
-                        if system() is 'Windows':
-                            cloneRepoFile += '.cmd'
-                        elif system() is 'Linux':
-                            cloneRepoFile += '.sh'
-                        cloneRepoFilePath = join(wd,cloneRepoFile)
-                        with open(cloneRepoFilePath,'w') as cli:
-                            if system() is 'Linux':
-                                logfile.write('Writing Linux bash file\n')
-                                cli.write('#!/bin/bash\n')
-                                cli.write('\n')
-                            else:
-                                logfile.write('Writing Windows command file\n')
-                            cli.write('cd ' + wd + '\n')
-                            cli.write('\n')
-                            cli.write('git clone https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
-                        try:
-                            if system() is 'Windows':
-                                logfile.write('Executing Windows command file\n')
-                                commandoutput=subprocess.check_output('cmd.exe /C ' + cloneRepoFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                                logfile.write(commandoutput + '\n')
-                            elif system() is 'Linux':
-                                logfile.write('Executing Linux bash file\n')
-                                commandoutput=subprocess.check_output('chmod a+x ' + cloneRepoFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                                logfile.write(commandoutput + '\n')
-                                commandoutput=subprocess.check_output('./' + cloneRepoFile,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                                logfile.write(commandoutput + '\n')
-                            logfile.write('Done.\n')
-                        except Exception,e:
-                            logfile.write('\n')
-                            logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                            logfile.write('^                                                                v\n')
-                            logfile.write('^                        ERROR OCCURRED                          v\n')
-                            logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                            logfile.write('^                                                                v\n')
-                            logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                            logfile.write('\n')
-                            logfile.write('                             DETAILS                             \n')
-                            logfile.write('\n')
-                            logfile.write('In cloning attempt at command line\n')
-                            logfile.write('\n')
-                            logfile.write(str(e)+'\n')
-                            logfile.write('\n')
-                        clearFile(wd,cloneRepoFilePath)
-                    logfile.write('...done.')
-                    changeOrigin(2,wd,user,pwd,repo)
-                    try:
-                        logfile.write(currRepo.git.status()+'\n')
-                    except Exception,e:
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')       
-                        sys.exc_clear()
-                    logfile.write('=============================')
-    else:
-        with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
-            for repo in userrepos:
-                if repo in localrepos:
-                    '''
-                    print('')
-                    print('=============================')
-                    print(repo)
-                    print('Pulling...')
-                    '''
-                    logfile.write('\n')
-                    logfile.write('============================='+'\n')
-                    logfile.write(repo+'\n')
-                    changeOrigin(1,wd,user,pwd,repo)
-                    logfile.write('Pulling...'+'\n')
-                    path = wd + '/' + repo
-                    try:
-                        currRepo = Repo(path)
-                    except Exception,e:
-                        currRepo = ''
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                        sys.exc_clear()
-                    try:
-                        currRepo.remotes.origin.pull()
-                    except Exception,e:
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                        sys.exc_clear()
-                    '''
-                    print('...done.')
-                    print(currRepo.git.status())
-                    print('=============================')
-                    '''
-                    logfile.write('...done.')
-                    try:
-                        logfile.write(currRepo.git.status()+'\n')
-                    except Exception,e:
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                        sys.exc_clear()
-                    changeOrigin(2,wd,user,pwd,repo)
-                    logfile.write('=============================')
-                else:
-                    '''
-                    print('=============================')
-                    print(repo)
-                    print('Cloning...')
-                    '''
-                    logfile.write('============================='+'\n')
-                    logfile.write(repo+'\n')
-                    logfile.write('Cloning...'+'\n')
-                    try:
-                        remote = 'https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git'
-                        local = wd + '/' + repo
-                        currRepo = Repo.clone_from(remote, local)
-                    except Exception,e:
-                        currRepo = ''
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                        sys.exc_clear()
-                        cloneRepoFile = 'cloneRepoFile'
-                        if system() is 'Windows':
-                            cloneRepoFile += '.cmd'
-                        elif system() is 'Linux':
-                            cloneRepoFile += '.sh'
-                        cloneRepoFilePath = join(wd,cloneRepoFile)
-                        with open(cloneRepoFilePath,'w') as cli:
-                            if system() is 'Linux':
-                                logfile.write('Writing Linux bash file\n')
-                                cli.write('#!/bin/bash\n')
-                                cli.write('\n')
-                            else:
-                                logfile.write('Writing Windows command file\n')
-                            cli.write('cd ' + wd + '\n')
-                            cli.write('\n')
-                            cli.write('git clone https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
-                        try:
-                            if system() is 'Windows':
-                                logfile.write('Executing Windows command file\n')
-                                commandoutput=subprocess.check_output('cmd.exe /C ' + cloneRepoFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                                logfile.write(commandoutput + '\n')
-                            elif system() is 'Linux':
-                                logfile.write('Executing Linux bash file\n')
-                                commandoutput=subprocess.check_output('chmod a+x ' + cloneRepoFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                                logfile.write(commandoutput + '\n')
-                                commandoutput=subprocess.check_output('./' + cloneRepoFile,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                                logfile.write(commandoutput + '\n')
-                            logfile.write('Done.\n')
-                        except Exception,e:
-                            logfile.write('\n')
-                            logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                            logfile.write('^                                                                v\n')
-                            logfile.write('^                        ERROR OCCURRED                          v\n')
-                            logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                            logfile.write('^                                                                v\n')
-                            logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                            logfile.write('\n')
-                            logfile.write('                             DETAILS                             \n')
-                            logfile.write('\n')
-                            logfile.write('In cloning attempt at command line\n')
-                            logfile.write('\n')
-                            logfile.write(str(e)+'\n')
-                            logfile.write('\n')
-                        clearFile(wd,cloneRepoFilePath)
-                    logfile.write('...done.')
-                    changeOrigin(2,wd,user,pwd,repo)
-                    try:
-                        logfile.write(currRepo.git.status()+'\n')
-                    except Exception,e:
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION master2originUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                        sys.exc_clear()
-                    logfile.write('============================='+'\n')
+    logfilename = datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'
+    for repo in userrepos:
+        if repo in localrepos:
+            logSuccessMessage(wd,logfilename,'=============================')
+            logSuccessMessage(wd,logfilename,repo)
+            changeOrigin(1,wd,user,pwd,repo)
+            logSuccessMessage(wd,logfilename,'Pulling...')
+            path = wd + '/' + repo
+            try:
+                currRepo = Repo(path)
+            except Exception,e:
+                currRepo = ''
+                logErrorMessage(wd,logfilename,'master2originUpdate','synchronizeGit.py',e)
+                sys.exc_clear()
+            try:
+                currRepo.remotes.origin.pull()
+            except Exception,e:
+                logErrorMessage(wd,logfilename,'master2originUpdate','synchronizeGit.py',e)
+                sys.exc_clear()
+            logSuccessMessage(wd,logfilename,'...done.')
+            try:
+                logSuccessMessage(wd,logfilename,currRepo.git.status())
+            except Exception,e:
+                logErrorMessage(wd,logfilename,'master2originUpdate','synchronizeGit.py',e)
+                sys.exc_clear()
+            changeOrigin(2,wd,user,pwd,repo)
+            logSuccessMessage(wd,logfilename,'============================='+'\n')
+        else:
+            logSuccessMessage(wd,logfilename,'=============================')
+            logSuccessMessage(wd,logfilename,repo)
+            logSuccessMessage(wd,logfilename,'Cloning...')
+            try:
+                remote = 'https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git'
+                local = wd + '/' + repo
+                currRepo = Repo.clone_from(remote, local)
+            except Exception,e:
+                logErrorMessage(wd,logfilename,'master2originUpdate','synchronizeGit.py',e)
+                logSuccessMessage(wd,logfilename,'Trying to execute from command line...')
+                sys.exc_clear()
+                cloneRepoFile = 'cloneRepoFile'
+                if system() is 'Windows':
+                    cloneRepoFile += '.cmd'
+                elif system() is 'Linux':
+                    cloneRepoFile += '.sh'
+                cloneRepoFilePath = join(wd,cloneRepoFile)
+                with open(cloneRepoFilePath,'w') as cli:
+                    if system() is 'Linux':
+                        logSuccessMessage(wd,logfilename,'Writing Linux bash file')
+                        cli.write('#!/bin/bash\n')
+                        cli.write('\n')
+                    else:
+                        logSuccessMessage(wd,logfilename,'Writing Windows command file')
+                    cli.write('cd ' + wd + '\n')
+                    cli.write('\n')
+                    cli.write('git clone https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
+                try:
+                    if system() is 'Windows':
+                        logSuccessMessage(wd,logfilename,'Executing Windows command file')
+                        subprocess.call('cmd.exe /C ' + cloneRepoFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    elif system() is 'Linux':
+                        logSuccessMessage(wd,logfilename,'Executing Linux bash file')
+                        subprocess.call('chmod a+x ' + cloneRepoFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                        subprocess.call('./' + cloneRepoFile,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                    logSuccessMessage(wd,logfilename,'Done.')
+                except Exception,e:
+                    logErrorMessage(wd,logfilename,'master2originUpdate','synchronizeGit.py',e)
+                clearFile(wd,cloneRepoFilePath)
+            logSuccessMessage(wd,logfilename,'...done.')
+            changeOrigin(2,wd,user,pwd,repo)
+            try:
+                logSuccessMessage(wd,logfilename,currRepo.git.status())
+            except Exception,e:
+                logErrorMessage(wd,logfilename,'master2originUpdate','synchronizeGit.py',e)     
+                sys.exc_clear()
+            logSuccessMessage(wd,logfilename,'=============================')
     
 
 def listBranches(wd,repo):
@@ -758,372 +299,73 @@ def listBranches(wd,repo):
         branches = Repo(path).git.branch('-r')
     except Exception:
         branches = ''
-        if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
-            with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
-                logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                logfile.write('^                                                                v\n')
-                logfile.write('^                        ERROR OCCURRED                          v\n')
-                logfile.write('^          IN FUNCTION listBranches in synchronizeGit.py         v\n')
-                logfile.write('^                                                                v\n')
-                logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                logfile.write('\n')
-                logfile.write('                             DETAILS                             \n')
-                logfile.write(str(Exception)+'\n')
-                logfile.write('\n')
-        else:
-            with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
-                logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                logfile.write('^                                                                v\n')
-                logfile.write('^                        ERROR OCCURRED                          v\n')
-                logfile.write('^          IN FUNCTION listBranches in synchronizeGit.py         v\n')
-                logfile.write('^                                                                v\n')
-                logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                logfile.write('\n')
-                logfile.write('                             DETAILS                             \n')
-                logfile.write(str(Exception)+'\n')
-                logfile.write('\n')
+        logErrorMessage(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log','listBranches','synchronizeGit.py',e)
         sys.exc_clear()
     return branches
 
 def origin2masterUpdate(wd,user,pwd):
+    logfilename = datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'
     if system() is 'Windows':
         Git.USE_SHELL = True
     elif system() is 'Linux':
         Git.USE_SHELL = False
     localrepos = listReposInWD(wd)
-    if isfile(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
-        with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
-            for repo in localrepos:
-                path = wd + '/' + repo
-                changeOrigin(1,wd,user,pwd,repo)
-                try:
-                    currRepo = Repo(path)
-                except Exception:
-                    currRepo = ''
-                    logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('^                        ERROR OCCURRED                          v\n')
-                    logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                    logfile.write('\n')
-                    logfile.write('                             DETAILS                             \n')
-                    logfile.write(str(Exception)+'\n')
-                    logfile.write('\n')
-                    sys.exc_clear()
-                '''
-                print('')
-                print('=============================')
-                print(repo)
-                print('')
-                print(currRepo.git.status())
-                '''
-                logfile.write('\n')
-                logfile.write('============================='+'\n')
-                logfile.write(repo+'\n')
-                logfile.write('\n'+'\n')
-                try:
-                    repoStatus = currRepo.git.status()
-                    logfile.write(repoStatus+'\n')
-                except Exception:
-                    repoStatus = ''
-                    logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('^                        ERROR OCCURRED                          v\n')
-                    logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                    logfile.write('\n')
-                    logfile.write('                             DETAILS                             \n')
-                    logfile.write(str(Exception)+'\n')
-                    logfile.write('\n')
-                    sys.exc_clear()
-                try:
-                    isRepoDirty = currRepo.is_dirty()
-                except Exception,e:
-                    isRepoDirty = False
-                    logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('^                        ERROR OCCURRED                          v\n')
-                    logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                    logfile.write('\n')
-                    logfile.write('                             DETAILS                             \n')
-                    logfile.write(str(e)+'\n')
-                    logfile.write('\n')
-                    sys.exc_clear()
-                if isRepoDirty or 'untracked files present' in repoStatus:
-                    '''
-                    print(repo + ' needs a push')
-                    print('adding files ...')
-                    '''
-                    logfile.write(repo + ' needs a push'+'\n')
-                    logfile.write('adding files ...'+'\n')
-                    try:
-                        currRepo.git.add('--all')
-                        #print('...done. Committing with message:')
-                        logfile.write('...done. Committing with message:'+'\n')
-                    except Exception,e:
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                    try:
-                        now = datetime.now()
-                        commitMessage = 'committing changes on ' + str(now.day) + '/' + str(now.month) + '/' + str(now.year) + ' at ' + str(now.hour) + ':' + str(now.minute) + ':' + str(now.second)
-                        #print(commitMessage)
-                        logfile.write(commitMessage+'\n')
-                        currRepo.git.commit(m=commitMessage)
-                        #print('...done. Pushing changes to remote...')
-                        logfile.write('...done. Pushing changes to remote...'+'\n')
-                    except Exception,e:
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                    try:
-                        currRepo.remotes.origin.push()
-                        '''
-                        print('...done.')
-                        '''
-                        logfile.write('...done.'+'\n')
-                    except Exception,e:
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                    #print(currRepo.git.status())
-                    try:
-                        logfile.write(currRepo.git.status()+'\n')
-                    except Exception,e:
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                        sys.exc_clear()
-                else:
-                    #print(repo + ' is up-to-date')
-                    try:
-                        logfile.write(repo + ' is up-to-date'+'\n')
-                    except Exception,e:
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                        sys.exc_clear()
-                    
-                #print('=============================')
-                changeOrigin(1,wd,user,pwd,repo)
-                logfile.write('=============================')
-    else:
-        with open(join(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
-            for repo in localrepos:
-                changeOrigin(1,wd,user,pwd,repo)
-                path = wd + '/' + repo
-                try:
-                    currRepo = Repo(path)
-                except Exception,e:
-                    currRepo = ''
-                    logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('^                        ERROR OCCURRED                          v\n')
-                    logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                    logfile.write('\n')
-                    logfile.write('                             DETAILS                             \n')
-                    logfile.write(str(e)+'\n')
-                    logfile.write('\n')
-                    sys.exc_clear()
-                '''
-                print('')
-                print('=============================')
-                print(repo)
-                print('')
-                print(currRepo.git.status())
-                '''
-                logfile.write('\n')
-                logfile.write('============================='+'\n')
-                logfile.write(repo+'\n')
-                logfile.write('\n')
-                try:
-                    repoStatus = currRepo.git.status()
-                    logfile.write(repoStatus+'\n')
-                except Exception,e:
-                    repoStatus = ''
-                    logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('^                        ERROR OCCURRED                          v\n')
-                    logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                    logfile.write('\n')
-                    logfile.write('                             DETAILS                             \n')
-                    logfile.write(str(e)+'\n')
-                    logfile.write('\n')
-                    sys.exc_clear()
-                try:
-                    isRepoDirty = currRepo.is_dirty()
-                except Exception,e:
-                    isRepoDirty = False
-                    logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('^                        ERROR OCCURRED                          v\n')
-                    logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
-                    logfile.write('^                                                                v\n')
-                    logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                    logfile.write('\n')
-                    logfile.write('                             DETAILS                             \n')
-                    logfile.write(str(e)+'\n')
-                    logfile.write('\n')
-                    sys.exc_clear()
-                if isRepoDirty or 'untracked files present' in repoStatus:
-                    '''
-                    print(repo + ' needs a push')
-                    print('adding files ...')
-                    '''
-                    logfile.write(repo + ' needs a push'+'\n')
-                    logfile.write('adding files ...'+'\n')
-                    try:
-                        currRepo.git.add('--all')
-                        #print('...done. Committing with message:')
-                        logfile.write('...done. Committing with message:'+'\n')
-                    except Exception,e:
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                    try:
-                        now = datetime.now()
-                        commitMessage = 'committing changes on ' + str(now.day) + '/' + str(now.month) + '/' + str(now.year) + ' at ' + str(now.hour) + ':' + str(now.minute) + ':' + str(now.second)
-                        #print(commitMessage)
-                        logfile.write(commitMessage+'\n')
-                        currRepo.git.commit(m=commitMessage)
-                        #print('...done. Pushing changes to remote...')
-                        logfile.write('...done. Pushing changes to remote...'+'\n')
-                    except Exception,e:
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                    try:
-                        currRepo.remotes.origin.push()
-                        '''
-                        print('...done.')
-                        '''
-                        logfile.write('...done.'+'\n')
-                    except Exception,e:
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                    #print(currRepo.git.status())
-                    try:
-                        logfile.write(currRepo.git.status()+'\n')
-                    except Exception,e:
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                        sys.exc_clear()
-                else:
-                    #print(repo + ' is up-to-date')
-                    try:
-                        logfile.write(repo + ' is up-to-date'+'\n')
-                    except Exception,e:
-                        logfile.write('\n')
-                        logfile.write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('^                        ERROR OCCURRED                          v\n')
-                        logfile.write('^     IN FUNCTION origin2masterUpdate in synchronizeGit.py       v\n')
-                        logfile.write('^                                                                v\n')
-                        logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                        logfile.write('\n')
-                        logfile.write('                             DETAILS                             \n')
-                        logfile.write(str(e)+'\n')
-                        logfile.write('\n')
-                        sys.exc_clear()
-                    
-                #print('=============================')
-                changeOrigin(1,wd,user,pwd,repo)
-                logfile.write('============================='+'\n')
-
-'''
-
-wd = 'C:/01_backup-folder/OneDrive/01_Luca/07_DocMASE/04_WD'
-
-origin2masterUpdate(wd,user,pwd)
-master2originUpdate(wd,user,pwd)
-'''
+    for repo in localrepos:
+        path = wd + '/' + repo
+        changeOrigin(1,wd,user,pwd,repo)
+        try:
+            currRepo = Repo(path)
+        except Exception,e:
+            currRepo = ''
+            logErrorMessage(wd,logfilename,'origin2masterUpdate','synchronizeGit.py',e)
+            sys.exc_clear()
+        logSuccessMessage(wd,logfilename,'=============================')
+        logSuccessMessage(wd,logfilename,repo)
+        try:
+            repoStatus = currRepo.git.status()
+            logSuccessMessage(wd,logfilename,repoStatus)
+        except Exception,e:
+            repoStatus = ''
+            logErrorMessage(wd,logfilename,'origin2masterUpdate','synchronizeGit.py',e)
+            sys.exc_clear()
+        try:
+            isRepoDirty = currRepo.is_dirty()
+        except Exception,e:
+            isRepoDirty = False
+            logErrorMessage(wd,logfilename,'origin2masterUpdate','synchronizeGit.py',e)
+            sys.exc_clear()
+        if isRepoDirty or 'untracked files present' in repoStatus:
+            logSuccessMessage(wd,logfilename,repo + ' needs a push')
+            changeOrigin(1,wd,user,pwd,repo)
+            logSuccessMessage(wd,logfilename,'adding files ...')
+            try:
+                currRepo.git.add('--all')
+                logSuccessMessage(wd,logfilename,'...done. Committing with message:')
+            except Exception,e:
+                logErrorMessage(wd,logfilename,'origin2masterUpdate','synchronizeGit.py',e)
+            try:
+                now = datetime.now()
+                commitMessage = 'committing changes on ' + str(now.day) + '/' + str(now.month) + '/' + str(now.year) + ' at ' + str(now.hour) + ':' + str(now.minute) + ':' + str(now.second)
+                logSuccessMessage(wd,logfilename,commitMessage)
+                currRepo.git.commit(m=commitMessage)
+                logSuccessMessage(wd,logfilename,'...done. Pushing changes to remote...')
+            except Exception,e:
+                logErrorMessage(wd,logfilename,'origin2masterUpdate','synchronizeGit.py',e)
+            try:
+                currRepo.remotes.origin.push()
+                logSuccessMessage(wd,logfilename,'...done.')
+            except Exception,e:
+                logErrorMessage(wd,logfilename,'origin2masterUpdate','synchronizeGit.py',e)
+            try:
+                logSuccessMessage(wd,logfilename,currRepo.git.status())
+            except Exception,e:
+                logErrorMessage(wd,logfilename,'origin2masterUpdate','synchronizeGit.py',e)
+                sys.exc_clear()
+        else:
+            try:
+                logSuccessMessage(wd,logfilename,repo + ' is up-to-date')
+            except Exception,e:
+                logErrorMessage(wd,logfilename,'origin2masterUpdate','synchronizeGit.py',e)
+                sys.exc_clear()
+        changeOrigin(2,wd,user,pwd,repo)
+        logSuccessMessage(wd,logfilename,'=============================')
