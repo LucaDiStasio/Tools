@@ -93,12 +93,12 @@ def clearFile(wd,file):
     clearFilePath = join(wd,clearFile) 
     with open(clearFilePath,'w') as cli:
         if system() is 'Linux':
-            logSuccessMessage(wd,logfilename,'Writing bash file...')
+            logSuccessMessage(wd,logfilename,'Writing bash file to delete file ' + file + ' ...')
             cli.write('#!/bin/bash\n')
             cli.write('\n')
             cli.write('rm ' + file + '\n')
         elif system() is 'Windows':
-            logSuccessMessage(wd,logfilename,'Writing command file...')
+            logSuccessMessage(wd,logfilename,'Writing command file to delete file ' + file + ' ...')
             cli.write('del ' + file + '\n')
     logSuccessMessage(wd,logfilename,'...done.')
     logSuccessMessage(wd,logfilename,'Calling system shell and executing file clearing...')
