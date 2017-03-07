@@ -89,22 +89,28 @@ def main(argv):
             print(' ')
             sys.exit()
         elif opt in ("-u", "--user", "--username"):
+            print arg
             user = arg
         elif opt in ("-p", "--password", "--pwd", "--pw"):
+            print arg
             pwd = arg
         elif opt in ("-w", "--workdir", "--workdirectory", "--wdir"):
+            print arg
             if arg[-1] != '/':
                 workdir = arg
             else:
                 workdir = arg[:-1]
         elif opt in ("-m", "--mroot", "--matlab", "--matlabroot"):
+            print arg
             if arg[-1] != '/' and arg[-1] != '\\':
                 matlabRoot = arg
             else:
                 matlabRoot = arg[:-1]
         elif opt in ("-mu", "--muser", "--matlabuser"):
+            print arg
             muser = arg
         elif opt in ("-o", "--oroot", "--octave", "--octaveroot"):
+            print arg
             if arg[-1] != '/' and arg[-1] != '\\':
                 octaveRoot = arg
             else:
