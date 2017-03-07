@@ -137,7 +137,7 @@ def main(argv):
     
     origin2masterUpdate(workdir,user,pwd)
     master2originUpdate(workdir,user,pwd)
-    print(matlabRoot)
+
     if updateMatlab:
         # update Matlab startup file
         add_to_matlab_startup(muser,matlabRoot,workdir)
