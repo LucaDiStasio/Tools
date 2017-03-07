@@ -48,72 +48,29 @@ import sys, os
 from os.path import isfile, join
 from datetime import datetime
 from time import strftime
+from synchronizeGit import logSuccessMessage, logErrorMessage
 
 def add_to_octave_startup(userName,root,WD):
     octavepathDir = '\\share\\octave\\' + root.split('\\')[-1].split('-')[-1] + '\\m\\startup'
     octavestartup = '\\octavestartup.m'
-    
+    logfile = datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'
     dirs = []
     for dirName, subdirList, files in os.walk(WD):
         if ".git" not in dirName:
             dirs.append(dirName)
-    
     octavestart = join(root,octavepathDir,octavestartup)
-
     try:
-        with open(octavestart, 'w') as file:
+        with open(matlabstart, 'w') as file:
             file.write("disp('Hi, " + userName + "!');\n")
             file.write("disp('Welcome back!');\n")
             file.write("disp('I''m adding the following directories to the path:');\n")
-            if isfile(join(WD,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
-                with open(join(WD,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
-                    #print("")
-                    #print("Adding:")
-                    logfile.write("\n")
-                    logfile.write("Adding:\n")
-                    for dir in dirs:
-                        #print(dir)
-                        logfile.write(dir+'\n')
-                        file.write("disp('      " + dir + "');\n") 
-                        file.write("addpath('" + dir + "','-end');\n")
-            else:
-                with open(join(WD,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
-                    #print("")
-                    #print("Adding:")
-                    logfile.write("\n")
-                    logfile.write("Adding:\n")
-                    for dir in dirs:
-                        #print(dir)
-                        logfile.write(dir+'\n')
-                        file.write("disp('      " + dir + "');\n") 
-                        file.write("addpath('" + dir + "','-end');\n")
+            logSuccessMessage(WD,logfile,'Adding:')
+            for dir in dirs:
+                logSuccessMessage(WD,logfile,dir)
+                file.write("disp('      " + dir + "');\n") 
+                file.write("addpath('" + dir + "','-end');\n")
     except Exception,e:
-        if isfile(join(WD,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
-            with open(join(WD,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
-                logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                logfile.write('^                                                                      v\n')
-                logfile.write('^                        ERROR OCCURRED                                v\n')
-                logfile.write('^    IN FUNCTION add_to_octave_startup in add_to_octave_startup.py     v\n')
-                logfile.write('^                                                                      v\n')
-                logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                logfile.write('\n')
-                logfile.write('                             DETAILS                             \n')
-                logfile.write(str(e)+'\n')
-                logfile.write('\n')
-        else:
-            with open(join(WD,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
-                logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                logfile.write('^                                                                      v\n')
-                logfile.write('^                        ERROR OCCURRED                                v\n')
-                logfile.write('^    IN FUNCTION add_to_octave_startup in add_to_octave_startup.py     v\n')
-                logfile.write('^                                                                      v\n')
-                logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                logfile.write('\n')
-                logfile.write('                             DETAILS                             \n')
-                logfile.write(str(e)+'\n')
-                logfile.write('\n')
+        logErrorMessage(WD,logfile,add_to_matlab_startup,add_to_octave_startup,e)
         sys.exc_clear()
     
   

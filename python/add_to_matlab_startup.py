@@ -48,12 +48,13 @@ import sys, os
 from os.path import isfile, join
 from datetime import datetime
 from time import strftime
+from synchronizeGit import logSuccessMessage, logErrorMessage
 
 def add_to_matlab_startup(userName,matlabRoot,WD):
     matlabpathDir = '\\toolbox\\local'
     matlabpathdef = '\\pathdef.m'
     matlabstartup = '\\startup.m'
-    
+    logfile = datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'
     dirs = []
     for dirName, subdirList, files in os.walk(WD):
         if ".git" not in dirName:
@@ -63,40 +64,13 @@ def add_to_matlab_startup(userName,matlabRoot,WD):
     matlabstart = matlabRoot + matlabpathDir + matlabstartup
     toAdd = []
     toWrite = []
-    
     try:
         with open(matlabpath, 'r') as file:
             lines = file.readlines()
-    except:
+    except Exception,e:
         lines = []
-        if isfile(join(WD,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
-            with open(join(WD,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
-                logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                logfile.write('^                                                                      v\n')
-                logfile.write('^                        ERROR OCCURRED                                v\n')
-                logfile.write('^    IN FUNCTION add_to_matlab_startup in add_to_matlab_startup.py     v\n')
-                logfile.write('^                                                                      v\n')
-                logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                logfile.write('\n')
-                logfile.write('                             DETAILS                             \n')
-                logfile.write(str(Exception)+'\n')
-                logfile.write('\n')
-        else:
-            with open(join(WD,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
-                logfile.write('\n')
-                logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                logfile.write('^                                                                      v\n')
-                logfile.write('^                        ERROR OCCURRED                                v\n')
-                logfile.write('^    IN FUNCTION add_to_matlab_startup in add_to_matlab_startup.py     v\n')
-                logfile.write('^                                                                      v\n')
-                logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                logfile.write('\n')
-                logfile.write('                             DETAILS                             \n')
-                logfile.write(str(Exception)+'\n')
-                logfile.write('\n')
+        logErrorMessage(WD,logfile,add_to_matlab_startup,add_to_matlab_startup,e)
         sys.exc_clear()
-    
     check = False
     for i, line in enumerate(lines):
         if not check:
@@ -111,8 +85,6 @@ def add_to_matlab_startup(userName,matlabRoot,WD):
         if "END ENTRIES" in line and check:
             check = False
             toWrite.append(line)
-    
-    
     for dir in dirs:
         add = True
         for line in toWrite:
@@ -126,56 +98,15 @@ def add_to_matlab_startup(userName,matlabRoot,WD):
             file.write("disp('Hi, " + userName + "!');\n")
             file.write("disp('Welcome back!');\n")
             file.write("disp('I''m adding the following directories to the path:');\n")
-            if isfile(join(WD,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
-                with open(join(WD,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
-                    #print("")
-                    #print("Adding:")
-                    logfile.write("\n")
-                    logfile.write("Adding:\n")
-                    for dir in toAdd:
-                        #print(dir)
-                        logfile.write(dir+'\n')
-                        file.write("disp('      " + dir + "');\n") 
-                        file.write("addpath('" + dir + "','-end');\n")
-            else:
-                with open(join(WD,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
-                    #print("")
-                    #print("Adding:")
-                    logfile.write("\n")
-                    logfile.write("Adding:\n")
-                    for dir in toAdd:
-                        #print(dir)
-                        logfile.write(dir+'\n')
-                        file.write("disp('      " + dir + "');\n") 
-                        file.write("addpath('" + dir + "','-end');\n")
-    except Exception:
-            if isfile(join(WD,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log')):
-                with open(join(WD,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'a') as logfile:
-                    logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                    logfile.write('^                                                                      v\n')
-                    logfile.write('^                        ERROR OCCURRED                                v\n')
-                    logfile.write('^    IN FUNCTION add_to_matlab_startup in add_to_matlab_startup.py     v\n')
-                    logfile.write('^                                                                      v\n')
-                    logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                    logfile.write('\n')
-                    logfile.write('                             DETAILS                             \n')
-                    logfile.write(str(Exception)+'\n')
-                    logfile.write('\n')
-            else:
-                with open(join(WD,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'),'w') as logfile:
-                    logfile.write('\n')
-                    logfile.write('>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
-                    logfile.write('^                                                                      v\n')
-                    logfile.write('^                        ERROR OCCURRED                                v\n')
-                    logfile.write('^    IN FUNCTION add_to_matlab_startup in add_to_matlab_startup.py     v\n')
-                    logfile.write('^                                                                      v\n')
-                    logfile.write('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                    logfile.write('\n')
-                    logfile.write('                             DETAILS                             \n')
-                    logfile.write(str(Exception)+'\n')
-                    logfile.write('\n')
-            sys.exc_clear()
+            logSuccessMessage(WD,logfile,'Adding:')
+            for dir in toAdd:
+                #print(dir)
+                logSuccessMessage(WD,logfile,dir)
+                file.write("disp('      " + dir + "');\n") 
+                file.write("addpath('" + dir + "','-end');\n")
+    except Exception,e:
+        logErrorMessage(WD,logfile,add_to_matlab_startup,add_to_matlab_startup,e)
+        sys.exc_clear()
         
 
 
