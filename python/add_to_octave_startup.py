@@ -51,8 +51,8 @@ from time import strftime
 from synchronizeGit import logSuccessMessage, logErrorMessage
 
 def add_to_octave_startup(userName,root,WD):
-    octavepathDir = '\\share\\octave\\' + root.split('\\')[-1].split('-')[-1] + '\\m\\startup'
-    octavestartup = '\\octavestartup.m'
+    octavepathDir = 'share/octave/' + root.split('\\')[-1].split('-')[-1] + '/m/startup'
+    octavestartup = 'octavestartup.m'
     logfile = datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'
     dirs = []
     for dirName, subdirList, files in os.walk(WD):
