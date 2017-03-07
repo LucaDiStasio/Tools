@@ -59,7 +59,6 @@ def add_to_matlab_startup(userName,matlabRoot,WD):
     for dirName, subdirList, files in os.walk(WD):
         if ".git" not in dirName:
             dirs.append(dirName)
-    
     matlabpath = matlabRoot + matlabpathDir + matlabpathdef
     matlabstart = matlabRoot + matlabpathDir + matlabstartup
     toAdd = []
