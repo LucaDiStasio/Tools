@@ -69,7 +69,7 @@ def add_to_matlab_startup(userName,matlabRoot,WD):
             lines = file.readlines()
     except Exception,e:
         lines = []
-        logErrorMessage(WD,logfile,add_to_matlab_startup,add_to_matlab_startup,e)
+        logErrorMessage(WD,logfile,'add_to_matlab_startup','add_to_matlab_startup',e)
         sys.exc_clear()
     check = False
     for i, line in enumerate(lines):
@@ -105,7 +105,7 @@ def add_to_matlab_startup(userName,matlabRoot,WD):
                 file.write("disp('      " + dir + "');\n") 
                 file.write("addpath('" + dir + "','-end');\n")
     except Exception,e:
-        logErrorMessage(WD,logfile,add_to_matlab_startup,add_to_matlab_startup,e)
+        logErrorMessage(WD,logfile,'add_to_matlab_startup','add_to_matlab_startup',e)
         sys.exc_clear()
         
 
