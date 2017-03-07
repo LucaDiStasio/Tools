@@ -39,6 +39,8 @@ import getopt
 from add_to_matlab_startup import add_to_matlab_startup
 from add_to_octave_startup import add_to_octave_startup
 from synchronizeGit import origin2masterUpdate, master2originUpdate
+from datetime import datetime
+from time import strftime
 from platform import *
 
 def main(argv):
@@ -134,6 +136,11 @@ def main(argv):
         updateOctave = True
     if 'ouser' not in locals():
         ouser = user
+    
+    with open(join(workdir,datetime.now().strftime('%Y-%m-%d_%H-00-00'))+'_initWD.log','w') as log:
+        now = datetime.now()
+        log.write('Working directory initialization, starting on ' + now.strftime('%Y-%m-%d') + ' at ' + now.strftime('%H:%M:%S') + '\n')
+        log.write('\n')
     
     origin2masterUpdate(workdir,user,pwd)
     master2originUpdate(workdir,user,pwd)
