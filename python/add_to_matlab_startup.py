@@ -98,7 +98,7 @@ def add_to_matlab_startup(userName,matlabRoot,WD):
             file.write("disp('Hi, " + userName + "!');\n")
             file.write("disp('Welcome back!');\n")
             file.write("disp('I''m adding the following directories to the path:');\n")
-            logSuccessMessage(WD,logfile,'Adding:')
+            logSuccessMessage(WD,logfile,'Adding to Matlab startup:')
             for dir in toAdd:
                 #print(dir)
                 logSuccessMessage(WD,logfile,dir)
