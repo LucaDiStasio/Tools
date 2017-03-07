@@ -89,33 +89,34 @@ def main(argv):
             print(' ')
             sys.exit()
         elif opt in ("-u", "--user", "--username"):
-            print arg
+            print('User: ' + arg)
             user = arg
         elif opt in ("-p", "--password", "--pwd", "--pw"):
-            print arg
+            print('Pwd: ' +  arg)
             pwd = arg
         elif opt in ("-w", "--workdir", "--workdirectory", "--wdir"):
-            print arg
+            print('WD: ' +  arg)
             if arg[-1] != '/':
                 workdir = arg
             else:
                 workdir = arg[:-1]
         elif opt in ("-m", "--mroot", "--matlab", "--matlabroot"):
-            print arg
+            print('Matlab root: ' +  arg)
             if arg[-1] != '/' and arg[-1] != '\\':
                 matlabRoot = arg
             else:
                 matlabRoot = arg[:-1]
         elif opt in ("-mu", "--muser", "--matlabuser"):
-            print arg
+            print('Matlab user: ' +  arg)
             muser = arg
         elif opt in ("-o", "--oroot", "--octave", "--octaveroot"):
-            print arg
+            print('Octave root: ' +  arg)
             if arg[-1] != '/' and arg[-1] != '\\':
                 octaveRoot = arg
             else:
                 octaveRoot = arg[:-1]
         elif opt in ("-ou", "--ouser", "--octaveuser"):
+            print('Octave user: ' +  arg)
             ouser = arg
 
     # Check the existence of variables: if a required variable is missing, an error is thrown and program is terminated; if an optional variable is missing, it is set to the default value
