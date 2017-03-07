@@ -64,7 +64,7 @@ def add_to_octave_startup(userName,root,WD):
             file.write("disp('Hi, " + userName + "!');\n")
             file.write("disp('Welcome back!');\n")
             file.write("disp('I''m adding the following directories to the path:');\n")
-            logSuccessMessage(WD,logfile,'Octave startup file: ' + str(join(root,octavepathDir,octavestartup)))
+            logSuccessMessage(WD,logfile,'Octave startup file: ' + str(join(root,octavepathDir,octavestart)))
             logSuccessMessage(WD,logfile,'Adding to Octave startup:')
             for dir in dirs:
                 logSuccessMessage(WD,logfile,dir)
