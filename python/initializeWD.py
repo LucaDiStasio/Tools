@@ -98,14 +98,14 @@ def main(argv):
             else:
                 workdir = arg[:-1]
         elif opt in ("-m", "--mroot", "--matlab", "--matlabroot"):
-            if arg[-1] != '/':
+            if arg[-1] != '/' and arg[-1] != '\\':
                 matlabRoot = arg
             else:
                 matlabRoot = arg[:-1]
         elif opt in ("-mu", "--muser", "--matlabuser"):
             muser = arg
         elif opt in ("-o", "--oroot", "--octave", "--octaveroot"):
-            if arg[-1] != '/':
+            if arg[-1] != '/' and arg[-1] != '\\':
                 octaveRoot = arg
             else:
                 octaveRoot = arg[:-1]
