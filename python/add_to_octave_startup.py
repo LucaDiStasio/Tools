@@ -58,7 +58,7 @@ def add_to_octave_startup(userName,root,WD):
     for dirName, subdirList, files in os.walk(WD):
         if ".git" not in dirName:
             dirs.append(dirName)
-    octavestart = join(root,octavepathDir,octavestartup)
+    octavestart = join(root,join(octavepathDir,octavestartup))
     print root
     print octavepathDir
     print octavestart
