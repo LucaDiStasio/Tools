@@ -45,9 +45,9 @@ def main(argv):
 
     # Read the command line, throw error if not option is provided
     try:
-        opts, args = getopt.getopt(argv,'hu:p:w:m:mu:o:ou:',["help","Help","user", "username","password", "pwd", "pw","workdir", "workdirectory", "wdir","mroot", "matlab", "matlabroot","muser", "matlabuser","oroot", "octave", "octaveroot","ouser", "octaveuser"])
+        opts, args = getopt.getopt(argv,'hu:p:w:m:n:o:r:',["help","Help","user", "username","password", "pwd", "pw","workdir", "workdirectory", "wdir","mroot", "matlab", "matlabroot","muser", "matlabuser","oroot", "octave", "octaveroot","ouser", "octaveuser"])
     except getopt.GetoptError:
-        print('initializeWD.py -i <input deck> -d <input directory> -w <working directory>  -m <matlab root> -mu <matlab username> -o <octave root> -ou <octave username>')
+        print('initializeWD.py -i <input deck> -d <input directory> -w <working directory>  -m <matlab root> -n <matlab username> -o <octave root> -r <octave username>')
         sys.exit(2)
     # Parse the options and create corresponding variables
     for opt, arg in opts:
@@ -67,7 +67,7 @@ def main(argv):
             print('*****************************************************************************************************')
             print(' ')
             print('Program syntax:')
-            print('initializeWD.py -u <user> -p <password> -w <working directory> -m <matlab root> -mu <matlab username> -o <octave root> -ou <octave username>')
+            print('initializeWD.py -u <user> -p <password> -w <working directory> -m <matlab root> -n <matlab username> -o <octave root> -r <octave username>')
             print(' ')
             print('Mandatory arguments:')
             print('-u <user>')
@@ -76,14 +76,14 @@ def main(argv):
             print(' ')
             print('Optional arguments:')
             print('-m <matlab root>')
-            print('-mu <matlab username>')
+            print('-n <matlab username>')
             print('-o <octave root>')
-            print('-ou <octave username>')
+            print('-r <octave username>')
             print(' ')
             print('Default values:')
             print('Matlab startup file will not be updated unless matlab root is provided ')
             print('Octave startup file will not be updated unless matlab root is provided ')
-            print('-mu <matlab username>        =====>      GitHub username will be used')
+            print('-n <matlab username>        =====>      GitHub username will be used')
             print('-ou <octave username>        =====>      GitHub username will be used')
             print(' ')
             print(' ')
@@ -106,7 +106,7 @@ def main(argv):
                 matlabRoot = arg
             else:
                 matlabRoot = arg[:-1]
-        elif opt in ("-mu", "--muser", "--matlabuser"):
+        elif opt in ("-n", "--muser", "--matlabuser"):
             print('Matlab user: ' +  arg)
             muser = arg
         elif opt in ("-o", "--oroot", "--octave", "--octaveroot"):
@@ -115,7 +115,7 @@ def main(argv):
                 octaveRoot = arg
             else:
                 octaveRoot = arg[:-1]
-        elif opt in ("-ou", "--ouser", "--octaveuser"):
+        elif opt in ("-r", "--ouser", "--octaveuser"):
             print('Octave user: ' +  arg)
             ouser = arg
 
