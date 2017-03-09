@@ -94,6 +94,7 @@ def changeOrigin(mode,wd,user,pwd,repo):
     # mode 1: public to secure
     #      2: secure to public
     logfilename = datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'
+    '''
     if system()=='Linux':
         chdir(join(wd,repo))
         logSuccessMessage(wd,logfilename,'Checking current remote url...')
@@ -105,6 +106,7 @@ def changeOrigin(mode,wd,user,pwd,repo):
             logErrorMessage(wd,logfilename,'changeOrigin','synchronizeGit.py',stderr)
         chdir(wd)
     logSuccessMessage(wd,logfilename,'...done.')
+    '''
     if mode is 1:
         logSuccessMessage(wd,logfilename,'Changing remote url of repo ' + repo + ' from public to secure...')
         changeUrlFile = 'changeGitUrl'
@@ -169,6 +171,7 @@ def changeOrigin(mode,wd,user,pwd,repo):
         clearFile(wd,changeUrlFilePath)
     else:
         logSuccessMessage(wd,logfilename,'Tried to change Git origin but no mode provided. Leaving unchanged.')
+    '''
     if system()=='Linux':
         logSuccessMessage(wd,logfilename,'Checking current remote url...')
         chdir(join(wd,repo))
@@ -180,6 +183,7 @@ def changeOrigin(mode,wd,user,pwd,repo):
             logErrorMessage(wd,logfilename,'changeOrigin','synchronizeGit.py',stderr)
         chdir(wd)
         logSuccessMessage(wd,logfilename,'...done.')
+    '''
 
 def listAllUserPublicRepos(user,pwd,wd):
     repos = []
