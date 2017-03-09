@@ -33,7 +33,7 @@ Tested with Python 2.7 Anaconda 2.4.1 (64-bit) distribution in Windows 10.
 
 import sys
 import os
-from os import remove
+from os import remove, chdir
 from os.path import isfile, join
 from datetime import datetime
 from github import Github
@@ -116,8 +116,9 @@ def changeOrigin(mode,wd,user,pwd,repo):
             if system() is 'Windows':
                 subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             elif system() is 'Linux':
-                subprocess.call('cd ' + join(wd,repo),shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                chdir(join(wd,repo))
                 subprocess.call('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git',shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                chdir(wd)
             logSuccessMessage(wd,logfilename,'...done.')
         except Exception,e:
             logErrorMessage(wd,logfilename,'changeOrigin','synchronizeGit.py',e)
@@ -141,8 +142,9 @@ def changeOrigin(mode,wd,user,pwd,repo):
             if system() is 'Windows':
                 subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             elif system() is 'Linux':
-                subprocess.call('cd ' + join(wd,repo),shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                chdir(join(wd,repo))
                 subprocess.call('git remote set-url origin https://github.com/' + user + '/' + repo,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                chdir(wd)
             logSuccessMessage(wd,logfilename,'...done.')
         except Exception,e:
             logErrorMessage(wd,logfilename,'changeOrigin','synchronizeGit.py',e)
