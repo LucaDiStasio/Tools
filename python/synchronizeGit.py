@@ -94,6 +94,17 @@ def changeOrigin(mode,wd,user,pwd,repo):
     # mode 1: public to secure
     #      2: secure to public
     logfilename = datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'
+    if system() is 'Linux':
+        chdir(join(wd,repo))
+        logSuccessMessage(wd,logfilename,'Checking current remote url...')
+        p=subprocess.Popen('git remote show origin',shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+        stdout,stderr=p.communicate()
+        if len(stdout.replace(' ',''))>0:
+            logSuccessMessage(wd,logfilename,stdout)
+        if len(stderr.replace(' ',''))>0:
+            logErrorMessage(wd,logfilename,'changeOrigin','synchronizeGit.py',stderr)
+        chdir(wd)
+        logSuccessMessage(wd,logfilename,'...done.')
     if mode is 1:
         logSuccessMessage(wd,logfilename,'Changing remote url of repo ' + repo + ' from public to secure...')
         changeUrlFile = 'changeGitUrl'
@@ -114,7 +125,12 @@ def changeOrigin(mode,wd,user,pwd,repo):
                 subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             elif system() is 'Linux':
                 chdir(join(wd,repo))
-                subprocess.call('sudo git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git',shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                p=subprocess.Popen('sudo git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git',shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                stdout,stderr=p.communicate()
+                if len(stdout.replace(' ',''))>0:
+                    logSuccessMessage(wd,logfilename,stdout)
+                if len(stderr.replace(' ',''))>0:
+                    logErrorMessage(wd,logfilename,'changeOrigin','synchronizeGit.py',stderr)
                 chdir(wd)
             logSuccessMessage(wd,logfilename,'...done.')
         except Exception,e:
@@ -140,7 +156,12 @@ def changeOrigin(mode,wd,user,pwd,repo):
                 subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             elif system() is 'Linux':
                 chdir(join(wd,repo))
-                subprocess.call('sudo git remote set-url origin https://github.com/' + user + '/' + repo,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                p=subprocess.Popen('sudo git remote set-url origin https://github.com/' + user + '/' + repo,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                stdout,stderr=p.communicate()
+                if len(stdout.replace(' ',''))>0:
+                    logSuccessMessage(wd,logfilename,stdout)
+                if len(stderr.replace(' ',''))>0:
+                    logErrorMessage(wd,logfilename,'changeOrigin','synchronizeGit.py',stderr)
                 chdir(wd)
             logSuccessMessage(wd,logfilename,'...done.')
         except Exception,e:
@@ -148,6 +169,17 @@ def changeOrigin(mode,wd,user,pwd,repo):
         clearFile(wd,changeUrlFilePath)
     else:
         logSuccessMessage(wd,logfilename,'Tried to change Git origin but no mode provided. Leaving unchanged.')
+    if system() is 'Linux':
+        logSuccessMessage(wd,logfilename,'Checking current remote url...')
+        chdir(join(wd,repo))
+        p=subprocess.Popen('git remote show origin',shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+        stdout,stderr=p.communicate()
+        if len(stdout.replace(' ',''))>0:
+            logSuccessMessage(wd,logfilename,stdout)
+        if len(stderr.replace(' ',''))>0:
+            logErrorMessage(wd,logfilename,'changeOrigin','synchronizeGit.py',stderr)
+        chdir(wd)
+        logSuccessMessage(wd,logfilename,'...done.')
 
 def listAllUserPublicRepos(user,pwd,wd):
     repos = []
