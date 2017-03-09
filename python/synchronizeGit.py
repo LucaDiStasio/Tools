@@ -94,36 +94,36 @@ def changeOrigin(mode,wd,user,pwd,repo):
     # mode 1: public to secure
     #      2: secure to public
     logfilename = datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'
-    #if system() is 'Linux':
-    chdir(join(wd,repo))
-    logSuccessMessage(wd,logfilename,'Checking current remote url...')
-    p=subprocess.Popen('git remote show origin',shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-    stdout,stderr=p.communicate()
-    if len(stdout.replace(' ',''))>0:
-        logSuccessMessage(wd,logfilename,stdout)
-    if len(stderr.replace(' ',''))>0:
-        logErrorMessage(wd,logfilename,'changeOrigin','synchronizeGit.py',stderr)
-    chdir(wd)
+    if system()=='Linux':
+        chdir(join(wd,repo))
+        logSuccessMessage(wd,logfilename,'Checking current remote url...')
+        p=subprocess.Popen('git remote show origin',shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+        stdout,stderr=p.communicate()
+        if len(stdout.replace(' ',''))>0:
+            logSuccessMessage(wd,logfilename,stdout)
+        if len(stderr.replace(' ',''))>0:
+            logErrorMessage(wd,logfilename,'changeOrigin','synchronizeGit.py',stderr)
+        chdir(wd)
     logSuccessMessage(wd,logfilename,'...done.')
     if mode is 1:
         logSuccessMessage(wd,logfilename,'Changing remote url of repo ' + repo + ' from public to secure...')
         changeUrlFile = 'changeGitUrl'
-        if system() is 'Windows':
+        if system()=='Windows':
             changeUrlFile += '.cmd'
-        elif system() is 'Linux':
+        elif system()=='Linux':
             changeUrlFile += '.sh'
         changeUrlFilePath = join(wd,changeUrlFile)
         with open(changeUrlFilePath,'w') as cli:
-            if system() is 'Linux':
+            if system()=='Linux':
                 cli.write('#!/bin/bash\n')
                 cli.write('\n')
             cli.write('cd ' + join(wd,repo) + '\n')
             cli.write('\n')
             cli.write('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
         try:
-            if system() is 'Windows':
+            if system()=='Windows':
                 subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-            elif system() is 'Linux':
+            elif system()=='Linux':
                 chdir(join(wd,repo))
                 p=subprocess.Popen('sudo git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git',shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                 stdout,stderr=p.communicate()
@@ -139,22 +139,22 @@ def changeOrigin(mode,wd,user,pwd,repo):
     elif mode is 2:
         logSuccessMessage(wd,logfilename,'Changing remote url of repo ' + repo + ' from secure to public...')
         changeUrlFile = 'changeGitUrl'
-        if system() is 'Windows':
+        if system()=='Windows':
             changeUrlFile += '.cmd'
-        elif system() is 'Linux':
+        elif system()=='Linux':
             changeUrlFile += '.sh'
         changeUrlFilePath = join(wd,changeUrlFile)
         with open(changeUrlFilePath,'w') as cli:
-            if system() is 'Linux':
+            if system()=='Linux':
                 cli.write('#!/bin/bash\n')
                 cli.write('\n')
             cli.write('cd ' + join(wd,repo) + '\n')
             cli.write('\n')
             cli.write('git remote set-url origin https://github.com/' + user + '/' + repo + '\n')
         try:
-            if system() is 'Windows':
+            if system()=='Windows':
                 subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-            elif system() is 'Linux':
+            elif system()=='Linux':
                 chdir(join(wd,repo))
                 p=subprocess.Popen('sudo git remote set-url origin https://github.com/' + user + '/' + repo,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                 stdout,stderr=p.communicate()
@@ -169,7 +169,7 @@ def changeOrigin(mode,wd,user,pwd,repo):
         clearFile(wd,changeUrlFilePath)
     else:
         logSuccessMessage(wd,logfilename,'Tried to change Git origin but no mode provided. Leaving unchanged.')
-    if system() is 'Linux':
+    if system()=='Linux':
         logSuccessMessage(wd,logfilename,'Checking current remote url...')
         chdir(join(wd,repo))
         p=subprocess.Popen('git remote show origin',shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
@@ -268,13 +268,13 @@ def master2originUpdate(wd,user,pwd):
                 logSuccessMessage(wd,logfilename,'Trying to execute from command line...')
                 sys.exc_clear()
                 cloneRepoFile = 'cloneRepoFile'
-                if system() is 'Windows':
+                if system()=='Windows':
                     cloneRepoFile += '.cmd'
-                elif system() is 'Linux':
+                elif system()=='Linux':
                     cloneRepoFile += '.sh'
                 cloneRepoFilePath = join(wd,cloneRepoFile)
                 with open(cloneRepoFilePath,'w') as cli:
-                    if system() is 'Linux':
+                    if system()=='Linux':
                         logSuccessMessage(wd,logfilename,'Writing Linux bash file')
                         cli.write('#!/bin/bash\n')
                         cli.write('\n')
@@ -284,10 +284,10 @@ def master2originUpdate(wd,user,pwd):
                     cli.write('\n')
                     cli.write('git clone https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
                 try:
-                    if system() is 'Windows':
+                    if system()=='Windows':
                         logSuccessMessage(wd,logfilename,'Executing Windows command file')
                         subprocess.call('cmd.exe /C ' + cloneRepoFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                    elif system() is 'Linux':
+                    elif system()=='Linux':
                         logSuccessMessage(wd,logfilename,'Executing Linux bash file')
                         subprocess.call('chmod a+x ' + cloneRepoFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                         subprocess.call('./' + cloneRepoFile,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
@@ -317,9 +317,9 @@ def listBranches(wd,repo):
 
 def origin2masterUpdate(wd,user,pwd):
     logfilename = datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'
-    if system() is 'Windows':
+    if system()=='Windows':
         Git.USE_SHELL = True
-    elif system() is 'Linux':
+    elif system()=='Linux':
         Git.USE_SHELL = False
     localrepos = listReposInWD(wd)
     for repo in localrepos:
