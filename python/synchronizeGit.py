@@ -96,6 +96,7 @@ def changeOrigin(mode,wd,user,pwd,repo):
     logfilename = datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log'
     if system() is 'Linux':
         chdir(join(wd,repo))
+        logSuccessMessage(wd,logfilename,'Checking current remote url...')
         p=subprocess.Popen('git remote show origin',shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
         stdout,stderr=p.communicate()
         if len(stdout.replace(' ',''))>0:
@@ -103,6 +104,7 @@ def changeOrigin(mode,wd,user,pwd,repo):
         if len(stderr.replace(' ',''))>0:
             logErrorMessage(wd,logfilename,'changeOrigin','synchronizeGit.py',stderr)
         chdir(wd)
+        logSuccessMessage(wd,logfilename,'...done.')
     if mode is 1:
         logSuccessMessage(wd,logfilename,'Changing remote url of repo ' + repo + ' from public to secure...')
         changeUrlFile = 'changeGitUrl'
@@ -168,6 +170,7 @@ def changeOrigin(mode,wd,user,pwd,repo):
     else:
         logSuccessMessage(wd,logfilename,'Tried to change Git origin but no mode provided. Leaving unchanged.')
     if system() is 'Linux':
+        logSuccessMessage(wd,logfilename,'Checking current remote url...')
         chdir(join(wd,repo))
         p=subprocess.Popen('git remote show origin',shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
         stdout,stderr=p.communicate()
@@ -176,6 +179,7 @@ def changeOrigin(mode,wd,user,pwd,repo):
         if len(stderr.replace(' ',''))>0:
             logErrorMessage(wd,logfilename,'changeOrigin','synchronizeGit.py',stderr)
         chdir(wd)
+        logSuccessMessage(wd,logfilename,'...done.')
 
 def listAllUserPublicRepos(user,pwd,wd):
     repos = []
