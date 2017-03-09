@@ -116,8 +116,8 @@ def changeOrigin(mode,wd,user,pwd,repo):
             if system() is 'Windows':
                 subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             elif system() is 'Linux':
-                subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                subprocess.call(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                subprocess.call('cd ' + join(wd,repo),shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                subprocess.call('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git',shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             logSuccessMessage(wd,logfilename,'...done.')
         except Exception,e:
             logErrorMessage(wd,logfilename,'changeOrigin','synchronizeGit.py',e)
@@ -141,8 +141,8 @@ def changeOrigin(mode,wd,user,pwd,repo):
             if system() is 'Windows':
                 subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             elif system() is 'Linux':
-                subprocess.call('chmod a+x ' + changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-                subprocess.call(changeUrlFilePath,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                subprocess.call('cd ' + join(wd,repo),shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                subprocess.call('git remote set-url origin https://github.com/' + user + '/' + repo,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             logSuccessMessage(wd,logfilename,'...done.')
         except Exception,e:
             logErrorMessage(wd,logfilename,'changeOrigin','synchronizeGit.py',e)
