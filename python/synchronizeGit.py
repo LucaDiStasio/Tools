@@ -114,7 +114,12 @@ def changeOrigin(mode,wd,user,pwd,repo):
                 subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             elif system() is 'Linux':
                 chdir(join(wd,repo))
-                subprocess.call('sudo git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git',shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                p=subprocess.Popen('sudo git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git',shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                stdout,stderr=p.communicate()
+                if len(stdout.replace(' ',''))>0:
+                    logSuccessMessage(wd,logfilename,stdout)
+                if len(stderr.replace(' ',''))>0:
+                    logErrorMessage(wd,logfilename,'changeOrigin','synchronizeGit.py',stderr)
                 chdir(wd)
             logSuccessMessage(wd,logfilename,'...done.')
         except Exception,e:
@@ -140,7 +145,12 @@ def changeOrigin(mode,wd,user,pwd,repo):
                 subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             elif system() is 'Linux':
                 chdir(join(wd,repo))
-                subprocess.call('sudo git remote set-url origin https://github.com/' + user + '/' + repo,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                p=subprocess.Popen('sudo git remote set-url origin https://github.com/' + user + '/' + repo,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                stdout,stderr=p.communicate()
+                if len(stdout.replace(' ',''))>0:
+                    logSuccessMessage(wd,logfilename,stdout)
+                if len(stderr.replace(' ',''))>0:
+                    logErrorMessage(wd,logfilename,'changeOrigin','synchronizeGit.py',stderr)
                 chdir(wd)
             logSuccessMessage(wd,logfilename,'...done.')
         except Exception,e:
