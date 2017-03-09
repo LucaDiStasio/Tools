@@ -45,14 +45,11 @@ import subprocess
 def logSuccessMessage(wd,logfile,message):
     if isfile(join(wd,logfile)):
         with open(join(wd,logfile),'a') as log:
-            log.write('\n')
             log.write(message + '\n')
-            log.write('\n')
     else:
         with open(join(wd,logfile),'w') as log:
             log.write('\n')
             log.write(message + '\n')
-            log.write('\n')
             
 def logErrorMessage(wd,logfile,function,library,error):
     if isfile(join(wd,logfile)):
@@ -117,7 +114,7 @@ def changeOrigin(mode,wd,user,pwd,repo):
                 subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             elif system() is 'Linux':
                 chdir(join(wd,repo))
-                subprocess.call('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git',shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                subprocess.call('sudo git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git',shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                 chdir(wd)
             logSuccessMessage(wd,logfilename,'...done.')
         except Exception,e:
@@ -143,7 +140,7 @@ def changeOrigin(mode,wd,user,pwd,repo):
                 subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             elif system() is 'Linux':
                 chdir(join(wd,repo))
-                subprocess.call('git remote set-url origin https://github.com/' + user + '/' + repo,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                subprocess.call('sudo git remote set-url origin https://github.com/' + user + '/' + repo,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                 chdir(wd)
             logSuccessMessage(wd,logfilename,'...done.')
         except Exception,e:
@@ -167,7 +164,7 @@ def listDirsInWD(wd):
     dirs = []
     try:
         elements = os.listdir(wd)
-    except Exception:
+    except Exception,e:
         elements = []
         logErrorMessage(wd,datetime.now().strftime('%Y-%m-%d_%H-00-00')+'_initWD.log','listDirsInWD','synchronizeGit.py',e)
         sys.exc_clear()
