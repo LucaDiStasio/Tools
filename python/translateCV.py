@@ -50,10 +50,10 @@ from xml.etree import ElementTree
 #mainFolder = 'D:\\OneDrive\\01_Luca\\02_Professional_documents\\01_Curriculum_Vitae'
 #mainFolder = 'C:\\01_Backup-folder\\OneDrive\\01_Luca\\02_Professional_documents\\01_Curriculum_Vitae'
 
-def GetToken(): #Get the access token from ADM, token is good for 10 minutes
+def GetToken(id,secret): #Get the access token from ADM, token is good for 10 minutes
     urlArgs = {
-        'client_id': 'ENTER YOU CLIENT ID',
-        'client_secret': 'ENTER YOUR CLIENT SECRET',
+        'client_id': id,
+        'client_secret': secret,
         'scope': 'http://api.microsofttranslator.com',
         'grant_type': 'client_credentials'
     }
@@ -85,9 +85,9 @@ def main(argv):
 
     # Read the command line, throw error if not option is provided
     try:
-        opts, args = getopt.getopt(argv,'hw:t:s:o:',['help','Help',"inputfile", "workdir", "workdirectory", "wdir","source","target","overwrite"])
+        opts, args = getopt.getopt(argv,'hi:p:w:t:s:o:',['help','Help',"id","secret","inputfile", "workdir", "workdirectory", "wdir","source","target","overwrite"])
     except getopt.GetoptError:
-        print('translateCV.py -w <working directory> -t <target language> -s <source language> -o <overwrite>')
+        print('translateCV.py -i <azure account id> -p <azure api secret> -w <working directory> -t <target language> -s <source language> -o <overwrite>')
         sys.exit(2)
     # Parse the options and create corresponding variables
     for opt, arg in opts:
@@ -108,9 +108,11 @@ def main(argv):
             print('*****************************************************************************************************')
             print(' ')
             print('Program syntax:')
-            print('translateCV.py -w <working directory> -t <target language> -s <source language> -o <overwrite>')
+            print('translateCV.py -i <azure account id> -p <azure api secret> -w <working directory> -t <target language> -s <source language> -o <overwrite>')
             print(' ')
             print('Mandatory arguments:')
+            print('-i <azure account id>')
+            print('-p <azure api secret>')
             print('-w <working directory>')
             print('-t <target language>')
             print(' ')
@@ -123,6 +125,10 @@ def main(argv):
             print(' ')
             print(' ')
             sys.exit()
+        elif opt in ("-i", "--id"):
+            azureId = arg
+        elif opt in ("-p", "--secret"):
+            pwd = arg
         elif opt in ("-w", "--workdir", "--workdirectory", "--wdir"):
             if arg[-1] != '/':
                 workdir = arg
@@ -136,6 +142,12 @@ def main(argv):
             overWrite = True
 
     # Check the existence of variables: if a required variable is missing, an error is thrown and program is terminated; if an optional variable is missing, it is set to the default value
+    if 'azureId' not in locals():
+        print('Error: Microsoft Azure account ID not provided.')
+        sys.exit()
+    if 'pwd' not in locals():
+        print('Error: Microsoft Azure key not provided.')
+        sys.exit()
     if 'workdir' not in locals():
         print('Error: working directory not provided.')
         sys.exit()
