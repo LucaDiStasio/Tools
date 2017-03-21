@@ -50,16 +50,14 @@ from xml.etree import ElementTree
 #mainFolder = 'D:\\OneDrive\\01_Luca\\02_Professional_documents\\01_Curriculum_Vitae'
 #mainFolder = 'C:\\01_Backup-folder\\OneDrive\\01_Luca\\02_Professional_documents\\01_Curriculum_Vitae'
 
-def GetToken(id,secret): #Get the access token from ADM, token is good for 10 minutes
+def GetToken(key): #Get the access token from ADM, token is good for 10 minutes
     urlArgs = {
         'client_id': id,
         'client_secret': secret,
         'scope': 'http://api.microsofttranslator.com',
         'grant_type': 'client_credentials'
     }
-
     oauthUrl = 'https://datamarket.accesscontrol.windows.net/v2/OAuth2-13'
-
     try:
         oauthToken = json.loads(requests.post(oauthUrl, data = urllib.urlencode(urlArgs)).content) #make call to get ADM token and parse json
         finalToken = "Bearer " + oauthToken['access_token'] #prepare the token
@@ -85,9 +83,9 @@ def main(argv):
 
     # Read the command line, throw error if not option is provided
     try:
-        opts, args = getopt.getopt(argv,'hi:p:w:t:s:o:',['help','Help',"id","secret","inputfile", "workdir", "workdirectory", "wdir","source","target","overwrite"])
+        opts, args = getopt.getopt(argv,'hk:w:t:s:o:',['help','Help',"key","inputfile", "workdir", "workdirectory", "wdir","source","target","overwrite"])
     except getopt.GetoptError:
-        print('translateCV.py -i <azure account id> -p <azure api secret> -w <working directory> -t <target language> -s <source language> -o <overwrite>')
+        print('translateCV.py -k <azure api key> -w <working directory> -t <target language> -s <source language> -o <overwrite>')
         sys.exit(2)
     # Parse the options and create corresponding variables
     for opt, arg in opts:
@@ -108,11 +106,10 @@ def main(argv):
             print('*****************************************************************************************************')
             print(' ')
             print('Program syntax:')
-            print('translateCV.py -i <azure account id> -p <azure api secret> -w <working directory> -t <target language> -s <source language> -o <overwrite>')
+            print('translateCV.py -k <azure api key> -w <working directory> -t <target language> -s <source language> -o <overwrite>')
             print(' ')
             print('Mandatory arguments:')
-            print('-i <azure account id>')
-            print('-p <azure api secret>')
+            print('-k <azure api key>')
             print('-w <working directory>')
             print('-t <target language>')
             print(' ')
@@ -127,7 +124,7 @@ def main(argv):
             sys.exit()
         elif opt in ("-i", "--id"):
             azureId = arg
-        elif opt in ("-p", "--secret"):
+        elif opt in ("-k", "--key"):
             pwd = arg
         elif opt in ("-w", "--workdir", "--workdirectory", "--wdir"):
             if arg[-1] != '/':
