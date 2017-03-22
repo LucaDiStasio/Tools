@@ -350,7 +350,7 @@ def origin2masterUpdate(wd,user,pwd):
             isRepoDirty = False
             logErrorMessage(wd,logfilename,'origin2masterUpdate','synchronizeGit.py',e)
             sys.exc_clear()
-        if isRepoDirty or 'untracked files present' in repoStatus:
+        if isRepoDirty or 'untracked files present' in repoStatus or 'Your branch is ahead of' in repoStatus:
             logSuccessMessage(wd,logfilename,repo + ' needs a push')
             changeOrigin(1,wd,user,pwd,repo)
             logSuccessMessage(wd,logfilename,'adding files ...')
