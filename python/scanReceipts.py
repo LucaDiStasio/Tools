@@ -35,3 +35,10 @@ from os import listdir
 from os.path import isfile, join
 import numpy
 import cv2
+
+wd = 'C:/01_Backup-folder/GoogleDrive/receipts'
+
+fileFormat = 'jpg'
+
+for file in listdir(wd)
+print listdir(wd)
