@@ -35,10 +35,22 @@ from os import listdir
 from os.path import isfile, join
 import numpy
 import cv2
+try:
+    import Image
+except ImportError:
+    from PIL import Image
+from pytesseract import image_to_string
 
-wd = 'C:/01_Backup-folder/GoogleDrive/receipts'
+
+wd = 'C:\\01_Backup-folder\\GoogleDrive\\receipts'
 
 fileFormat = 'jpg'
 
-for file in listdir(wd)
-print listdir(wd)
+files = []
+for file in listdir(wd):
+    if file.split('.')[1]==fileFormat:
+        files.append(file)
+
+for file in files:
+    print join(wd,file)
+    print image_to_string(Image.open(join(wd,file)))
