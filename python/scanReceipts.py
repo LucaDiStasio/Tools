@@ -58,6 +58,6 @@ for file in files[:1]:
     #cv2.imshow("Receipt", image)
     #cv2.waitKey(0)
     print(join(wd,file))
-    print(pytesseract.image_to_string(Image.open(join(wd,file))))
+    print(pytesseract.image_to_string(Image.open(join(wd,file)),lang='fra',config="-psm 6"))
 
 cv2.destroyAllWindows()

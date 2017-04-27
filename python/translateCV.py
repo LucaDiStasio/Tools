@@ -51,33 +51,30 @@ from xml.etree import ElementTree
 #mainFolder = 'C:\\01_Backup-folder\\OneDrive\\01_Luca\\02_Professional_documents\\01_Curriculum_Vitae'
 
 def GetToken(key): #Get the access token from ADM, token is good for 10 minutes
-    urlArgs = {
-        'client_id': id,
-        'client_secret': secret,
-        'scope': 'http://api.microsofttranslator.com',
-        'grant_type': 'client_credentials'
-    }
-    oauthUrl = 'https://datamarket.accesscontrol.windows.net/v2/OAuth2-13'
-    try:
-        oauthToken = json.loads(requests.post(oauthUrl, data = urllib.urlencode(urlArgs)).content) #make call to get ADM token and parse json
-        finalToken = "Bearer " + oauthToken['access_token'] #prepare the token
-    except OSError:
-        pass
-
-    return finalToken
-
+    authUrl = 'https://api.cognitive.microsoft.com/sts/v1.0/issueToken'
+    authHeaders = {'Ocp-Apim-Subscription-Key': key}
+    authResponse = requests.post(authUrl, headers=authHeaders)
+    authToken = authResponse.text
+    return authToken
+    
 def translate(token,text,source,target):
     #Call to Microsoft Translator Service
     headers = {"Authorization ": token}
-    translateUrl = "http://api.microsofttranslator.com/v2/Http.svc/Translate?text={}&to={}".format(textToTranslate, toLangCode)
-   
+    translateUrl = 'https://api.microsofttranslator.com/v2/http.svc/Translate'
+    translateParams = {'appid': 'Bearer ' + token, 'text': text, 'from': source, 'to': target}
+    translateHeaders = {'Accept': 'application/xml'}
     try:
-        translationData = requests.get(translateUrl, headers = headers) #make request
-        translation = ElementTree.fromstring(translationData.text.encode('utf-8')) # parse xml return values
-        print "The translation is---> ", translation.text #display translation
-
-    except OSError:
-        pass
+        translateResponse = requests.get(translateUrl, params=translateParams, headers=translateHeaders)
+        translation = translateResponse.text
+    except error,e:
+        token = GetToken(key)
+        translateParams = {'appid': 'Bearer ' + token, 'text': text, 'from': source, 'to': target}
+        try:
+            translateResponse = requests.get(translateUrl, params=translateParams, headers=translateHeaders)
+            translation = translateResponse.text
+        except Exception,e:
+            translation = source
+    return token, translation
     
 def main(argv):
 
@@ -223,12 +220,13 @@ def main(argv):
         toTranslate.append(lines[i])
         
     for line in toTranslate:
+        azureToken = GetToken(pwd)
         newline = line
         for word in stopwords:
             line = line.replace('\\'+word,' ')
         line = line.replace('{',' ').replace('}',' ')
         if line.replace(' ','')[0] is not '%':
-            print(newline.replace(line,translator('en', 'es', line)[0][0][0]))
+            print(newline.replace(line,translate(azureToken,line,source,target)))
     
 
 
