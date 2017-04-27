@@ -39,10 +39,12 @@ try:
     import Image
 except ImportError:
     from PIL import Image
-from pytesseract import image_to_string
+import pytesseract
 
+cv2.destroyAllWindows()
 
-wd = 'C:\\01_Backup-folder\\GoogleDrive\\receipts'
+#wd = 'C:\\01_Backup-folder\\GoogleDrive\\receipts'
+wd = 'D:\\GoogleDrive\\receipts'
 
 fileFormat = 'jpg'
 
@@ -51,6 +53,11 @@ for file in listdir(wd):
     if file.split('.')[1]==fileFormat:
         files.append(file)
 
-for file in files:
-    print join(wd,file)
-    print image_to_string(Image.open(join(wd,file)))
+for file in files[:1]:
+    #image = cv2.imread(join(wd,file),0)
+    #cv2.imshow("Receipt", image)
+    #cv2.waitKey(0)
+    print(join(wd,file))
+    print(pytesseract.image_to_string(Image.open(join(wd,file))))
+
+cv2.destroyAllWindows()
