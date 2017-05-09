@@ -58,7 +58,7 @@ def GetToken(key): #Get the access token from ADM, token is good for 10 minutes
     authToken = authResponse.text
     return authToken
     
-def translate(token,text,source,target):
+def translate(token,key,text,source,target):
     #Call to Microsoft Translator Service
     headers = {"Authorization ": token}
     translateUrl = 'https://api.microsofttranslator.com/v2/http.svc/Translate'
@@ -67,14 +67,14 @@ def translate(token,text,source,target):
     try:
         translateResponse = requests.get(translateUrl, params=translateParams, headers=translateHeaders)
         translation = translateResponse.text
-    except error,e:
+    except Exception,e:
         token = GetToken(key)
         translateParams = {'appid': 'Bearer ' + token, 'text': text, 'from': source, 'to': target}
         try:
             translateResponse = requests.get(translateUrl, params=translateParams, headers=translateHeaders)
             translation = translateResponse.text
         except Exception,e:
-            translation = source
+            translation = text
     return token, translation
     
 def main(argv):
@@ -215,14 +215,15 @@ def main(argv):
     for i in range(docStart+1,endDoc):
         toTranslate.append(lines[i])
         
-    for line in toTranslate:
+    for line in toTranslate[:10]:
         azureToken = GetToken(pwd)
         newline = line
         for word in stopwords:
             line = line.replace('\\'+word,' ')
         line = line.replace('{',' ').replace('}',' ')
         if line.replace(' ','')[0] is not '%':
-            print(newline.replace(line,translate(azureToken,line,source,target)))
+            print(translate(azureToken,pwd,line,source,target))
+            #print(newline.replace(line,translate(azureToken,line,source,target)))
     
 
 
