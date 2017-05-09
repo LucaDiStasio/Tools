@@ -33,6 +33,7 @@ Tested with Python 3.5 Anaconda 3 (64-bit) distribution
 
 from os import listdir
 from os.path import isfile, join
+import getopt
 import websocket
 import thread
 import json
@@ -119,8 +120,6 @@ def main(argv):
             print(' ')
             print(' ')
             sys.exit()
-        elif opt in ("-i", "--id"):
-            azureId = arg
         elif opt in ("-k", "--key"):
             pwd = arg
         elif opt in ("-w", "--workdir", "--workdirectory", "--wdir"):
@@ -136,9 +135,6 @@ def main(argv):
             overWrite = True
 
     # Check the existence of variables: if a required variable is missing, an error is thrown and program is terminated; if an optional variable is missing, it is set to the default value
-    if 'azureId' not in locals():
-        print('Error: Microsoft Azure account ID not provided.')
-        sys.exit()
     if 'pwd' not in locals():
         print('Error: Microsoft Azure key not provided.')
         sys.exit()
@@ -185,21 +181,21 @@ def main(argv):
                 'vspace'
                 ]
     
-    for folder in listdir(mainFolder):
+    for folder in listdir(workdir):
         if folder is not 'Archive':
             if source in folder:
-                sourceFolder = join(mainFolder,folder,listdir(join(mainFolder,folder))[0])
+                sourceFolder = join(workdir,folder,listdir(join(workdir,folder))[0])
                 for file in listdir(sourceFolder):
                     if type + '_' + dictionary[source] + '.tex'==file:
                         sourceFile = join(sourceFolder,file)
             if target in folder:
                 if overWrite:
-                    targetFolder = join(mainFolder,folder,listdir(join(mainFolder,folder))[0])
+                    targetFolder = join(workdir,folder,listdir(join(workdir,folder))[0])
                     for file in listdir(targetFolder):
                         if type + '_' + dictionary[target] + '.tex'==file:
                             targetFile = join(targetFolder,file)
                 else:
-                    targetFolder = join(mainFolder,folder)
+                    targetFolder = join(workdir,folder)
                     targetFile = join(targetFolder,type + '_' + dictionary[target] + '.tex')
     
     with open(sourceFile,'r') as file:
