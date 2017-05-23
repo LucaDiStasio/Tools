@@ -236,9 +236,15 @@ def main(argv):
     
     print('')
     with open(targetFile,'w') as target:
+        for i in range(1,docStart+1):
+            target.write(lines[i])
+            print(lines[i])
         for line in toWrite:
             target.write(line)
             print(line)
+        for i in range(endDoc,len(lines)):
+            target.write(lines[i])
+            print(lines[i])
     
     
 
