@@ -221,9 +221,15 @@ def main(argv):
         for word in stopwords:
             line = line.replace('\\'+word,' ')
         line = line.replace('{',' ').replace('}',' ')
-        if line.replace(' ','')[0] is not '%':
-            print(translate(azureToken,pwd,line,source,target))
-            #print(newline.replace(line,translate(azureToken,line,source,target)))
+        if line.replace(' ','')[0] is not '%' and len(line.replace('\n','').replace(' ','')):
+            print('Translating:')
+            print(line)
+            print('Result:')
+            azureToken,result = translate(azureToken,pwd,line,source,target)
+            start = result.find('<string xmlns="http://schemas.microsoft.com/2003/10/Serialization/">')+len('<string xmlns="http://schemas.microsoft.com/2003/10/Serialization/">')
+            end = result.find('</string>')
+            translation = result[start+1:end]
+            print(newline.replace(line,translation))
     
 
 
