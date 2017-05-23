@@ -33,6 +33,8 @@ Tested with Python 3.5 Anaconda 3 (64-bit) distribution
 
 from os import listdir
 from os.path import isfile, join
+from datetime import datetime
+from time import strftime
 import getopt
 import websocket
 import thread
@@ -45,8 +47,9 @@ from time import sleep
 import StringIO
 import struct
 import sys
-import codecs
-from xml.etree import ElementTree
+reload(sys)
+sys.setdefaultencoding('utf-8')
+#import codecs
 
 #mainFolder = 'D:\\OneDrive\\01_Luca\\02_Professional_documents\\01_Curriculum_Vitae'
 #mainFolder = 'C:\\01_Backup-folder\\OneDrive\\01_Luca\\02_Professional_documents\\01_Curriculum_Vitae'
@@ -196,7 +199,7 @@ def main(argv):
                             targetFile = join(targetFolder,file)
                 else:
                     targetFolder = join(workdir,folder)
-                    targetFile = join(targetFolder,type + '_' + dictionary[target] + '.tex')
+                    targetFile = join(targetFolder,datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + '_' + type + '_' + dictionary[target] + '.tex')
     
     with open(sourceFile,'r') as file:
         lines = file.readlines()
@@ -214,22 +217,29 @@ def main(argv):
     
     for i in range(docStart+1,endDoc):
         toTranslate.append(lines[i])
-        
-    for line in toTranslate[:10]:
+    
+    toWrite = []
+    for line in toTranslate:
         azureToken = GetToken(pwd)
         newline = line
         for word in stopwords:
-            line = line.replace('\\'+word,' ')
-        line = line.replace('{',' ').replace('}',' ')
-        if line.replace(' ','')[0] is not '%' and len(line.replace('\n','').replace(' ','')):
-            print('Translating:')
+            line = line.replace('\\'+word,'')
+        line = line.replace('{','').replace('}','').replace('\n','')
+        if len(line.replace('\n','').replace(' ',''))>0:
+            if line.replace(' ','')[0] is not '%':
+                azureToken,result = translate(azureToken,pwd,line,source,target)
+                start = result.find('<string xmlns="http://schemas.microsoft.com/2003/10/Serialization/">')+len('<string xmlns="http://schemas.microsoft.com/2003/10/Serialization/">')
+                end = result.find('</string>')
+                translation = result[start:end]
+                newline = newline.replace(line,translation)
+        toWrite.append(newline)
+    
+    print('')
+    with open(targetFile,'w') as target:
+        for line in toWrite:
+            target.write(line)
             print(line)
-            print('Result:')
-            azureToken,result = translate(azureToken,pwd,line,source,target)
-            start = result.find('<string xmlns="http://schemas.microsoft.com/2003/10/Serialization/">')+len('<string xmlns="http://schemas.microsoft.com/2003/10/Serialization/">')
-            end = result.find('</string>')
-            translation = result[start+1:end]
-            print(newline.replace(line,translation))
+    
     
 
 
