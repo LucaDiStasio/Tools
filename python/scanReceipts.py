@@ -115,6 +115,7 @@ for file in listdir(wd):
     if file.split('.')[1]==fileFormat:
         files.append(file)
 
+'''
 image = cv2.imread(join(wd,file),0)    
 pts = np.array([(73, 239), (356, 117), (475, 265), (187, 443)], dtype = "float32")
 
@@ -130,6 +131,6 @@ for file in files[:1]:
     #cv2.waitKey(0)
     print(join(wd,file))
     print(pytesseract.image_to_string(Image.open(join(wd,file)),lang='fra',config="-psm 6"))
-'''
 
 cv2.destroyAllWindows()
+'''
