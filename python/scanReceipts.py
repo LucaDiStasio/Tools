@@ -33,7 +33,14 @@ Tested with Python 2.7 Anaconda 2.4.1 (64-bit) distribution
 
 from os import listdir
 from os.path import isfile, join
-import argparse
+from datetime import datetime
+from time import strftime
+import getopt
+import websocket
+import thread
+import json
+import requests
+import urllib
 import numpy as np
 import cv2
 try:
@@ -42,6 +49,7 @@ except ImportError:
     from PIL import Image
 import pytesseract
 
+'''
 def order_points(pts):
     # initialzie a list of coordinates that will be ordered
     # such that the first entry in the list is the top-left,
@@ -115,7 +123,7 @@ for file in listdir(wd):
     if file.split('.')[1]==fileFormat:
         files.append(file)
 
-'''
+
 image = cv2.imread(join(wd,file),0)    
 pts = np.array([(73, 239), (356, 117), (475, 265), (187, 443)], dtype = "float32")
 
@@ -124,7 +132,7 @@ warped = four_point_transform(image, pts)
 cv2.imshow("Receipt", image)
 cv2.imshow("Warped", warped)
 cv2.waitKey(0)
-'''
+
 for file in files[:1]:
     #image = cv2.imread(join(wd,file),0)
     #cv2.imshow("Receipt", image)
@@ -134,3 +142,10 @@ for file in files[:1]:
 
 cv2.destroyAllWindows()
 '''
+
+def GetToken(key): #Get the access token from ADM, token is good for 10 minutes
+    authUrl = 'https://api.cognitive.microsoft.com/sts/v1.0/issueToken'
+    authHeaders = {'Ocp-Apim-Subscription-Key': key}
+    authResponse = requests.post(authUrl, headers=authHeaders)
+    authToken = authResponse.text
+    return authToken

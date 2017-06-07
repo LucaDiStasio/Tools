@@ -41,8 +41,8 @@ import thread
 import json
 import requests
 import urllib
-import wave
-import audioop
+#import wave
+#import audioop
 from time import sleep
 import StringIO
 import struct
