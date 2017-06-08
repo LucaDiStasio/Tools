@@ -3,7 +3,7 @@
 '''
 =====================================================================================
 
-Copyright (c) 2016 Université de Lorraine & Luleå tekniska universitet
+Copyright (c) 2016 Luca Di Stasio
 Author: Luca Di Stasio <luca.distasio@gmail.com>
                        <luca.distasio@ingpec.eu>
 
