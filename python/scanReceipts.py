@@ -40,7 +40,7 @@ import websocket
 import thread
 import json
 import requests
-import urllib
+import httplib, urllib, base64
 import numpy as np
 import cv2
 try:
@@ -143,9 +143,47 @@ for file in files[:1]:
 cv2.destroyAllWindows()
 '''
 
-def GetToken(key): #Get the access token from ADM, token is good for 10 minutes
-    authUrl = 'https://api.cognitive.microsoft.com/sts/v1.0/issueToken'
-    authHeaders = {'Ocp-Apim-Subscription-Key': key}
-    authResponse = requests.post(authUrl, headers=authHeaders)
-    authToken = authResponse.text
-    return authToken
+wd = 'C:\\01_Backup-folder\\GoogleDrive\\receipts'
+#wd = 'D:\\GoogleDrive\\receipts'
+
+fileFormat = 'jpg'
+
+files = []
+for file in listdir(wd):
+    if file.split('.')[1]==fileFormat:
+        files.append(file)
+
+
+
+
+headers = {
+    # Request headers.
+    'Content-Type': 'application/json',
+
+    # NOTE: Replace the "Ocp-Apim-Subscription-Key" value with a valid subscription key.
+    'Ocp-Apim-Subscription-Key': '06c7fd5beec448418bcc9a0d537f2173',
+}
+
+params = urllib.urlencode({
+    # Request parameters. The language setting "unk" means automatically detect the language.
+    'language': 'unk',
+    'detectOrientation ': 'true',
+})
+
+print(files[0])
+
+# Replace the three dots below with the URL of a JPEG image containing text.
+body = "{'url':'file://" + str(join(wd,files[0])) + "'}"
+
+try:
+    # NOTE: You must use the same location in your REST call as you used to obtain your subscription keys.
+    #   For example, if you obtained your subscription keys from westus, replace "westcentralus" in the 
+    #   URL below with "westus".
+    conn = httplib.HTTPSConnection('westus.api.cognitive.microsoft.com')
+    conn.request("POST", "/vision/v1.0/ocr?%s" % params, body, headers)
+    response = conn.getresponse()
+    data = response.read()
+    print(data)
+    conn.close()
+except Exception as e:
+    print("[Errno {0}] {1}".format(e.errno, e.strerror))
