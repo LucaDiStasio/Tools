@@ -142,7 +142,53 @@ for file in files[:1]:
 
 cv2.destroyAllWindows()
 '''
+def processRequest( json, data, headers, params ):
 
+    """
+    Helper function to process the request to Project Oxford
+
+    Parameters:
+    json: Used when processing images from its URL. See API Documentation
+    data: Used when processing image read from disk. See API Documentation
+    headers: Used to pass the key information and the data type request
+    """
+
+    retries = 0
+    result = None
+
+    while True:
+
+        response = requests.request( 'post', _url, json = json, data = data, headers = headers, params = params )
+
+        if response.status_code == 429: 
+
+            print( "Message: %s" % ( response.json()['error']['message'] ) )
+
+            if retries <= _maxNumRetries: 
+                time.sleep(1) 
+                retries += 1
+                continue
+            else: 
+                print( 'Error: failed after retrying!' )
+                break
+
+        elif response.status_code == 200 or response.status_code == 201:
+
+            if 'content-length' in response.headers and int(response.headers['content-length']) == 0: 
+                result = None 
+            elif 'content-type' in response.headers and isinstance(response.headers['content-type'], str): 
+                if 'application/json' in response.headers['content-type'].lower(): 
+                    result = response.json() if response.content else None 
+                elif 'image' in response.headers['content-type'].lower(): 
+                    result = response.content
+        else:
+            print( "Error code: %d" % ( response.status_code ) )
+            print( "Message: %s" % ( response.json()['error']['message'] ) )
+
+        break
+        
+    return result
+    
 wd = 'C:\\01_Backup-folder\\GoogleDrive\\receipts'
 #wd = 'D:\\GoogleDrive\\receipts'
 
@@ -153,12 +199,12 @@ for file in listdir(wd):
     if file.split('.')[1]==fileFormat:
         files.append(file)
 
-
-
+with open(join(wd,files[0]),'rb') as f:
+    data = f.read()
 
 headers = {
     # Request headers.
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/octet-stream',
 
     # NOTE: Replace the "Ocp-Apim-Subscription-Key" value with a valid subscription key.
     'Ocp-Apim-Subscription-Key': '06c7fd5beec448418bcc9a0d537f2173',
@@ -170,10 +216,9 @@ params = urllib.urlencode({
     'detectOrientation ': 'true',
 })
 
-print(files[0])
 
 # Replace the three dots below with the URL of a JPEG image containing text.
-body = "{'url':'file://" + str(join(wd,files[0])) + "'}"
+#body = "{'url':'file://" + str() + "'}"
 
 try:
     # NOTE: You must use the same location in your REST call as you used to obtain your subscription keys.
