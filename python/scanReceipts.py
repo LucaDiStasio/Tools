@@ -158,7 +158,7 @@ def processRequest( json, data, headers, params ):
 
     while True:
 
-        response = requests.request( 'post', _url, json = json, data = data, headers = headers, params = params )
+        response = requests.request( 'post', 'https://westus.api.cognitive.microsoft.com/vision/v1/analyses', json = json, data = data, headers = headers, params = params )
 
         if response.status_code == 429: 
 
@@ -183,7 +183,7 @@ def processRequest( json, data, headers, params ):
                     result = response.content
         else:
             print( "Error code: %d" % ( response.status_code ) )
-            print( "Message: %s" % ( response.json()['error']['message'] ) )
+            print( "Message: %s" % ( response.json()) )
 
         break
         
@@ -199,36 +199,22 @@ for file in listdir(wd):
     if file.split('.')[1]==fileFormat:
         files.append(file)
 
+print(files[0])
+
 with open(join(wd,files[0]),'rb') as f:
     data = f.read()
 
-headers = {
-    # Request headers.
-    'Content-Type': 'application/octet-stream',
+#Computer Vision parameters
+params = {     'language': 'unk',
+    'detectOrientation ': 'true',} 
 
-    # NOTE: Replace the "Ocp-Apim-Subscription-Key" value with a valid subscription key.
-    'Ocp-Apim-Subscription-Key': '06c7fd5beec448418bcc9a0d537f2173',
-}
+headers = dict()
+headers['Ocp-Apim-Subscription-Key'] = '06c7fd5beec448418bcc9a0d537f2173'
+headers['Content-Type'] = 'application/octet-stream'
 
-params = urllib.urlencode({
-    # Request parameters. The language setting "unk" means automatically detect the language.
-    'language': 'unk',
-    'detectOrientation ': 'true',
-})
+json = None
+
+result = processRequest( json, data, headers, params )
 
 
-# Replace the three dots below with the URL of a JPEG image containing text.
-#body = "{'url':'file://" + str() + "'}"
-
-try:
-    # NOTE: You must use the same location in your REST call as you used to obtain your subscription keys.
-    #   For example, if you obtained your subscription keys from westus, replace "westcentralus" in the 
-    #   URL below with "westus".
-    conn = httplib.HTTPSConnection('westus.api.cognitive.microsoft.com')
-    conn.request("POST", "/vision/v1.0/ocr?%s" % params, body, headers)
-    response = conn.getresponse()
-    data = response.read()
-    print(data)
-    conn.close()
-except Exception as e:
-    print("[Errno {0}] {1}".format(e.errno, e.strerror))
+print result
