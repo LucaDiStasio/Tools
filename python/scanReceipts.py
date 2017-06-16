@@ -209,8 +209,8 @@ def getOCRTextResult( operationLocation, headers ):
 
     return result
     
-wd = 'C:\\01_Backup-folder\\GoogleDrive\\receipts'
-#wd = 'D:\\GoogleDrive\\receipts'
+#wd = 'C:\\01_Backup-folder\\GoogleDrive\\receipts'
+wd = 'D:\\GoogleDrive\\receipts'
 
 fileFormat = 'jpg'
 
@@ -253,4 +253,13 @@ if (operationLocation != None):
         if result['status'] == 'Succeeded' or result['status'] == 'Failed':
             break
 
-print(result)
+print(result['recognitionResult'])
+
+'''
+text = ''
+for region in result['regions']:
+    for line in region['lines']:
+        for word in line['words']:
+            text = text + " " + word.get('text')
+print(text)
+'''
