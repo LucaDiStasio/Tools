@@ -77,9 +77,11 @@ def main(argv):
             print('-w <working directory>')
             print(' ')
             print('Optional arguments:')
-            print('-m <matlab root>')
+            print('-m <matlab root>         ==> filesystem/MATLAB/version WITHOUT slash at the end')
+            print('                         ==> use always slash in path, irrespectively of OS')
             print('-n <matlab username>')
-            print('-o <octave root>')
+            print('-o <octave root>         ==> filesystem/MATLAB/version WITHOUT slash at the end')
+            print('                         ==> use always slash in path, irrespectively of OS')
             print('-r <octave username>')
             print(' ')
             print('Default values:')
@@ -136,19 +138,19 @@ def main(argv):
         updateOctave = True
     if 'ouser' not in locals():
         ouser = user
-    
+
     with open(join(workdir,datetime.now().strftime('%Y-%m-%d_%H-00-00'))+'_initWD.log','w') as log:
         now = datetime.now()
         log.write('Working directory initialization, starting on ' + now.strftime('%Y-%m-%d') + ' at ' + now.strftime('%H:%M:%S') + '\n')
         log.write('\n')
-    
+
     origin2masterUpdate(workdir,user,pwd)
     master2originUpdate(workdir,user,pwd)
 
     if updateMatlab:
         # update Matlab startup file
         add_to_matlab_startup(muser,matlabRoot,workdir)
-    
+
     if updateOctave:
         # update Matlab startup file
         add_to_octave_startup(ouser,octaveRoot,workdir)
