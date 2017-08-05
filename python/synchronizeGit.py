@@ -116,12 +116,14 @@ def changeOrigin(mode,wd,user,pwd,repo):
             changeUrlFile += '.sh'
         changeUrlFilePath = join(wd,changeUrlFile)
         with open(changeUrlFilePath,'w') as cli:
+	    superuser = ''
             if system()=='Linux':
                 cli.write('#!/bin/bash\n')
                 cli.write('\n')
+                superuser = 'sudo '
             cli.write('cd ' + join(wd,repo) + '\n')
             cli.write('\n')
-            cli.write('git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
+            cli.write(superuser + 'git remote set-url origin https://' + user + ':' + pwd + '@github.com/' + user + '/' + repo + '.git\n')
         try:
             if system()=='Windows':
                 subprocess.call('cmd.exe /C ' + changeUrlFilePath,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
