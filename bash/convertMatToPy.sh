@@ -72,6 +72,6 @@ function readContentDir {
   done
 }
 
-WD="/home/luca/WD"
+WD=$1
 
 readContentDir $WD
