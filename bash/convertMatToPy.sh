@@ -74,4 +74,6 @@ function readContentDir {
 
 WD=$1
 
+echo "Working directory to be analyzed: "$WD
+
 readContentDir $WD
