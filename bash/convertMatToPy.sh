@@ -57,16 +57,16 @@ function readContentDir {
         fi
       done
       echo "File will be translated in local file "$localPython
-      sudo python /home/luca/libermate/libermate.py $content
+      python /home/luca/libermate/libermate.py $content
       echo "Translation completed"
       echo "Python folder to be created if it does not exist: "$pythonPath
-      sudo mkdir -p $pythonPath
+      mkdir -p $pythonPath
       echo "Python folder created"
       newPythonFile=$pythonPath"/"${localPythonFilePath[-1]}
       echo "File will then be copied to "$newPythonFile
-      sudo cp $localPython $newPythonFile
+      cp $localPython $newPythonFile
       echo "File "$localPython" will be removed"
-      sudo rm $localPython
+      rm $localPython
       echo "File removed"
     fi
   done
